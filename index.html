@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="../src/root.css"> -->
+    <link rel="stylesheet" href="/internals/css/chromatest.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.5.2/jscolor.min.js"></script>
+    <script>
+        jscolor.presets.default = {
+            format: 'hex',
+            backgroundColor: '#212728',
+            borderColor: 'rgba(255,255,255,1)',
+            borderRadius: 5,
+            padding: 0,
+            zIndex: 99,
+            controlBorderColor: 'rgba(0,0,0,0)',
+            sliderSize: 14,
+            crossSize: 6,
+            shadow: false,
+            width: 200,
+            height: 200
+        };
+    </script>
+</head>
+
+<body>
+    <p>hi</p>
+    <div class="testDev">
+        <div class="realtimeProcessor">
+            <button data-jscolor="{
+            format: 'hex',
+            onInput: 'updateColorTest(this)',
+            random:[1,100, 10,100, 0,359],
+            previewElement: '#colorboxInit',
+            }">    
+            </button>
+            <div id="colorboxInit"></div>
+            <div id="colorboxProcessed"></div>
+        </div>
+        <div class="scaleTest">
+            <button data-jscolor="{
+                    onInput: 'updateColorScale1Test(this)',
+                    random:[1,100, 10,100, 0,359]}">
+            </button>
+            <!-- minValue-Maxvalue, minSat-maxSat, minHue-maxHue -->
+            <button data-jscolor="{
+                    onInput: 'updateColorScale2Test(this)',
+                    random:[1,100, 10,100, 0,359]}">
+            </button>
+        </div>
+
+    </div>
+    <div class="wrapper">
+        <div class="scene"></div>
+        <div class="scene"></div>
+        <div class="scene"></div>
+        <div class="scene"></div>
+    </div>
+</body>
+<script type="module" src="/internals/js/chromaTest.js" defer></script>
+<script src="/internals/js/colorTestHandler.js" defer></script>
+
+</html>
