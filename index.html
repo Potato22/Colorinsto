@@ -8,7 +8,7 @@
     <!-- <link rel="stylesheet" href="../src/root.css"> -->
     <link rel="stylesheet" href="/internals/css/chromatest.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.5.2/jscolor.min.js"></script>
-    <script>
+    <!-- <script>
         jscolor.presets.default = {
             format: 'hex',
             backgroundColor: '#212728',
@@ -23,20 +23,23 @@
             width: 200,
             height: 200
         };
-    </script>
+    </script> -->
 </head>
 
 <body>
     <p>hi</p>
     <div class="testDev">
         <div class="realtimeProcessor">
-            <button data-jscolor="{
+            <!-- <button data-jscolor="{
             format: 'hex',
             onInput: 'updateColorTest(this)',
             random:[1,100, 10,100, 0,359],
             previewElement: '#colorboxInit',
-            }">    
-            </button>
+            }">
+            </button> -->
+            <input type="text" class="singleColCompute" data-coloris>
+            <input type="text" class="color-fields" data-coloris>
+            <input type="text" class="special-color-fields" data-coloris>
             <div id="colorboxInit"></div>
             <div id="colorboxProcessed"></div>
         </div>
