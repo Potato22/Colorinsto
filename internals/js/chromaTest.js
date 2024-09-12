@@ -1,80 +1,104 @@
 import chroma from 'chroma-js';
 import "@melloware/coloris/dist/coloris.css";
-import Coloris from "@melloware/coloris";
+import Coloris, {
+    init
+} from "@melloware/coloris";
 Coloris.init();
+//coloris config
+Coloris({
+    themeMode: 'dark',
+    alpha: false,
+    formatToggle: true,
+    clearButton: true,
+    clearLabel: 'Clear',
+})
 
+
+const initColorSet = new Array("#FFFFFF", "#CCCCCC");
+let initialColor = "#FFFFFF";
 //INSTANCING
-document.querySelectorAll('.singleColCompute').forEach(input => {
-    input.addEventListener('click', e => {
-        Coloris({
-            el: "#coloris",
-            themeMode: 'dark',
-            alpha: false,
-            format: 'hex',
-            clearButton: true,
-            clearLabel: 'Clear'
-        });
-    });
+Coloris({
+    el: ".singleColCompute",
+    onChange: (color, input) => {
+        initialColor = color
+        updateColors(initialColor)
+        input.style.backgroundColor = color
+    },
+    wrap: false,
 });
 
-// Initialize Coloris with specific options for different input groups
-document.querySelectorAll('.color-fields').forEach(input => {
-    input.addEventListener('click', e => {
-        Coloris({
-            theme: 'default',
-            themeMode: 'light',
-            onChange: (color, input) => {
-                //func
-                console.log('box1:', color, input);
-            }
-        });
-    });
-});
-let box2dat = ""
-document.querySelectorAll('.special-color-fields').forEach(input => {
-    input.addEventListener('click', e => {
-        Coloris({
-            theme: 'polaroid',
-            themeMode: 'dark',
-            onChange: (color, input) => {
-                //func
-                console.log('box2', color, input);
-                box2dat = color
-            }
-        });
-    });
-});
-
-// You can still use the global event listener if needed
-document.addEventListener('coloris:pick', event => {
-    console.log('global', event.detail.color);
-    console.log(box2dat);
-    console.log(event.detail.currentEl.className, event.detail.currentEl.value);
-});
-
-
-//document.addEventListener('coloris:pick', event => {
-//    console.log('New color', event.detail.color);
-//});
 const colorboxInitElem = document.querySelector("#colorboxInit")
 const colorboxProcessedElem = document.querySelector("#colorboxProcessed")
-
-let initialColor = "#D4F880";
 console.log(colorboxInitElem.style.backgroundColor);
 
 function updateColors(newColor) {
+
     initialColor = newColor;
     const darkenedColor = chroma(initialColor).darken().hex(); // #a1c550
 
     colorboxInitElem.style.backgroundColor = initialColor;
     colorboxProcessedElem.style.backgroundColor = darkenedColor;
-    console.log(initialColor, '-', darkenedColor)
+    console.log('single processor ', initialColor, '-', darkenedColor)
 }
 
 // Initial update
 updateColors(initialColor);
 
-// Listen for the custom colorChanged event
-document.addEventListener('colorChanged', (event) => {
-    updateColors(event.detail);
+
+
+
+Coloris.setInstance('.startCol', {
+    onChange: (color, input) => {
+        initColorSet[0] = color
+        input.style.backgroundColor = color
+    }
+});
+Coloris.setInstance('.endCol', {
+    onChange: (color, input) => {
+        initColorSet[1] = color
+        input.style.backgroundColor = color
+    }
+});
+//document.querySelectorAll('.singleColCompute').forEach(input => {
+//    input.addEventListener('click', e => {
+//        Coloris({
+//            el: "#coloris",
+//
+//        });
+//    });
+//});
+
+function box1Interact(color, input) {
+    console.log('box1', color, input.className)
+}
+
+// You can still use the global event listener if needed
+document.addEventListener('coloris:pick', event => {
+    const colorPickerClassName = event.detail.currentEl.className
+    const colorPickerTargetColorValue = event.detail.currentEl.value
+    console.log('global! ', colorPickerClassName, colorPickerTargetColorValue);
+
+    switch (colorPickerClassName) {
+        case "startCol":
+            //alert('box 1 ' + colorPickerTargetColorValue)
+            break;
+        case "endCol":
+            //alert('box 2 ' + colorPickerTargetColorValue)
+            break;
+
+        default:
+            break;
+    }
+    console.log('current array: ', initColorSet)
+    console.log('chromascale', chroma.scale(initColorSet).colors(5))
+
+    const chromaScaleOutput = chroma.scale(initColorSet).mode('oklab').correctLightness().colors(10)
+
+    const cells = document.querySelectorAll('[id="testCells"]');
+
+    cells.forEach((cell, index) => {
+        if (index < chromaScaleOutput.length) {
+            cell.style.backgroundColor = chromaScaleOutput[index];
+        }
+    });
 });

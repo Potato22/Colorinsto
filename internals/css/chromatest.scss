@@ -1,11 +1,40 @@
+.testDev {
+    display: flex;
+}
 #colorboxInit {
-    --size: 300px;
+    --size: 100px;
     height: var(--size);
     width: var(--size);
     //background: red;
 }
+
 #colorboxProcessed {
-    --size: 300px;
+    --size: 100px;
+    height: var(--size);
+    width: var(--size);
+    background: red;
+}
+
+.clr-field>button {
+    display: none;
+}
+
+//  .clr-field:has(.singleColCompute) {
+//      background: red;            
+//  }
+
+.colInputs {
+    width: 60px;
+    height: 60px;
+    color: transparent;
+    text-shadow: none;
+    user-select: none;
+    //order: none;
+    border-radius: 5px;
+}
+
+#testCells {
+    --size: 20px;
     height: var(--size);
     width: var(--size);
     background: red;

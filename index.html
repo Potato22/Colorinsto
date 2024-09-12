@@ -7,7 +7,8 @@
     <title>Document</title>
     <!-- <link rel="stylesheet" href="../src/root.css"> -->
     <link rel="stylesheet" href="/internals/css/chromatest.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.5.2/jscolor.min.js"></script>
+    <script type="module" src="/internals/js/chromaTest.js" defer></script>
+    <script src="/internals/js/colorTestHandler.js"></script>
     <!-- <script>
         jscolor.presets.default = {
             format: 'hex',
@@ -27,7 +28,6 @@
 </head>
 
 <body>
-    <p>hi</p>
     <div class="testDev">
         <div class="realtimeProcessor">
             <!-- <button data-jscolor="{
@@ -37,24 +37,22 @@
             previewElement: '#colorboxInit',
             }">
             </button> -->
-            <input type="text" class="singleColCompute" data-coloris>
-            <input type="text" class="color-fields" data-coloris>
-            <input type="text" class="special-color-fields" data-coloris>
+            <input type="text" class="colInputs singleColCompute" data-coloris>
+            <input type="text" class="colInputs startCol" data-coloris>
+            <input type="text" class="colInputs endCol" data-coloris>
             <div id="colorboxInit"></div>
             <div id="colorboxProcessed"></div>
+            <div id="testCells"></div>
+            <div id="testCells"></div>
+            <div id="testCells"></div>
+            <div id="testCells"></div>
+            <div id="testCells"></div>
+            <div id="testCells"></div>
+            <div id="testCells"></div>
+            <div id="testCells"></div>
+            <div id="testCells"></div>
+            <div id="testCells"></div>
         </div>
-        <div class="scaleTest">
-            <button data-jscolor="{
-                    onInput: 'updateColorScale1Test(this)',
-                    random:[1,100, 10,100, 0,359]}">
-            </button>
-            <!-- minValue-Maxvalue, minSat-maxSat, minHue-maxHue -->
-            <button data-jscolor="{
-                    onInput: 'updateColorScale2Test(this)',
-                    random:[1,100, 10,100, 0,359]}">
-            </button>
-        </div>
-
     </div>
     <div class="wrapper">
         <div class="scene"></div>
@@ -63,7 +61,5 @@
         <div class="scene"></div>
     </div>
 </body>
-<script type="module" src="/internals/js/chromaTest.js" defer></script>
-<script src="/internals/js/colorTestHandler.js" defer></script>
 
 </html>
