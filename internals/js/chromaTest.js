@@ -14,8 +14,10 @@ Coloris({
 })
 
 
-const initColorSet = new Array("#FFFFFF", "#CCCCCC");
-let initialColor = "#FFFFFF";
+const initColorSet = new Array(chroma.random(), chroma.random());
+let initialColor = chroma.random();
+
+
 //INSTANCING
 Coloris({
     el: ".singleColCompute",
@@ -43,8 +45,29 @@ function updateColors(newColor) {
 
 // Initial update
 updateColors(initialColor);
+initLoadColSet();
 
+function updateSets() {
+    console.log('current array: ', initColorSet)
+    console.log('chromascale', chroma.scale(initColorSet).colors(5))
 
+    const chromaScaleOutput = chroma.scale(initColorSet).mode('oklab').correctLightness().colors(10)
+
+    const cells = document.querySelectorAll('[id="testCells"]');
+
+    for (let cellIndex = 0; cellIndex < cells.length; cellIndex++) {
+        if (cellIndex < chromaScaleOutput.length) {
+            cells[cellIndex].style.backgroundColor = chromaScaleOutput[cellIndex];
+        }
+    }
+}
+
+function initLoadColSet() {
+    document.querySelector('.singleColCompute').style.backgroundColor = initialColor;
+    document.querySelector('.startCol').style.backgroundColor = initColorSet[0];
+    document.querySelector('.endCol').style.backgroundColor = initColorSet[1];
+    updateSets();
+}
 
 
 Coloris.setInstance('.startCol', {
@@ -59,14 +82,6 @@ Coloris.setInstance('.endCol', {
         input.style.backgroundColor = color
     }
 });
-//document.querySelectorAll('.singleColCompute').forEach(input => {
-//    input.addEventListener('click', e => {
-//        Coloris({
-//            el: "#coloris",
-//
-//        });
-//    });
-//});
 
 function box1Interact(color, input) {
     console.log('box1', color, input.className)
@@ -89,16 +104,5 @@ document.addEventListener('coloris:pick', event => {
         default:
             break;
     }
-    console.log('current array: ', initColorSet)
-    console.log('chromascale', chroma.scale(initColorSet).colors(5))
-
-    const chromaScaleOutput = chroma.scale(initColorSet).mode('oklab').correctLightness().colors(10)
-
-    const cells = document.querySelectorAll('[id="testCells"]');
-
-    cells.forEach((cell, index) => {
-        if (index < chromaScaleOutput.length) {
-            cell.style.backgroundColor = chromaScaleOutput[index];
-        }
-    });
+    updateSets()
 });
