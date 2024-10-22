@@ -1,18 +1,19 @@
 .testDev {
     display: flex;
 }
-#colorboxInit {
-    --size: 100px;
-    height: var(--size);
-    width: var(--size);
-    //background: red;
-}
 
-#colorboxProcessed {
+.testwrap {
+    margin-top: 15em;
+    display: flex;
+}
+.sets {
+    display: flex;
+    margin-left: 4em;
+}
+#colorboxInit, #colorboxProcessed, #harmonicComplementary, #harmonicAnalogous {
     --size: 100px;
     height: var(--size);
     width: var(--size);
-    background: red;
 }
 
 .clr-field>button {
@@ -33,8 +34,8 @@
     border-radius: 5px;
 }
 
-#testCells {
-    --size: 20px;
+.tc {
+    --size: 40px;
     height: var(--size);
     width: var(--size);
     background: red;

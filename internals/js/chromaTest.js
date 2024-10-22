@@ -1,4 +1,8 @@
 import chroma from 'chroma-js';
+import {
+    colorHarmonicTransform,
+    HARMONICS
+} from './colorHarmonicsProcessor';
 import "@melloware/coloris/dist/coloris.css";
 import Coloris, {
     init
@@ -31,45 +35,64 @@ Coloris({
 
 const colorboxInitElem = document.querySelector("#colorboxInit")
 const colorboxProcessedElem = document.querySelector("#colorboxProcessed")
+const colorboxComplementary = document.querySelector("#harmonicComplementary")
+const colorboxAnalogous = document.querySelector("#harmonicAnalogous")
 console.log(colorboxInitElem.style.backgroundColor);
 
+//SIMPLE COLOR PROCESSING TEST
 function updateColors(newColor) {
 
     initialColor = newColor;
-    const darkenedColor = chroma(initialColor).darken().hex(); // #a1c550
+    const darkenedColor = chroma(initialColor).darken().hex();
+    const complementaryOut = colorHarmonicTransform(chroma(initialColor).hex(), HARMONICS.COMPLEMENTARY);
+    const analogousOut = colorHarmonicTransform(chroma(initialColor).hex(), HARMONICS.ANALOGOUS_RIGHT);
 
+    //UPDATE PREVIEWS
     colorboxInitElem.style.backgroundColor = initialColor;
+    //AND ITS CELLS
     colorboxProcessedElem.style.backgroundColor = darkenedColor;
+    colorboxComplementary.style.backgroundColor = complementaryOut;
+    colorboxAnalogous.style.backgroundColor = analogousOut;
+
     console.log('single processor ', initialColor, '-', darkenedColor)
 }
 
-// Initial update
+// UPDATE IMMEDIATELY ON LOAD
 updateColors(initialColor);
 initLoadColSet();
 
-function updateSets() {
-    console.log('current array: ', initColorSet)
-    console.log('chromascale', chroma.scale(initColorSet).colors(5))
-
-    const chromaScaleOutput = chroma.scale(initColorSet).mode('oklab').correctLightness().colors(10)
-
-    const cells = document.querySelectorAll('[id="testCells"]');
-
-    for (let cellIndex = 0; cellIndex < cells.length; cellIndex++) {
-        if (cellIndex < chromaScaleOutput.length) {
-            cells[cellIndex].style.backgroundColor = chromaScaleOutput[cellIndex];
-        }
-    }
-}
-
 function initLoadColSet() {
+    //REFERENCE RANDOMIZED COLORSET TO COLOR PICKER BUTTONS
     document.querySelector('.singleColCompute').style.backgroundColor = initialColor;
     document.querySelector('.startCol').style.backgroundColor = initColorSet[0];
     document.querySelector('.endCol').style.backgroundColor = initColorSet[1];
     updateSets();
 }
 
+function updateSets() {
+    console.log('current array: ', initColorSet)
+    console.log('chromascale', chroma.scale(initColorSet).colors(5))
+    //REFERENCE ARRAY OF [[TWO]] COLORS INTO CHROMA SCALE AND OUTPUT TO CELLS
+    const chromaScaleOutput = chroma.scale(initColorSet).mode('oklab').correctLightness().colors(10)
 
+    const cells = document.querySelectorAll('.testCells');
+    const cellsComplementary = document.querySelectorAll('.testCellsComplementary');
+    const cellsAnalogous = document.querySelectorAll('.testCellsAnalogous');
+    //RECURSIVE UPDATER FOR EACH CELLS
+    [...document.querySelectorAll('.testCells')].map((cell, index) => {
+        cell.style.backgroundColor = chromaScaleOutput[index];
+    });
+    [...document.querySelectorAll('.testCellsComplementary')].map((cell, index) => {
+        cell.style.backgroundColor = colorHarmonicTransform(chromaScaleOutput[index], HARMONICS.COMPLEMENTARY);
+    });
+    [...document.querySelectorAll('.testCellsAnalogous')].map((cell, index) => {
+        cell.style.backgroundColor = colorHarmonicTransform(chromaScaleOutput[index], HARMONICS.ANALOGOUS_RIGHT);
+    });
+}
+
+
+
+//CELLS COLORIS INSTANCE
 Coloris.setInstance('.startCol', {
     onChange: (color, input) => {
         initColorSet[0] = color
@@ -82,10 +105,6 @@ Coloris.setInstance('.endCol', {
         input.style.backgroundColor = color
     }
 });
-
-function box1Interact(color, input) {
-    console.log('box1', color, input.className)
-}
 
 // You can still use the global event listener if needed
 document.addEventListener('coloris:pick', event => {

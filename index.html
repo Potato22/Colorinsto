@@ -9,49 +9,60 @@
     <link rel="stylesheet" href="/internals/css/chromatest.css">
     <script type="module" src="/internals/js/chromaTest.js" defer></script>
     <script src="/internals/js/colorTestHandler.js"></script>
-    <!-- <script>
-        jscolor.presets.default = {
-            format: 'hex',
-            backgroundColor: '#212728',
-            borderColor: 'rgba(255,255,255,1)',
-            borderRadius: 5,
-            padding: 0,
-            zIndex: 99,
-            controlBorderColor: 'rgba(0,0,0,0)',
-            sliderSize: 14,
-            crossSize: 6,
-            shadow: false,
-            width: 200,
-            height: 200
-        };
-    </script> -->
 </head>
 
 <body>
     <div class="testDev">
         <div class="realtimeProcessor">
-            <!-- <button data-jscolor="{
-            format: 'hex',
-            onInput: 'updateColorTest(this)',
-            random:[1,100, 10,100, 0,359],
-            previewElement: '#colorboxInit',
-            }">
-            </button> -->
             <input type="text" class="colInputs singleColCompute" data-coloris>
             <input type="text" class="colInputs startCol" data-coloris>
             <input type="text" class="colInputs endCol" data-coloris>
-            <div id="colorboxInit"></div>
-            <div id="colorboxProcessed"></div>
-            <div id="testCells"></div>
-            <div id="testCells"></div>
-            <div id="testCells"></div>
-            <div id="testCells"></div>
-            <div id="testCells"></div>
-            <div id="testCells"></div>
-            <div id="testCells"></div>
-            <div id="testCells"></div>
-            <div id="testCells"></div>
-            <div id="testCells"></div>
+            <div class="testwrap">
+                <div class="singles">
+                    <div id="colorboxInit"></div>
+                    <div id="colorboxProcessed">DARKEN</div>
+                    <div id="harmonicComplementary">COMPLEMENTARY</div>
+                    <div id="harmonicAnalogous">ANALOGOUS</div>
+                </div>
+                <div class="sets">
+                    <div class="setOrigin">
+                        <div class="tc testCells">OG</div>
+                        <div class="tc testCells"></div>
+                        <div class="tc testCells"></div>
+                        <div class="tc testCells"></div>
+                        <div class="tc testCells"></div>
+                        <div class="tc testCells"></div>
+                        <div class="tc testCells"></div>
+                        <div class="tc testCells"></div>
+                        <div class="tc testCells"></div>
+                        <div class="tc testCells"></div>
+                    </div>
+                    <div class="setComplementary">
+                        <div class="tc testCellsComplementary">CP</div>
+                        <div class="tc testCellsComplementary"></div>
+                        <div class="tc testCellsComplementary"></div>
+                        <div class="tc testCellsComplementary"></div>
+                        <div class="tc testCellsComplementary"></div>
+                        <div class="tc testCellsComplementary"></div>
+                        <div class="tc testCellsComplementary"></div>
+                        <div class="tc testCellsComplementary"></div>
+                        <div class="tc testCellsComplementary"></div>
+                        <div class="tc testCellsComplementary"></div>
+                    </div>
+                    <div class="Analogous">
+                        <div class="tc testCellsAnalogous">AL</div>
+                        <div class="tc testCellsAnalogous"></div>
+                        <div class="tc testCellsAnalogous"></div>
+                        <div class="tc testCellsAnalogous"></div>
+                        <div class="tc testCellsAnalogous"></div>
+                        <div class="tc testCellsAnalogous"></div>
+                        <div class="tc testCellsAnalogous"></div>
+                        <div class="tc testCellsAnalogous"></div>
+                        <div class="tc testCellsAnalogous"></div>
+                        <div class="tc testCellsAnalogous"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="wrapper">
