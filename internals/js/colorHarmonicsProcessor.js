@@ -1,9 +1,7 @@
-// colorHarmonics.js
-
 /**
- * Converts a hex color to HSL color space
- * @param {string} hex - The hex color code
- * @returns {{h: number, s: number, l: number}} HSL values
+ * hex -> hsl
+ * @param {string} hex - Hex
+ * @returns {{h: int, s: int, l: int}} HSL
  */
 const hexToHSL = (hex) => {
   hex = hex.replace(/^#/, '');
@@ -38,10 +36,10 @@ const hexToHSL = (hex) => {
 };
 
 /**
- * Converts HSL values to hex color code
- * @param {number} h - Hue (0-360)
- * @param {number} s - Saturation (0-100)
- * @param {number} l - Lightness (0-100)
+ * HSL -> HEX
+ * @param {int} h - Hue (0-360)
+ * @param {int} s - Saturation (0-100)
+ * @param {int} l - Lightness (0-100)
  * @returns {string} Hex color code
  */
 const hslToHex = (h, s, l) => {
@@ -80,14 +78,14 @@ const hslToHex = (h, s, l) => {
 };
 
 /**
- * Normalizes a hue value to be between 0 and 360
- * @param {number} hue - The hue value to normalize
- * @returns {number} Normalized hue value
+ * NORMALIZER hue clamp 0-300
+ * @param {int} hue
+ * @returns {int} Normalized hue val
  */
 const normalizeHue = (hue) => ((hue % 360) + 360) % 360;
 
 /**
- * Available harmonic transformations
+ * TRANFROM MODES
  * @readonly
  * @enum {string}
  */
@@ -134,9 +132,9 @@ export const colorHarmonicTransform = (hexColor, harmonic) => {
       return hslToHex(normalizeHue(hsl.h - 150), hsl.s, hsl.l);
       
     default:
-      throw new Error(`Unknown harmonic transformation: ${harmonic}`);
+      throw new Error(`INVALID TRANSFORM METHOD: ${harmonic}`);
   }
 };
 
-// Export utility functions if needed
+// GLobalize
 export { hexToHSL, hslToHex };
