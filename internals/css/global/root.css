@@ -19,25 +19,40 @@ body {
 }
 
 /* ############################### */
-@font-face {
-  font-family: Inter;
-  src: url(../font/InterTight-VariableFont_wght.ttf) format("truetype-variations");
-  font-weight: 1 1000;
+body[data-aos-easing=sleek] [data-aos] {
+  transition-timing-function: var(--sleek);
 }
+body::-webkit-scrollbar {
+  width: 10px;
+}
+body::-webkit-scrollbar-track {
+  background: var(--baseD);
+}
+body::-webkit-scrollbar-thumb {
+  background: var(--basesecondaryD);
+  border-radius: 10px;
+}
+body::-webkit-scrollbar-thumb:hover {
+  background: var(--accentD);
+}
+body::-webkit-scrollbar-thumb:active {
+  background: var(--accentsecondaryD);
+}
+
 @font-face {
-  font-family: Syne;
-  src: url(../font/Syne[wght].ttf) format("truetype-variations");
+  font-family: InterTight;
+  src: url(../../assets/fonts/InterTight-VariableFont_wght.ttf) format("truetype-variations");
   font-weight: 1 1000;
 }
 @font-face {
   font-family: JetBrains Mono;
-  src: url(../font/JetBrainsMono[wght].ttf) format("truetype-variations");
+  src: url(../../assets/fonts/JetBrainsMono[wght].ttf) format("truetype-variations");
   font-weight: 1 1000;
 }
 :root {
-  --baseD: rgb(24, 24, 24);
+  --baseD: #212728;
   --baseL: rgba(252, 242, 233, 1);
-  --alphabaseD: rgba(24, 24, 24, 0.7);
+  --alphabaseD: #212728b0;
   --alphabaseL: rgba(252, 242, 233, 0.7);
   --alpha2baseD: rgba(24, 24, 24, 0.3);
   --alpha2baseL: rgba(252, 242, 233, 0.3);
@@ -111,4 +126,68 @@ a:link, a:visited {
 
 .material-icons-outlined {
   vertical-align: middle;
+}
+
+.lorem, .ipsum {
+  color: var(--textD);
+  position: absolute;
+}
+
+.lorem {
+  font-family: InterTight;
+}
+
+.ipsum {
+  font-family: "JetBrains Mono";
+  margin-top: 3rem;
+}
+
+#titleSc {
+  height: 100vh;
+  width: 100vw;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes elemEnter-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes elemEnter-slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(-3em);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0em);
+  }
+}
+@keyframes elemEnter-slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(3em);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0em);
+  }
+}
+@keyframes elemEnter-slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-1em);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0em);
+  }
 }/*# sourceMappingURL=root.css.map */

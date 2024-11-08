@@ -10,7 +10,7 @@
     display: flex;
     margin-left: 4em;
 }
-#colorboxInit, #colorboxProcessed, #harmonicComplementary, #harmonicAnalogous {
+.singleCellTest {
     --size: 100px;
     height: var(--size);
     width: var(--size);

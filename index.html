@@ -7,22 +7,26 @@
     <title>Document</title>
     <!-- <link rel="stylesheet" href="../src/root.css"> -->
     <link rel="stylesheet" href="/internals/css/chromatest.css">
+    <link rel="stylesheet" href="/internals/css/global/root.css">
+    <link rel="stylesheet" href="/internals/css/scene1.css">
+    <link rel="stylesheet" href="/internals/css/scene2.css">
+    <link rel="stylesheet" href="/internals/css/scene3.css">
     <script type="module" src="/internals/js/chromaTest.js" defer></script>
-    <script src="/internals/js/colorTestHandler.js"></script>
+    <!-- <script src="/internals/js/colorTestHandler.js"></script> -->
 </head>
 
 <body>
-    <div class="testDev">
+    <!-- <div class="testDev">
         <div class="realtimeProcessor">
             <input type="text" class="colInputs singleColCompute" data-coloris>
             <input type="text" class="colInputs startCol" data-coloris>
             <input type="text" class="colInputs endCol" data-coloris>
             <div class="testwrap">
                 <div class="singles">
-                    <div id="colorboxInit"></div>
-                    <div id="colorboxProcessed">DARKEN</div>
-                    <div id="harmonicComplementary">COMPLEMENTARY</div>
-                    <div id="harmonicAnalogous">ANALOGOUS</div>
+                    <div class="singleCellTest" id="colorboxInit">ORIGIN</div>
+                    <div class="singleCellTest" id="colorboxProcessed">DARKEN</div>
+                    <div class="singleCellTest" id="harmonicComplementary">COMPLEMENTARY</div>
+                    <div class="singleCellTest" id="harmonicAnalogous">ANALOGOUS</div>
                 </div>
                 <div class="sets">
                     <div class="setOrigin">
@@ -64,9 +68,15 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="wrapper">
-        <div class="scene"></div>
+        <div class="scene" id="titleSc">
+            <div class="heroWrap">
+                <div class="camArt"></div>
+                <div id="startEvent" class="titleStart">///// Explore Playground //////</div>
+            </div>
+            <div class="titleArt">Colorinsto</div>
+        </div>
         <div class="scene"></div>
         <div class="scene"></div>
         <div class="scene"></div>
