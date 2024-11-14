@@ -142,13 +142,63 @@ a:link, a:visited {
   margin-top: 3rem;
 }
 
-#titleSc {
+.scene {
   height: 100vh;
   width: 100vw;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.SCRIPT-sceneDraw {
+  display: block;
+}
+
+.SCRIPT-sceneHide {
+  display: none;
+}
+
+.SCRIPT-sceneInScaleUp {
+  animation: sceneOutScaleUp 0.5s forwards var(--accel);
+}
+@keyframes sceneOutScaleUp {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.SCRIPT-sceneOutLeft {
+  animation: sceneOutLeft 0.5s forwards var(--accel);
+}
+@keyframes sceneOutLeft {
+  from {
+    transform: translateX(0vw);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100vw);
+    opacity: 0;
+  }
+}
+
+.SCRIPT-sceneOutScaleUp {
+  animation: sceneOutScaleUp 0.5s forwards var(--accel);
+}
+@keyframes sceneOutScaleUp {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.5);
+    opacity: 0;
+  }
 }
 
 @keyframes elemEnter-scale {

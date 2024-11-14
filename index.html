@@ -8,10 +8,12 @@
     <!-- <link rel="stylesheet" href="../src/root.css"> -->
     <link rel="stylesheet" href="/internals/css/chromatest.css">
     <link rel="stylesheet" href="/internals/css/global/root.css">
+    <link rel="stylesheet" href="/internals/css/scene0.css">
     <link rel="stylesheet" href="/internals/css/scene1.css">
     <link rel="stylesheet" href="/internals/css/scene2.css">
-    <link rel="stylesheet" href="/internals/css/scene3.css">
     <script type="module" src="/internals/js/chromaTest.js" defer></script>
+    <script type="module" src="/internals/js/sceneHandler.js" defer></script>
+    <script type="module" src="/internals/js/scene1.js" defer></script>
     <!-- <script src="/internals/js/colorTestHandler.js"></script> -->
 </head>
 
@@ -70,6 +72,7 @@
         </div>
     </div> -->
     <div class="wrapper">
+
         <div class="scene" id="titleSc">
             <div class="heroWrap">
                 <div class="camArt"></div>
@@ -77,7 +80,20 @@
             </div>
             <div class="titleArt">Colorinsto</div>
         </div>
-        <div class="scene"></div>
+
+        <div style="display: none" class="scene" id="camModSc">
+            <div class="cameraSprite">
+                <div class="cartridgeWrap">
+                    <div class="ink"></div>
+                    <div class="cartridge"></div>
+                </div>
+                <div class="cameraDoor">
+                    <div class="cameraDoorLatch"></div>
+                    <div class="cameraDoorLatchBound"></div>
+                </div>
+            </div>
+        </div>
+
         <div class="scene"></div>
         <div class="scene"></div>
     </div>

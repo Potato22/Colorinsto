@@ -1,0 +1,38 @@
+.heroWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(-2em);
+}
+
+.camArt {
+  background: white;
+  width: 50vw;
+  height: 70vh;
+  background: url(../assets/local/Artboard\ 12.png);
+  background-size: cover;
+  background-position: center;
+  animation: elemEnter-scale 0.8s var(--anchorhead) forwards;
+}
+
+.titleArt {
+  font-size: 8em;
+  font-family: intertight;
+  font-weight: 800;
+  transform: translateX(-3rem);
+  opacity: 0;
+  animation: elemEnter-slideRight 0.8s var(--anchorhead) 0.15s forwards;
+}
+
+.titleStart {
+  margin: 1rem;
+  font-size: 2rem;
+  font-family: jetbrains mono;
+  cursor: pointer;
+  animation: elemEnter-slideDown 0.8s var(--anchorhead) 0.2s forwards;
+  opacity: 0;
+}
+.titleStart.hover {
+  font-weight: 800;
+}/*# sourceMappingURL=scene0.css.map */

@@ -1,37 +1,121 @@
-.heroWrap {
+#camModSc {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100vh;
 }
 
-.camArt {
+.cameraSprite {
+  width: 400px;
+  height: 400px;
   background: white;
-  width: 50vw;
-  height: 70vh;
-  background: url(../assets/local/Artboard\ 12.png);
-  background-size: cover;
-  background-position: center;
-  animation: elemEnter-scale 0.8s var(--anchorhead) forwards;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: elemEnter-scale 0.5s forwards var(--sleek);
 }
 
-.titleArt {
-  font-size: 8em;
-  font-family: intertight;
-  font-weight: 800;
-  transform: translateX(-2.8rem);
-  opacity: 0;
-  animation: elemEnter-slideRight 0.8s var(--anchorhead) 0.15s forwards;
-}
-
-.titleStart {
-  margin: 1rem;
-  font-size: 2rem;
-  font-family: jetbrains mono;
+.cameraDoor {
+  z-index: 1;
+  width: 300px;
+  height: 300px;
+  background: rgb(192, 192, 192);
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
   cursor: pointer;
-  animation: elemEnter-slideDown 0.8s var(--anchorhead) 0.2s forwards;
-  opacity: 0;
+  transform-origin: bottom;
 }
-.titleStart.hover {
-  font-weight: 800;
+
+.cameraDoorOpened {
+  cursor: auto;
+  animation: openDoor 1s forwards;
+}
+
+.cameradoorClosed {
+  cursor: auto;
+  animation: closeDoor 0.5s forwards;
+}
+
+@keyframes openDoor {
+  0% {
+    transform: rotateX(0deg);
+  }
+  36% {
+    transform: rotateX(100deg);
+  }
+  54% {
+    transform: rotateX(95.02deg);
+  }
+  74% {
+    transform: rotateX(100deg);
+  }
+  82% {
+    transform: rotateX(98.75deg);
+  }
+  92% {
+    transform: rotateX(100deg);
+  }
+  96% {
+    transform: rotateX(99.36deg);
+  }
+  100% {
+    transform: rotateX(100deg);
+  }
+}
+@keyframes closeDoor {
+  from {
+    transform: rotateX(100deg);
+  }
+  to {
+    transform: rotateX(0deg);
+  }
+}
+.cameraDoorLatch {
+  background: red;
+  height: 10px;
+  width: 60px;
+  transform: translateY(0px);
+  transition: 0.3s transform var(--bounce);
+}
+
+.cameraDoorLatchPoked {
+  transform: translateY(10px);
+}
+
+.cameraDoorLatchBound {
+  position: absolute;
+  height: 20px;
+  width: 60px;
+  border: 1px solid blue;
+}
+
+.cartridgeWrap {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  transition: 0.5s transform var(--anchorhead);
+}
+
+.cartridge {
+  background: purple;
+  height: 290px;
+  width: 290px;
+}
+
+.ink {
+  z-index: -1;
+  position: absolute;
+  background: pink;
+  height: 100px;
+  width: 290px;
+  transition: 0.5s transform var(--anchorhead);
+}
+
+.modding {
+  transform: translateX(400px);
+}
+.modding .ink {
+  transform: translateY(-130px);
 }/*# sourceMappingURL=scene1.css.map */
