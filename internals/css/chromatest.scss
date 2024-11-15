@@ -1,15 +1,73 @@
 .testDev {
     display: flex;
+    color: white;
+    font-family: Jetbrains Mono;
+}
+
+.exitTest {
+    padding: 1em;
+    border: 2px solid red;
+    display: flex;
+    align-items: center;
+    color: red;
+    font-weight: bold;
+    animation: exitshere .3s .8s;
+
+    &:hover {
+        background: red;
+        color: white;
+        cursor: pointer;
+        animation: exitshere .3s infinite;
+    }
+
+    @keyframes exitshere {
+        0% {
+            background: none;
+            color: red;
+        }
+
+        20% {
+            background: red;
+            color: white;
+        }
+
+        40% {
+            background: none;
+            color: red;
+        }
+
+        50% {
+            background: red;
+            color: white;
+        }
+
+        70% {
+            background: none;
+            color: red;
+        }
+
+        90% {
+            background: red;
+            color: white;
+        }
+
+        100% {
+            background: none;
+            color: red;
+        }
+    }
 }
 
 .testwrap {
     margin-top: 15em;
     display: flex;
 }
+
 .sets {
     display: flex;
     margin-left: 4em;
 }
+
 .singleCellTest {
     --size: 100px;
     height: var(--size);

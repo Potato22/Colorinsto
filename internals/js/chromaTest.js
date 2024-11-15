@@ -1,3 +1,4 @@
+import $ from 'jquery'
 import chroma from 'chroma-js';
 import {
     colorHarmonicTransform,
@@ -125,3 +126,7 @@ document.addEventListener('coloris:pick', event => {
     }
     updateSets()
 });
+
+$('.exitTest').on('click', function() {
+    $('.testDev').hide();
+})

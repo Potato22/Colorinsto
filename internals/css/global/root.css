@@ -82,8 +82,6 @@ body::-webkit-scrollbar-thumb:active {
   --basetD: rgb(24, 24, 24);
   --boxshadowD: rgba(0, 0, 0, 0) 0 0 0px;
   --boxshadowL: rgba(0, 0, 0, 0.25) 0 2px 12px;
-  --loaderD: url("../../img/local/spinnerD.gif");
-  --loaderL: url("../../img/local/spinnerL.gif");
   --display: Syne;
   --content: Inter;
   --contentsecondary: JetBrains Mono;

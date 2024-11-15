@@ -10,7 +10,7 @@
   background: white;
   width: 50vw;
   height: 70vh;
-  background: url(../assets/local/Artboard\ 12.png);
+  background: url("../assets/local/camart.png");
   background-size: cover;
   background-position: center;
   animation: elemEnter-scale 0.8s var(--anchorhead) forwards;
