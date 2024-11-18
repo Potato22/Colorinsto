@@ -7,7 +7,7 @@ const sceneTitle = $("#titleSc") //0
 const sceneCameraPriming = $("#camModSc") //1
 const scenePlayground = $("#playgroundSc") //2
 
-sceneHandler(0)
+sceneHandler(2)
 
 
 function sceneHandler(sceneTarget) {
@@ -20,10 +20,11 @@ function sceneHandler(sceneTarget) {
 
         case 1:
             currentScene = 1
-            
+
             sceneTitle.addClass('SCRIPT-sceneOutScaleUp')
             setTimeout(() => {
                 sceneTitle.hide()
+                sceneTitle.removeClass('SCRIPT-sceneOutScaleUp')
                 scenePlayground.hide()
                 sceneCameraPriming.show()
             }, 500);
@@ -34,12 +35,14 @@ function sceneHandler(sceneTarget) {
             sceneCameraPriming.addClass('SCRIPT-sceneOutLeft')
             setTimeout(() => {
                 sceneCameraPriming.hide()
+                sceneCameraPriming.removeClass('SCRIPT-sceneOutLeft')
                 sceneTitle.hide()
                 scenePlayground.show()
             }, 1000);
             break;
 
         default:
+            alert('eh?')
             break;
     }
     console.log('currentScene', currentScene)
@@ -59,7 +62,7 @@ const cameraDoor = $(".cameraDoor")
 const cameraDoorLatch = $(".cameraDoorLatch")
 const cartridgeWrap = $('.cartridgeWrap')
 
-cameraDoor.on("click", function() {
+cameraDoor.on("click", function () {
     cameraDoorLatch.addClass('cameraDoorLatchPoked')
     setTimeout(() => {
         cameraDoor.addClass('cameraDoorOpened')
@@ -73,10 +76,12 @@ cameraDoor.on("click", function() {
         setTimeout(() => {
             cameraDoor.removeClass('cameraDoorOpened')
             cameraDoor.addClass('cameradoorClosed')
+            cameraDoorLatch.removeClass('cameraDoorLatchPoked')
             setTimeout(() => {
-                cameraDoorLatch.removeClass('cameraDoorLatchPoked')
                 sceneHandler(2)
-            }, 500);
+            }, 300);
         }, 200);
     }, 2000);
 })
+
+//SCENE 2

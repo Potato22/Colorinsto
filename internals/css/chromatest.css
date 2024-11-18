@@ -17,7 +17,6 @@
   background: red;
   color: white;
   cursor: pointer;
-  animation: exitshere 0.3s infinite;
 }
 @keyframes exitshere {
   0% {

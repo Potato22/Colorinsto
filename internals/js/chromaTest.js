@@ -127,6 +127,5 @@ document.addEventListener('coloris:pick', event => {
     updateSets()
 });
 
-$('.exitTest').on('click', function() {
-    $('.testDev').hide();
-})
+
+ $('.testDev').hide();

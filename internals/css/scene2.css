@@ -1,0 +1,81 @@
+*:not(.playgroundSc) {
+  outline: 1px solid white;
+  background: rgba(0, 0, 0, 0.048);
+  color: #ff0000;
+}
+
+#playgroundSc {
+  display: block;
+  overflow: hidden;
+}
+
+.mainInteract {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.deco {
+  position: absolute;
+  width: 20%;
+  height: 60px;
+}
+
+.leftSection {
+  width: 20%;
+}
+
+.rightSection {
+  width: 40%;
+}
+
+.filmWrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.film {
+  width: 400px;
+  height: 400px;
+}
+
+.palette {
+  width: 50px;
+  height: 400px;
+}
+
+.something {
+  width: 130px;
+  height: 60px;
+}
+
+.wheelContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+}
+
+.wheel {
+  min-width: 800px;
+  min-height: 800px;
+  border-radius: 50%;
+  outline: 3px solid white;
+}
+
+.modes {
+  width: 200px;
+  height: 60px;
+  font-family: "InterTight";
+  font-size: 40px;
+}
+
+.modeIcons {
+  font-size: 40px;
+}/*# sourceMappingURL=scene2.css.map */

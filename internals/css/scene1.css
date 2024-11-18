@@ -88,7 +88,7 @@
   position: absolute;
   height: 20px;
   width: 60px;
-  border: 1px solid blue;
+  outline: 1px solid blue;
 }
 
 .cartridgeWrap {
