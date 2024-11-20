@@ -156,9 +156,9 @@ for (let i = 0; i < 10; i++) {
     }, i * 200);
 }
 
-const wheelContainer = document.querySelector('.wheel');
+const theWheel = document.querySelector('.wheel');
 
-wheelContainer.addEventListener('click', (event) => {
+theWheel.addEventListener('click', (event) => {
     // Find the closest parent with the 'modes' class
     const selectedMode = event.target.closest('.modes');
 
@@ -186,3 +186,29 @@ wheelContainer.addEventListener('click', (event) => {
         }
     }
 });
+
+const theWheelContainer = document.querySelector('.wheelContainer');
+const filmWrapper = document.querySelector('.filmWrap');
+let enterTimeout, leaveTimeout;
+
+$('.modes').on('mouseenter', function () {
+    // Clear any existing leave timeout to prevent conflicts
+    clearTimeout(leaveTimeout);
+    
+    enterTimeout = setTimeout(() => {
+        theWheelContainer.style.zIndex = "5"
+        filmWrapper.style.opacity = ".1"
+        filmWrapper.style.transform = "scale(.9)"
+    }, 100); // 100ms delay, adjust as needed
+})
+
+$('.modes').on('mouseleave', function () {
+    // Clear any existing enter timeout to prevent conflicts
+    clearTimeout(enterTimeout);
+    
+    leaveTimeout = setTimeout(() => {
+        theWheelContainer.style.zIndex = "0"
+        filmWrapper.style.opacity = "1"
+        filmWrapper.style.transform = "scale(1)"
+    }, 500); // 100ms delay, adjust as needed
+})
