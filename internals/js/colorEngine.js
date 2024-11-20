@@ -1,8 +1,7 @@
 //COLOR HARMONIC RANDOMIZER
 import ColorRandH from './colorRandHarmonics.js'
-import chroma, {
-    oklab
-} from 'chroma-js';
+import chroma from 'chroma-js';
+
 
 // RAND UTIL
 function random(min, max) {

@@ -105,7 +105,7 @@
 }
 
 .paletteCells {
-  --cellColor: red;
+  --cellColor: white;
   --paletteCellSize: 30px;
   width: var(--paletteCellSize);
   height: var(--paletteCellSize);
@@ -118,6 +118,8 @@
 }
 .paletteCells:hover {
   transform: scale(1.5);
+  border: 15.7px solid var(--cellColor);
+  width: 60px;
 }
 
 .something {
@@ -176,6 +178,9 @@
   transform: translateY(30%);
   z-index: 0;
 }
+.wheelContainer:hover .wheel {
+  outline-color: var(--global-theme);
+}
 
 .wheel {
   --wheelSize: 950px;
@@ -185,7 +190,7 @@
   outline: 3px solid white;
   display: flex;
   justify-content: flex-end;
-  transition: transform 0.5s var(--sleek);
+  transition: transform 0.5s var(--sleek), outline-color 0.5s var(--sleek);
 }
 
 .modes {
@@ -208,6 +213,17 @@
   cursor: pointer;
 }
 .modes:hover .modeIcons {
+  font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 0, "opsz" 20;
+}
+.modes.MODEACTIVE {
+  color: var(--global-theme);
+  font-size: 40px;
+  font-weight: 600;
+  opacity: 1;
+  cursor: pointer;
+  opacity: 1;
+}
+.modes.MODEACTIVE .modeIcons {
   font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 0, "opsz" 20;
 }
 
