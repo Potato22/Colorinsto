@@ -5,9 +5,8 @@ import {
     HARMONICS
 } from './colorHarmonicsProcessor';
 import "@melloware/coloris/dist/coloris.css";
-import Coloris, {
-    init
-} from "@melloware/coloris";
+import Coloris, { init } from "@melloware/coloris";
+
 Coloris.init();
 //coloris config
 Coloris({
@@ -128,4 +127,4 @@ document.addEventListener('coloris:pick', event => {
 });
 
 
- $('.testDev').hide();
+$('.testDev').hide();

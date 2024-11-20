@@ -1,21 +1,25 @@
 *:not(.playgroundSc) {
-   outline: 1px solid white;
-   background: rgba(0, 0, 0, 0.048);
-   //text-align: center;
-   //backdrop-filter:blur(1px);
-   color: #ff0000;
+    outline: 1px solid rgba(255, 255, 255, 0.123);
+    //background: rgba(0, 0, 0, 0.048);
+    ////text-align: center;
+    ////backdrop-filter:blur(1px);
+    //color: #ff0000;
 }
 
 #playgroundSc {
+    position: relative;
     display: block;
     overflow: hidden;
 }
+
 .mainInteract {
     width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
+    align-items: flex-end;
 }
+
 .deco {
     position: absolute;
     width: 20%;
@@ -26,6 +30,7 @@
 .leftSection {
     width: 20%;
 }
+
 .rightSection {
     width: 40%;
 }
@@ -34,18 +39,131 @@
     width: 100%;
     height: 100%;
     display: flex;
+    justify-content: center;
 }
+
 .film {
-    width: 400px;
+    background: var(--baseD);
+    width: 350px;
     height: 400px;
+    outline: 3px solid white;
+    margin-bottom: 500px;
+    display: flex;
+    justify-content: center;
+    padding-top: 1.5em;
+    border-radius: 3px;
+
+    .gradientContainer {
+        width: 300px;
+        height: 300px;
+        outline: 3px solid white;
+        overflow: hidden;
+        border-radius: 2px;
+
+        .colFX {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            z-index: 1;
+            //backdrop-filter: blur(20px);
+        }
+    }
 }
+
+#gradients {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #f0f0f0;
+    overflow: hidden;
+}
+
+.colorglob {
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    transform-origin: center;
+    transition: filter 0.5s var(--accel);
+    //mix-blend-mode:exclusion;
+    opacity: .7;
+    filter: blur(6px);
+    box-shadow: 0 0 10px rgb(255, 255, 255);
+}
+
+
 .palette {
-    width: 50px;
+    width: 40px;
     height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-right: 2em;
+    background: var(--baseD);
+
+    &:hover .paletteCells:not(:hover) {
+        border: 5px solid var(--cellColor);
+    }
 }
+
+.paletteCells {
+    --cellColor: red;
+    --paletteCellSize: 30px;
+    width: var(--paletteCellSize);
+    height: var(--paletteCellSize);
+    margin: .2em 0 .2em 0;
+    border-radius: 5px;
+    //background: var(--cellColor);
+    cursor: pointer;
+    transition: all .1s var(--sleek);
+    box-sizing: border-box;
+    border: 15.62px solid var(--cellColor);
+
+    &:hover {
+        transform: scale(1.5);
+    }
+
+}
+
 .something {
     width: 130px;
     height: 60px;
+}
+
+.pgCamSprite {
+    position: absolute;
+    z-index: -1;
+    min-width: 600px;
+    height: 100vh;
+    display: flex;
+    align-items: flex-end;
+}
+
+#camSvg {
+    max-width: 800px;
+    transform: translate(0px, 40%);
+}
+
+#LED {
+    fill: #f1a100;
+}
+
+#camDoor,
+#latchBorder {
+    stroke-width: 0px;
+}
+
+#CamBod {
+    fill: none;
+    stroke: #fff;
+    stroke-miterlimit: 10;
+    stroke-width: 4px;
+}
+
+#camDoor,
+#latchBorder {
+    fill: #fff;
 }
 
 .wheelContainer {
@@ -57,22 +175,51 @@
     width: 100vw;
     height: 100vh;
     z-index: -1;
+    transform: translateY(30%);
+
 }
 
 .wheel {
-    min-width: 800px;
-    min-height: 800px;
+    --wheelSize: 950px;
+    min-width: var(--wheelSize);
+    min-height: var(--wheelSize);
     border-radius: 50%;
     outline: 3px solid white;
+    display: flex;
+    justify-content: flex-end;
+    transition: transform .5s var(--sleek);
+    //animation: jiggleTest .2s infinite ease-in-out;
 }
 
 .modes {
-    //position: absolute;
+    position: absolute;
     width: 200px;
     height: 60px;
+    left: calc(50% - 100px);
+    top: calc(50% - 30px);
     font-family: 'InterTight';
-    font-size: 40px;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    //transform-origin: left;
+    transition: transform 0.5s var(--sleek), background 0.3s;
+
+    //animation: jiggleTest .2s infinite ease-in-out;
 }
+
 .modeIcons {
-    font-size: 40px;
+    font-size: 60px;
+    margin-right: 1rem;
+}
+
+
+@keyframes jiggleTest {
+    from {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(2deg);
+    }
 }

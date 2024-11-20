@@ -85,3 +85,29 @@ cameraDoor.on("click", function () {
 })
 
 //SCENE 2
+let currentRotation = 0;
+
+function rotateWheel(direction) {
+    const wheel = document.getElementById('wheel');
+    const modes = wheel.querySelectorAll('.modes');
+
+    // Rotate wheel
+    currentRotation += direction === 'right' ? -22.5 : 22.5;
+    wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+    // Rotate menu items to keep them horizontal
+    modes.forEach(item => {
+        const baseRotate = parseInt(item.dataset.rotate);
+        item.style.transform = `
+                    rotate(${baseRotate}deg) 
+                    translateY(-570px) 
+                    rotate(${-(baseRotate + currentRotation)}deg)
+                `;
+    });
+}
+
+for (let i = 0; i < 160; i++) {
+    setTimeout(() => {
+        rotateWheel('right')
+    }, i * 200);
+}
