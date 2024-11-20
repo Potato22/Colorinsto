@@ -1,6 +1,7 @@
+// colorRandH.js
+
 class ColorRandH {
-    // Make all methods static
-    static jitterRange = 10;
+    static jitterRange = 5;
 
     static random(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -37,9 +38,15 @@ class ColorRandH {
             s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
 
             switch (max) {
-                case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-                case g: h = (b - r) / d + 2; break;
-                case b: h = (r - g) / d + 4; break;
+                case r:
+                    h = (g - b) / d + (g < b ? 6 : 0);
+                    break;
+                case g:
+                    h = (b - r) / d + 2;
+                    break;
+                case b:
+                    h = (r - g) / d + 4;
+                    break;
             }
 
             h /= 6;
@@ -64,17 +71,17 @@ class ColorRandH {
             const hue2rgb = (p, q, t) => {
                 if (t < 0) t += 1;
                 if (t > 1) t -= 1;
-                if (t < 1/6) return p + (q - p) * 6 * t;
-                if (t < 1/2) return q;
-                if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+                if (t < 1 / 6) return p + (q - p) * 6 * t;
+                if (t < 1 / 2) return q;
+                if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
                 return p;
             };
 
             const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
             const p = 2 * l - q;
-            r = hue2rgb(p, q, h + 1/3);
+            r = hue2rgb(p, q, h + 1 / 3);
             g = hue2rgb(p, q, h);
-            b = hue2rgb(p, q, h - 1/3);
+            b = hue2rgb(p, q, h - 1 / 3);
         }
 
         return {
@@ -91,49 +98,77 @@ class ColorRandH {
         }).join('');
     }
 
-    static getHueFromHex(hexColor) {
+    static getHslFromHex(hexColor) {
         const rgb = this.hexToRgb(hexColor);
-        const hsl = this.rgbToHsl(rgb.r, rgb.g, rgb.b);
-        return hsl.h;
+        return this.rgbToHsl(rgb.r, rgb.g, rgb.b);
     }
 
-    static generateColorFromHue(hue) {
-        const rgb = this.hslToRgb(this.addJitter(hue), 70, 50);
+    static generateColorFromHue(hue, s = 70, l = 50) {
+        const rgb = this.hslToRgb(this.addJitter(hue), s, l);
         return this.rgbToHex(rgb.r, rgb.g, rgb.b);
     }
 
-    static getBaseHue(baseColor) {
-        return baseColor ? this.getHueFromHex(baseColor) : this.random(0, 360);
+    static getRandomBaseHsl() {
+        return {
+            h: this.random(0, 360),
+            s: this.random(30, 80), // Avoiding extremes for better visibility
+            l: this.random(30, 70) // Avoiding extremes for better visibility
+        };
     }
 
     static analogous(baseColor = null) {
-        const baseHue = this.getBaseHue(baseColor);
+        let hsl;
+        if (baseColor) {
+            hsl = this.getHslFromHex(baseColor);
+        } else {
+            hsl = this.getRandomBaseHsl();
+        }
         const shift = this.random(0, 1) ? 30 : -30;
-        return this.generateColorFromHue((baseHue + shift + 360) % 360);
+        return this.generateColorFromHue((hsl.h + shift + 360) % 360, hsl.s, hsl.l);
     }
 
     static complementary(baseColor = null) {
-        const baseHue = this.getBaseHue(baseColor);
-        return this.generateColorFromHue((baseHue + 180) % 360);
+        let hsl;
+        if (baseColor) {
+            hsl = this.getHslFromHex(baseColor);
+        } else {
+            hsl = this.getRandomBaseHsl();
+        }
+        return this.generateColorFromHue((hsl.h + 180) % 360, hsl.s, hsl.l);
     }
 
     static triadic(baseColor = null) {
-        const baseHue = this.getBaseHue(baseColor);
+        let hsl;
+        if (baseColor) {
+            hsl = this.getHslFromHex(baseColor);
+        } else {
+            hsl = this.getRandomBaseHsl();
+        }
         const shift = this.random(0, 1) ? 120 : 240;
-        return this.generateColorFromHue((baseHue + shift) % 360);
+        return this.generateColorFromHue((hsl.h + shift) % 360, hsl.s, hsl.l);
     }
 
     static splitComplementary(baseColor = null) {
-        const baseHue = this.getBaseHue(baseColor);
+        let hsl;
+        if (baseColor) {
+            hsl = this.getHslFromHex(baseColor);
+        } else {
+            hsl = this.getRandomBaseHsl();
+        }
         const shift = this.random(0, 1) ? 150 : 210;
-        return this.generateColorFromHue((baseHue + shift) % 360);
+        return this.generateColorFromHue((hsl.h + shift) % 360, hsl.s, hsl.l);
     }
 
     static tetradic(baseColor = null) {
-        const baseHue = this.getBaseHue(baseColor);
+        let hsl;
+        if (baseColor) {
+            hsl = this.getHslFromHex(baseColor);
+        } else {
+            hsl = this.getRandomBaseHsl();
+        }
         const shifts = [90, 180, 270];
         const shift = shifts[this.random(0, 2)];
-        return this.generateColorFromHue((baseHue + shift) % 360);
+        return this.generateColorFromHue((hsl.h + shift) % 360, hsl.s, hsl.l);
     }
 }
 
