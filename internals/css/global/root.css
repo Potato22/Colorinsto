@@ -94,6 +94,7 @@ body::-webkit-scrollbar-thumb:active {
   --accel: cubic-bezier(0.72, 0.06, 0.96, 0.57);
   --anchorhead: cubic-bezier(0.24, 0.01, 0.01, 1);
   --bounce: cubic-bezier(0.57, 0.07, 0.41, 1.95);
+  --quickBounce: cubic-bezier(0,1.81,.41,.95);
   --brightnessD: brightness(1.2);
   --brightnessL: brightness(.8);
 }
@@ -159,11 +160,25 @@ a:link, a:visited {
 }
 
 .SCRIPT-sceneInScaleUp {
-  animation: sceneOutScaleUp 0.5s forwards var(--accel);
+  animation: sceneInScaleUp 0.5s forwards var(--sleek);
 }
-@keyframes sceneOutScaleUp {
+@keyframes sceneInScaleUp {
   from {
     transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.SCRIPT-sceneInScaleDown {
+  animation: sceneInScaleDown 0.5s forwards var(--sleek);
+}
+@keyframes sceneInScaleDown {
+  from {
+    transform: scale(1.2);
     opacity: 0;
   }
   to {

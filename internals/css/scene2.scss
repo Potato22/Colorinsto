@@ -19,6 +19,31 @@
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    transform-origin: bottom;
+
+    @media screen and (max-width: 1920px) {
+        transform: scale(0.9);
+    }
+
+    @media screen and (max-width: 1800px) {
+        transform: scale(0.8);
+    }
+
+    @media screen and (max-width: 1600px) {
+        transform: scale(0.75);
+    }
+
+    @media screen and (max-width: 1500px) {
+        transform: scale(0.68);
+    }
+
+    @media screen and (max-width: 1280px) {
+        transform: scale(0.6);
+    }
+
+    @media screen and (max-width: 1120px) {
+        transform: scale(0.58);
+    }
 }
 
 .deco {
@@ -131,11 +156,11 @@
     border: 15.62px solid var(--cellColor);
 
     &:hover {
+        border: none;
         transform: scale(1.5);
-        border: 15.7px solid var(--cellColor);
+        background: var(--cellColor);
         width: 60px;
     }
-
 }
 
 .something {
@@ -183,7 +208,6 @@
 }
 
 .wheelContainer {
-    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -193,12 +217,17 @@
     height: 100vh;
     transform: translateY(30%);
     z-index: 0;
+
     &:hover {
         .wheel {
             outline-color: var(--global-theme);
         }
     }
+    
+    --modeWheelTiming: var(--quickBounce);
+    --modeWheelSpeed: .5s
 }
+
 
 .wheel {
     --wheelSize: 950px;
@@ -208,7 +237,7 @@
     outline: 3px solid white;
     display: flex;
     justify-content: flex-end;
-    transition: transform .5s var(--sleek), outline-color .5s var(--sleek) ;
+    transition: transform var(--modeWheelSpeed) var(--modeWheelTiming), outline-color .5s var(--sleek);
     //animation: jiggleTest .2s infinite ease-in-out;
 }
 
@@ -224,7 +253,7 @@
     align-items: center;
     opacity: .4;
     //transform-origin: left;
-    transition: transform 0.5s var(--sleek), .2s font-weight var(--sleek), .2s font-size var(--sleek);
+    transition: transform var(--modeWheelSpeed) var(--modeWheelTiming), .2s font-weight var(--sleek), .2s font-size var(--sleek), .2s color;
 
     &:hover {
         font-size: 40px;
@@ -240,6 +269,7 @@
                 'opsz'20, ;
         }
     }
+
     &.MODEACTIVE {
         .modeIcons {
             font-variation-settings:
@@ -248,10 +278,10 @@
                 'GRAD'0,
                 'opsz'20, ;
         }
+
         color: var(--global-theme);
         font-size: 40px;
         font-weight: 600;
-        opacity: 1;
         cursor: pointer;
         opacity: 1;
     }
@@ -303,9 +333,9 @@
 
     &:hover {
         cursor: pointer;
-        box-shadow: var(--global-theme) 0 10px 0;
-        border: 3px solid var(--global-theme);
-        color: var(--global-theme);
+        box-shadow: var(--regen-color) 0 10px 0;
+        border: 3px solid var(--regen-color);
+        color: var(--regen-color);
         transform: translateY(-10px);
         pointer-events: auto;
         opacity: 1;
@@ -313,7 +343,7 @@
 
     &:active {
         transform: translateY(0px);
-        box-shadow: var(--global-theme) 0 0 0;
+        box-shadow: var(--regen-color) 0 0 0;
         transition: all 0.1s var(--sleek);
     }
 }

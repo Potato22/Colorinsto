@@ -70,8 +70,8 @@ function initLoadColSet() {
 }
 
 function updateSets() {
-    console.log('current array: ', initColorSet)
-    console.log('chromascale', chroma.scale(initColorSet).colors(5))
+    //console.log('current array: ', initColorSet)
+    //console.log('chromascale', chroma.scale(initColorSet).colors(5))
     //REFERENCE ARRAY OF [[TWO]] COLORS INTO CHROMA SCALE AND OUTPUT TO CELLS
     const chromaScaleOutput = chroma.scale(initColorSet).mode('oklab').correctLightness().colors(10)
 
@@ -107,24 +107,24 @@ Coloris.setInstance('.endCol', {
 });
 
 // You can still use the global event listener if needed
-document.addEventListener('coloris:pick', event => {
-    const colorPickerClassName = event.detail.currentEl.className
-    const colorPickerTargetColorValue = event.detail.currentEl.value
-    console.log('global! ', colorPickerClassName, colorPickerTargetColorValue);
-
-    switch (colorPickerClassName) {
-        case "startCol":
-            //alert('box 1 ' + colorPickerTargetColorValue)
-            break;
-        case "endCol":
-            //alert('box 2 ' + colorPickerTargetColorValue)
-            break;
-
-        default:
-            break;
-    }
-    updateSets()
-});
+//document.addEventListener('coloris:pick', event => {
+//    const colorPickerClassName = event.detail.currentEl.className
+//    const colorPickerTargetColorValue = event.detail.currentEl.value
+//    console.log('global! ', colorPickerClassName, colorPickerTargetColorValue);
+//
+//    switch (colorPickerClassName) {
+//        case "startCol":
+//            //alert('box 1 ' + colorPickerTargetColorValue)
+//            break;
+//        case "endCol":
+//            //alert('box 2 ' + colorPickerTargetColorValue)
+//            break;
+//
+//        default:
+//            break;
+//    }
+//    updateSets()
+//});
 
 
 $('.testDev').hide();

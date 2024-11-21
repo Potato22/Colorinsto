@@ -1,7 +1,18 @@
 //COLOR HARMONIC RANDOMIZER
 import ColorRandH from './colorRandHarmonics.js'
 import chroma from 'chroma-js';
+import "@melloware/coloris/dist/coloris.css";
+import Coloris, { init } from "@melloware/coloris";
 
+Coloris.init();
+//coloris config
+Coloris({
+    themeMode: 'dark',
+    alpha: false,
+    formatToggle: true,
+    clearButton: true,
+    clearLabel: 'Clear',
+})
 
 // RAND UTIL
 function random(min, max) {
@@ -57,6 +68,7 @@ function generateColorGlob() {
             color: colorGenTarget
         });
     }
+
 
     // Sort blobs by scale, largest first
     blobs.sort((a, b) => b.scale - a.scale);
@@ -149,8 +161,7 @@ function paletteAppend() {
             try {
                 await navigator.clipboard.writeText(hexColor);
                 
-                // Optional: Add visual feedback
-                const originalBackground = cell.style.background;
+                // PLACEHOLDER FEEDBACK
                 cell.textContent = 'Copied!';
                 setTimeout(() => {
                     cell.textContent = '';
@@ -162,11 +173,15 @@ function paletteAppend() {
         });
     });
 
-    console.log('glorbsbosbr', pulledColors, 'chromad', chromaPulledColors)
+    console.log('glorbsbosbr', pulledColors, '\n chromad', chromaPulledColors)
 }
 paletteAppend();
 
-
+for (let i = 0; i < 100; i++) {
+    setTimeout(() => {
+        paletteAppend();
+    }, i * 100);
+}
 
 
 

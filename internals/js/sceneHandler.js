@@ -1,4 +1,8 @@
 import $ from "jquery";
+import "@melloware/coloris/dist/coloris.css";
+import Coloris, {
+    init
+} from "@melloware/coloris";
 
 let currentScene = 0
 console.log('currentScene', currentScene)
@@ -38,6 +42,7 @@ function sceneHandler(sceneTarget) {
                 sceneCameraPriming.removeClass('SCRIPT-sceneOutLeft')
                 sceneTitle.hide()
                 scenePlayground.show()
+                scenePlayground.addClass('SCRIPT-sceneInScaleDown')
             }, 1000);
             break;
 
@@ -87,6 +92,14 @@ cameraDoor.on("click", function () {
 //SCENE 2
 const wheel = document.getElementById('wheel');
 const modes = wheel.querySelectorAll('.modes');
+const mLights = document.querySelector('.modeLights');
+const mAlbedo = document.querySelector('.modeAlbedo');
+const mDay = document.querySelector('.modeDay');
+const mNight = document.querySelector('.modeNight');
+const angLights = Number(mLights.dataset.rotate);
+const angAlbedo = Number(mAlbedo.dataset.rotate);
+const angDay = Number(mDay.dataset.rotate);
+const angNight = Number(mNight.dataset.rotate);
 
 // MAP MODES
 const modeElements = {
@@ -96,13 +109,15 @@ const modeElements = {
     night: wheel.querySelector('.modeNight')
 };
 
+const wheelOffset = 50;
+
 function modeWheel(mode) {
     // OBJECT (const) AS ANGLE MAP
     const rotationAngles = {
-        lights: 22.5,
-        albedo: 0,
-        day: -22.5,
-        night: -45
+        lights: wheelOffset - angLights,
+        albedo: wheelOffset - angAlbedo,
+        day: wheelOffset - angDay,
+        night: wheelOffset - angNight
     };
 
     // IF MODE IS NOT MAPPED, WARN
@@ -134,21 +149,7 @@ function modeWheel(mode) {
     });
 }
 
-setTimeout(() => {
-    modeWheel('lights')
-    setTimeout(() => {
-        modeWheel('albedo')
-        setTimeout(() => {
-            modeWheel('day')
-            setTimeout(() => {
-                modeWheel('night')
-                setTimeout(() => {
-                    modeWheel('albedo')
-                }, 100);
-            }, 100);
-        }, 100);
-    }, 100);
-}, 1000);
+modeWheel('albedo')
 
 for (let i = 0; i < 10; i++) {
     setTimeout(() => {
@@ -194,7 +195,7 @@ let enterTimeout, leaveTimeout;
 $('.modes').on('mouseenter', function () {
     // Clear any existing leave timeout to prevent conflicts
     clearTimeout(leaveTimeout);
-    
+
     enterTimeout = setTimeout(() => {
         theWheelContainer.style.zIndex = "5"
         filmWrapper.style.opacity = ".1"
@@ -205,10 +206,42 @@ $('.modes').on('mouseenter', function () {
 $('.modes').on('mouseleave', function () {
     // Clear any existing enter timeout to prevent conflicts
     clearTimeout(enterTimeout);
-    
+
     leaveTimeout = setTimeout(() => {
         theWheelContainer.style.zIndex = "0"
         filmWrapper.style.opacity = "1"
         filmWrapper.style.transform = "scale(1)"
     }, 500); // 100ms delay, adjust as needed
 })
+
+let userColor
+
+//INSTANCING
+Coloris({
+    el: ".regenColInput",
+    onChange: (color, input) => {
+        userColor = color
+        input.style.backgroundColor = color
+        document.documentElement.style.setProperty('--regen-color ', color)
+    },
+    wrap: false,
+});
+
+document.addEventListener('coloris:pick', event => {
+    const colorPickerClassName = event.detail.currentEl.className
+    const colorPickerTargetColorValue = event.detail.currentEl.value
+    console.log('global! ', colorPickerClassName, colorPickerTargetColorValue);
+
+    switch (colorPickerClassName) {
+        case "startCol":
+            //alert('box 1 ' + colorPickerTargetColorValue)
+            break;
+        case "endCol":
+            //alert('box 2 ' + colorPickerTargetColorValue)
+            break;
+
+        default:
+            break;
+    }
+    //updateSets()
+});
