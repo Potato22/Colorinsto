@@ -3,7 +3,7 @@ import {
 } from 'vite'
 export default defineConfig({
     // Base public path
-    base: '/',
+    base: '/<REPO>/',
 
     // Server options
     //server: {
