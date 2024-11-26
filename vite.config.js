@@ -3,7 +3,7 @@ import {
 } from 'vite'
 export default defineConfig({
     // Base public path
-    base: '/<REPO>/',
+    base: '/colorinsto/',
 
     // Server options
     //server: {
