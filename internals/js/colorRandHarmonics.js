@@ -116,50 +116,57 @@ class ColorRandH {
         };
     }
 
-    static analogous(baseColor = null) {
+    static analogous(baseColor = null, colorSpan = 80) {
         let hsl;
         if (baseColor) {
             hsl = this.getHslFromHex(baseColor);
         } else {
             hsl = this.getRandomBaseHsl();
         }
-        const shift = this.random(0, 1) ? 30 : -30;
+        // Generate a random shift within the specified range
+        const shift = this.random(-colorSpan, colorSpan);
         return this.generateColorFromHue((hsl.h + shift + 360) % 360, hsl.s, hsl.l);
     }
 
-    static complementary(baseColor = null) {
+    static complementary(baseColor = null, colorSpan = 50) {
         let hsl;
         if (baseColor) {
             hsl = this.getHslFromHex(baseColor);
         } else {
             hsl = this.getRandomBaseHsl();
         }
-        return this.generateColorFromHue((hsl.h + 180) % 360, hsl.s, hsl.l);
+        const shift = this.random(-colorSpan, colorSpan);
+        return this.generateColorFromHue((hsl.h + 180 + shift + 360) % 360, hsl.s, hsl.l);
     }
 
-    static triadic(baseColor = null) {
+    static triadic(baseColor = null, colorSpan = 80) {
         let hsl;
         if (baseColor) {
             hsl = this.getHslFromHex(baseColor);
         } else {
             hsl = this.getRandomBaseHsl();
         }
-        const shift = this.random(0, 1) ? 120 : 240;
-        return this.generateColorFromHue((hsl.h + shift) % 360, hsl.s, hsl.l);
+        const shifts = [120, 240];
+        const baseShift = shifts[this.random(0, 1)];
+        const shift = this.random(-colorSpan, colorSpan)
+        return this.generateColorFromHue((hsl.h + baseShift + shift + 360) % 360, hsl.s, hsl.l);
     }
-
-    static splitComplementary(baseColor = null) {
+    
+    static splitComplementary(baseColor = null, colorSpan = 30) {
         let hsl;
         if (baseColor) {
             hsl = this.getHslFromHex(baseColor);
         } else {
             hsl = this.getRandomBaseHsl();
         }
-        const shift = this.random(0, 1) ? 150 : 210;
-        return this.generateColorFromHue((hsl.h + shift) % 360, hsl.s, hsl.l);
+        const shifts = [150, 210];
+        const baseShift = shifts[this.random(0, 1)];
+        const shift = this.random(-colorSpan, colorSpan)
+        return this.generateColorFromHue((hsl.h + baseShift + shift + 360) % 360, hsl.s, hsl.l);
+        //NEED REWORK
     }
-
-    static tetradic(baseColor = null) {
+    
+    static tetradic(baseColor = null, colorSpan = 24) {
         let hsl;
         if (baseColor) {
             hsl = this.getHslFromHex(baseColor);
@@ -167,8 +174,9 @@ class ColorRandH {
             hsl = this.getRandomBaseHsl();
         }
         const shifts = [90, 180, 270];
-        const shift = shifts[this.random(0, 2)];
-        return this.generateColorFromHue((hsl.h + shift) % 360, hsl.s, hsl.l);
+        const baseShift = shifts[this.random(0, 2)];
+        const shift = this.random(-colorSpan, colorSpan)
+        return this.generateColorFromHue((hsl.h + baseShift + shift + 360) % 360, hsl.s, hsl.l);
     }
 }
 

@@ -3,6 +3,7 @@ import "@melloware/coloris/dist/coloris.css";
 import Coloris, {
     init
 } from "@melloware/coloris";
+import paletteAppend from "./colorEngine";
 
 let currentScene = 0
 console.log('currentScene', currentScene)
@@ -151,11 +152,11 @@ function modeWheel(mode) {
 
 modeWheel('albedo')
 
-for (let i = 0; i < 10; i++) {
-    setTimeout(() => {
-        //modeWheel('22.5')
-    }, i * 200);
-}
+//for (let i = 0; i < 10; i++) {
+//    setTimeout(() => {
+//        //modeWheel('22.5')
+//    }, i * 200);
+//}
 
 const theWheel = document.querySelector('.wheel');
 
@@ -214,23 +215,30 @@ $('.modes').on('mouseleave', function () {
     }, 500); // 100ms delay, adjust as needed
 })
 
-let userColor
+let regenColor
 
 //INSTANCING
 Coloris({
     el: ".regenColInput",
     onChange: (color, input) => {
-        userColor = color
+        regenColor = color
         input.style.backgroundColor = color
-        document.documentElement.style.setProperty('--regen-color ', color)
+        document.querySelector('#regen').style.setProperty('--regen-color', color)
     },
     wrap: false,
 });
+
+
+let regenAccentFallback = 'white'
+document.querySelector('#regen').style.setProperty('--regen-color', regenAccentFallback)
+
 
 document.addEventListener('coloris:pick', event => {
     const colorPickerClassName = event.detail.currentEl.className
     const colorPickerTargetColorValue = event.detail.currentEl.value
     console.log('global! ', colorPickerClassName, colorPickerTargetColorValue);
+    
+    document.querySelector('#regen').style.setProperty('--regen-color', colorPickerTargetColorValue)
 
     switch (colorPickerClassName) {
         case "startCol":
@@ -245,3 +253,16 @@ document.addEventListener('coloris:pick', event => {
     }
     //updateSets()
 });
+
+//REGEN UTIL
+const regenButton = $('#regen')
+
+regenButton.on('click', function(){
+    paletteAppend(regenColor)
+})
+
+//for (let i = 0; i < 100; i++) {
+//    setTimeout(() => {
+//        paletteAppend();
+//    }, i * 100);
+//}

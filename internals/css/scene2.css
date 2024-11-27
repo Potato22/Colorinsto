@@ -209,7 +209,7 @@
   height: 100vh;
   transform: translateY(30%);
   z-index: 0;
-  --modeWheelTiming: var(--quickBounce);
+  --modeWheelTiming: var(--sleek);
   --modeWheelSpeed: .5s ;
 }
 .wheelContainer:hover .wheel {

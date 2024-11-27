@@ -25,7 +25,7 @@ function random(min, max) {
 //splitComplementary
 //tetradic
 
-function generateColorGlob() {
+function generateColorGlob(colorInput) {
     const gradients = document.getElementById('gradients');
     // ONCE CALLED AGAIN, CLEAR
     gradients.innerHTML = '';
@@ -54,8 +54,9 @@ function generateColorGlob() {
         const scale = random(SCALE_RANGE.min, SCALE_RANGE.max);
         const rotateX = random(ROTATION_RANGE.min, ROTATION_RANGE.max);
         const rotateY = random(ROTATION_RANGE.min, ROTATION_RANGE.max);
+        
         //GEN COLOR
-        const colorGenTarget = ColorRandH.analogous('');
+        const colorGenTarget = ColorRandH.triadic(colorInput);
 
         generatedGlobColors.push(colorGenTarget);
 
@@ -98,7 +99,7 @@ function generateColorGlob() {
     return generatedGlobColors;
 }
 
-function paletteAppend() {
+function paletteAppend(colorInput) {
 
     function sortColorsByHue(colors) {
        return colors.sort((a, b) => {
@@ -145,7 +146,7 @@ function paletteAppend() {
        return [h, s, l];
     }
 
-    const pulledColors = sortColorsByHue(generateColorGlob());
+    const pulledColors = sortColorsByHue(generateColorGlob(colorInput));
     const chromaPulledColors = chroma.scale(pulledColors).colors(10)
     const pcells = document.querySelectorAll('.paletteCells');
 
@@ -175,13 +176,9 @@ function paletteAppend() {
 
     console.log('glorbsbosbr', pulledColors, '\n chromad', chromaPulledColors)
 }
-paletteAppend();
+paletteAppend('');
 
-for (let i = 0; i < 100; i++) {
-    setTimeout(() => {
-        paletteAppend();
-    }, i * 100);
-}
+export default paletteAppend;
 
 
 
