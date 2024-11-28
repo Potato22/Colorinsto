@@ -4,6 +4,9 @@ import Coloris, {
     init
 } from "@melloware/coloris";
 import paletteAppend from "./colorEngine";
+import chroma, {
+    random
+} from 'chroma-js';
 
 let currentScene = 0
 console.log('currentScene', currentScene)
@@ -57,7 +60,8 @@ function sceneHandler(sceneTarget) {
 //SCENE 0
 const startButton = $('#startEvent')
 startButton.on('click', function () {
-    sceneHandler(1)
+    //sceneHandler(1)
+    sceneHandler(2)
 })
 
 
@@ -163,7 +167,53 @@ const theWheel = document.querySelector('.wheel');
 theWheel.addEventListener('click', (event) => {
     // Find the closest parent with the 'modes' class
     const selectedMode = event.target.closest('.modes');
+    const fxElem1 = document.querySelector('.cf1')
+    const fxElem2 = document.querySelector('.cf2')
+    const colorGlobParticles = document.querySelector('.colorglob')
 
+    function fxFilter(mode) {
+        switch (mode) {
+            case 'lights':
+                colorGlobParticles.style.mixBlendMode = 'overlay'
+
+                fxElem1.style.opacity = '.5'
+                fxElem1.style.filter = 'blur(30px)'
+                fxElem1.style.backgroundColor = 'var(--global-theme)'
+                fxElem1.style.mixBlendMode = 'screen'
+
+                fxElem2.style.opacity = '0'
+                break;
+            case 'albedo':
+                fxElem1.style.filter = 'none'
+                colorGlobParticles.style.mixBlendMode = 'normal'
+                fxElem1.style.opacity = '0'
+                fxElem2.style.opacity = '0'
+                break;
+            case 'day':
+                fxElem1.style.filter = 'none'
+                fxElem1.style.backgroundColor = 'rgb(255, 255, 245)';
+                fxElem1.style.mixBlendMode = 'overlay'
+                fxElem1.style.opacity = '1'
+
+                fxElem2.style.backgroundColor = 'rgb(36, 51, 70)';
+                fxElem2.style.mixBlendMode = 'multiply';
+                fxElem2.style.opacity = '.2';
+                break;
+            case 'night':
+                fxElem1.style.filter = 'none'
+                fxElem1.style.backgroundColor = '#000000';
+                fxElem1.style.mixBlendMode = 'none'
+                fxElem1.style.opacity = '0'
+
+                fxElem2.style.backgroundColor = 'rgb(36, 51, 70)';
+                fxElem2.style.mixBlendMode = 'multiply';
+                fxElem2.style.opacity = '.5';
+                break;
+
+            default:
+                break;
+        }
+    }
     if (selectedMode) {
         const modeClass = Array.from(selectedMode.classList)
             .find(cls => cls.startsWith('mode') && cls !== 'modes');
@@ -172,18 +222,22 @@ theWheel.addEventListener('click', (event) => {
             case 'modeLights':
                 console.log('Lights mode selected');
                 modeWheel('lights')
+                fxFilter('lights')
                 break;
             case 'modeAlbedo':
                 console.log('Albedo mode selected');
                 modeWheel('albedo')
+                fxFilter('albedo')
                 break;
             case 'modeDay':
                 console.log('Day mode selected');
                 modeWheel('day')
+                fxFilter('day')
                 break;
             case 'modeNight':
                 console.log('Night mode selected');
                 modeWheel('night')
+                fxFilter('night')
                 break;
         }
     }
@@ -216,6 +270,7 @@ $('.modes').on('mouseleave', function () {
 })
 
 let regenColor
+let regenMode
 
 //INSTANCING
 Coloris({
@@ -223,22 +278,24 @@ Coloris({
     onChange: (color, input) => {
         regenColor = color
         input.style.backgroundColor = color
-        document.querySelector('#regen').style.setProperty('--regen-color', color)
+        if (randomMode == false) {
+            document.querySelector('.regenButton').style.setProperty('--regen-color', color)
+        }
     },
     wrap: false,
 });
 
 
 let regenAccentFallback = 'white'
-document.querySelector('#regen').style.setProperty('--regen-color', regenAccentFallback)
+document.querySelector('.regenButton').style.setProperty('--regen-color', regenAccentFallback)
 
 
 document.addEventListener('coloris:pick', event => {
     const colorPickerClassName = event.detail.currentEl.className
     const colorPickerTargetColorValue = event.detail.currentEl.value
     console.log('global! ', colorPickerClassName, colorPickerTargetColorValue);
-    
-    document.querySelector('#regen').style.setProperty('--regen-color', colorPickerTargetColorValue)
+
+    //document.querySelector('.regenButton').style.setProperty('--regen-color', colorPickerTargetColorValue)
 
     switch (colorPickerClassName) {
         case "startCol":
@@ -255,10 +312,96 @@ document.addEventListener('coloris:pick', event => {
 });
 
 //REGEN UTIL
+const genDropdown = $('.genDropdown')
+const CHGOptions = $('.CHGOptions')
+
+function updateDropdown(closed) {
+    if (closed == true) {
+        CHGOptions.addClass('dropdownClosed')
+    } else [
+        CHGOptions.removeClass('dropdownClosed')
+    ]
+}
+genDropdown.on('click', function () {
+    updateDropdown(false)
+})
+
+genDropdown.on('mouseleave', function () {
+    updateDropdown(true)
+})
+
+//kept empty cus colorEngine already knows how to handle it
+let selectedRegenMode
+let randomMode = true
+
+const CHGModeText = document.querySelector('.CHGModeText');
+
+document.querySelector('.CHGOptions').addEventListener('click', event => {
+    updateDropdown(true)
+    // Find the closest parent with 'colorharmonyMode' class
+    const targetRegenMode = event.target.closest('.colorharmonyMode');
+
+
+    // Check if a valid div was clicked
+    if (targetRegenMode) {
+        // Extract the specific mode from the ID
+        const mode = targetRegenMode.id.replace('CHG-', '');
+
+        console.log(`Selected Color Harmony Mode: ${mode}`);
+
+
+        switch (mode) {
+            case 'random':
+                randomMode = true
+                CHGModeText.textContent = 'Random...'
+                document.querySelector('.regenButton').style.setProperty('--regen-color', regenAccentFallback)
+                break;
+            case 'analogous':
+                randomMode = false
+                selectedRegenMode = 'analogous'
+                CHGModeText.textContent = 'Analogous'
+                document.querySelector('.regenButton').style.setProperty('--regen-color', regenColor)
+                break;
+            case 'splitComplementary':
+                randomMode = false
+                selectedRegenMode = 'splitComplementary'
+                CHGModeText.textContent = 'Split Complementary'
+                document.querySelector('.regenButton').style.setProperty('--regen-color', regenColor)
+                break;
+            case 'triadic':
+                randomMode = false
+                selectedRegenMode = 'triadic'
+                CHGModeText.textContent = 'Triadic'
+                document.querySelector('.regenButton').style.setProperty('--regen-color', regenColor)
+                break;
+            case 'tetradic':
+                randomMode = false
+                selectedRegenMode = 'tetradic'
+                CHGModeText.textContent = 'Tertradic'
+                document.querySelector('.regenButton').style.setProperty('--regen-color', regenColor)
+                break;
+            case 'complementary':
+                randomMode = false
+                selectedRegenMode = 'complementary'
+                CHGModeText.textContent = 'Complementary'
+                document.querySelector('.regenButton').style.setProperty('--regen-color', regenColor)
+                break;
+
+            default:
+                break;
+        }
+    }
+});
+
 const regenButton = $('#regen')
 
-regenButton.on('click', function(){
-    paletteAppend(regenColor)
+regenButton.on('click', function () {
+    if (randomMode == false) {
+        paletteAppend(selectedRegenMode, regenColor)
+    } else {
+        paletteAppend()
+        random = false
+    }
 })
 
 //for (let i = 0; i < 100; i++) {

@@ -25,7 +25,13 @@ function random(min, max) {
 //splitComplementary
 //tetradic
 
-function generateColorGlob(colorInput) {
+function generateColorGlob(genMode, colorInput) {
+    
+    if (!genMode || !('analogous' || 'splitComplementary' || 'triadic' || 'tetradic' || 'complementary')) {
+        console.log('[generateColorGlob] Empty or invalid mode of operation! Falling back to analogous')
+        genMode = 'analogous'
+    }
+    
     const gradients = document.getElementById('gradients');
     // ONCE CALLED AGAIN, CLEAR
     gradients.innerHTML = '';
@@ -56,7 +62,27 @@ function generateColorGlob(colorInput) {
         const rotateY = random(ROTATION_RANGE.min, ROTATION_RANGE.max);
         
         //GEN COLOR
-        const colorGenTarget = ColorRandH.triadic(colorInput);
+        let colorGenTarget
+        switch (genMode) {
+            case 'analogous':
+            colorGenTarget = ColorRandH.analogous(colorInput);
+                break;
+            case 'splitComplementary':
+            colorGenTarget = ColorRandH.splitComplementary(colorInput);
+                break;
+            case 'triadic':
+            colorGenTarget = ColorRandH.triadic(colorInput);
+                break;
+            case 'tetradic':
+            colorGenTarget = ColorRandH.tetradic(colorInput);
+                break;
+            case 'complementary':
+            colorGenTarget = ColorRandH.complementary(colorInput);
+                break;
+        
+            default:
+                break;
+        }
 
         generatedGlobColors.push(colorGenTarget);
 
@@ -99,8 +125,8 @@ function generateColorGlob(colorInput) {
     return generatedGlobColors;
 }
 
-function paletteAppend(colorInput) {
-
+function paletteAppend(genMode, colorInput) {
+console.log('[paletteAppend]', genMode, colorInput)
     function sortColorsByHue(colors) {
        return colors.sort((a, b) => {
            // Convert color to HSL to extract hue
@@ -146,11 +172,16 @@ function paletteAppend(colorInput) {
        return [h, s, l];
     }
 
-    const pulledColors = sortColorsByHue(generateColorGlob(colorInput));
+    //CALL GLOBBER
+    const pulledColors = sortColorsByHue(generateColorGlob(genMode, colorInput));
+
+    //REPARSE IT TO CHROMA
     const chromaPulledColors = chroma.scale(pulledColors).colors(10)
+
+
     const pcells = document.querySelectorAll('.paletteCells');
 
-    //PUSH TO GLOBAL THEME
+    //PUSH COLOR TO GLOBAL THEME
     document.documentElement.style.setProperty('--global-theme', chroma.average(chromaPulledColors).brighten().saturate());
 
     [...pcells].forEach((cell, index) => {
@@ -176,7 +207,7 @@ function paletteAppend(colorInput) {
 
     console.log('glorbsbosbr', pulledColors, '\n chromad', chromaPulledColors)
 }
-paletteAppend('');
+paletteAppend('', );
 
 export default paletteAppend;
 

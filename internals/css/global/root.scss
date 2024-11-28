@@ -70,7 +70,7 @@ body {
 :root {
   --baseD: #212728;
   --baseL: rgba(252, 242, 233, 1);
-  --alphabaseD: #212728b0;
+  --alphabaseD: #212728ee;
   --alphabaseL: rgba(252, 242, 233, 0.7);
   --alpha2baseD: rgba(24, 24, 24, 0.3);
   --alpha2baseL: rgba(252, 242, 233, 0.3);
@@ -102,9 +102,8 @@ body {
   --boxshadowL: rgba(0, 0, 0, 0.25) 0 2px 12px;
   //--loaderD: url("../../img/local/spinnerD.gif");
   //--loaderL: url("../../img/local/spinnerL.gif");
-  --display: Syne;
-  --content: Inter;
-  --contentsecondary: JetBrains Mono;
+  --fontDisplay: InterTight;
+  --fontSecondary: JetBrains Mono;
   --sleek: cubic-bezier(0.03, 0.77, 0.34, 1);
   --accel: cubic-bezier(0.72, 0.06, 0.96, 0.57);
   --anchorhead: cubic-bezier(0.24, 0.01, 0.01, 1);

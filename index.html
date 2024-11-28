@@ -79,7 +79,6 @@
         </div>
     </div>
     <div class="wrapper">
-
         <div style="display: none" class="scene" id="titleSc">
             <div class="heroWrap">
                 <div class="camArt"></div>
@@ -127,8 +126,8 @@
                         <div class="film">
                             <div class="filmColor">
                                 <div class="gradientContainer">
-                                    <div class="colFX"></div>
-                                    <div id="onscreenSampler"></div>
+                                    <div class="colFX cf1"></div>
+                                    <div class="colFX cf2"></div>
                                     <div id="gradients"></div>
                                 </div>
                             </div>
@@ -176,17 +175,48 @@
                     <div class="regenButton">
                         <input type="text" class="regenColInput singleColCompute" data-coloris>
                         <div class="genDropdown">
-                            <div class="CHGOptions">
-                                <div class="colorharmonyGen" id="CHG-analogous">Analogous</div>
-                                <div class="colorharmonyGen" id="CHG-splitComplementary">Split Complementary</div>
-                                <div class="colorharmonyGen" id="CHG-triadic">Triadic</div>
-                                <div class="colorharmonyGen" id="CHG-tetradic">Tetradic</div>
-                                <div class="colorharmonyGen" id="CHG-complementary">Complementary</div>
+
+                            <div class="CHGModeText">
+                                Random...
+                            </div>
+
+                            <div class="CHGOptions dropdownClosed">
+                                <div class="colorharmonyMode" id="CHG-random">
+                                    <div class="colorModeIcon CMI-random"></div>
+                                    Random
+                                </div>
+                                <div class="colorharmonyMode" id="CHG-analogous">
+                                    <div class="colorModeIcon CMI-analogous"></div>
+                                    Analogous
+                                </div>
+                                <div class="colorharmonyMode" id="CHG-complementary">
+                                    <div class="colorModeIcon CMI-complementary"></div>
+                                    Complementary
+                                </div>
+                                <!-- <div class="colorharmonyMode" id="CHG-splitComplementary">
+                                    <div class="colorModeIcon CMI-splitcomplementary"></div>
+                                    Split Complementary
+                                </div> -->
+                                <div class="colorharmonyMode" id="CHG-triadic">
+                                    <div class="colorModeIcon CMI-triadic"></div>
+                                    Triadic
+                                </div>
+                                <div class="colorharmonyMode" id="CHG-tetradic">
+                                    <div class="colorModeIcon CMI-tetradic"></div>
+                                    Tetradic
+                                </div>
                             </div>
                         </div>
                         <div id="regen" class="material-symbols-rounded">replay</div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="toast">
+        <div class="toastBody">
+            <div class="toastDashes">
+                Something
             </div>
         </div>
     </div>

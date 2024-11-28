@@ -1,10 +1,12 @@
+/*
 *:not(.playgroundSc) {
-    outline: 1px solid rgba(255, 255, 255, 0.123);
+    //outline: 1px solid rgba(255, 255, 255, 0.123);
     //background: rgba(0, 0, 0, 0.048);
     ////text-align: center;
     ////backdrop-filter:blur(1px);
     //color: #ff0000;
 }
+    */
 
 #playgroundSc {
     position: relative;
@@ -98,7 +100,15 @@
             position: absolute;
             width: 300px;
             height: 300px;
-            z-index: 1;
+            z-index: 11;
+
+            &.cf1 {
+
+            }
+            &.cf2 {
+
+            }
+
             //backdrop-filter: blur(20px);
         }
     }
@@ -119,7 +129,7 @@
     border-radius: 50%;
     transform-origin: center;
     transition: filter 0.5s var(--accel);
-    //mix-blend-mode:exclusion;
+    mix-blend-mode: overlay;
     opacity: .7;
     filter: blur(6px);
     box-shadow: 0 0 10px rgb(255, 255, 255);
@@ -223,7 +233,7 @@
             outline-color: var(--global-theme);
         }
     }
-    
+
     --modeWheelTiming: var(--sleek);
     --modeWheelSpeed: .5s
 }
@@ -247,7 +257,7 @@
     height: 60px;
     left: calc(50% - 80px);
     top: calc(50% - 30px);
-    font-family: 'InterTight';
+    font-family: var(--fontDisplay);
     font-size: 30px;
     display: flex;
     align-items: center;
@@ -359,4 +369,123 @@
     border-radius: 10px 0 0 10px;
     border: none;
     cursor: pointer;
+}
+
+.genDropdown {
+    width: 300px;
+    height: 60px;
+    font-size: 1.5em;
+    font-family: var(--fontSecondary);
+    border-block: 3px solid var(--regen-color);
+    color: var(--regen-color);
+    padding: .2rem;
+    box-sizing: border-box;
+    background: var(--alphabaseD);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    transition: .3s background var(--sleek), .3s color var(--sleek), transform .2s var(--bounce), box-shadow .2s var(--bounce), .3s border var(--sleek);
+
+    &:hover {
+        cursor: pointer;
+        //box-shadow: var(--regen-color) 0 10px 0;
+
+        //transform: translateY(-10px);
+        pointer-events: auto;
+        opacity: 1;
+
+    }
+
+    &:active {
+        //transform: translateY(0px);
+        box-shadow: var(--regen-color) 0 0 0;
+        transition: all 0.1s var(--sleek);
+    }
+}
+
+.CHGOptions {
+    position: absolute;
+    background: var(--alphabaseD);
+    border: 1px solid var(--regen-color);
+    padding: 1rem;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    transition: .3s all var(--sleek);
+    z-index: 5;
+
+    .colorharmonyMode {
+        border-radius: 20px;
+        border: 2px solid transparent;
+        margin: 1rem 0 1rem 0;
+        font-size: 1em;
+        display: flex;
+        padding: 1rem;
+        align-items: center;
+        opacity: .5;
+        transition: .2s opacity var(--sleek), .2s border var(--sleek), .1s transform var(--bounce);
+
+        &:hover {
+            opacity: 1;
+            border: 2px solid white;
+            color: white;
+
+        }
+
+        &:active {
+            transform: scale(.9);
+        }
+    }
+
+    &.dropdownClosed {
+        opacity: 0;
+        pointer-events: none;
+        transform: scale(.5, .1);
+    }
+}
+
+.colorModeIcon {
+    --CHMiconSize: 1em;
+    padding: 1em;
+    background: red;
+    min-width: var(--CHMiconSize);
+    min-height: var(--CHMiconSize);
+    margin-right: 1em;
+}
+
+.CMI-random {
+    background: url(../assets/local/random.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.CMI-analogous {
+    background: url(../assets/local/analogous.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+
+.CMI-triadic {
+    background: url(../assets/local/triadic.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.CMI-tetradic {
+    background: url(../assets/local/tetradic.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.CMI-complementary {
+    background: url(../assets/local/complementary.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
 }

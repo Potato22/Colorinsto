@@ -135,8 +135,13 @@ class ColorRandH {
         } else {
             hsl = this.getRandomBaseHsl();
         }
-        const shift = this.random(-colorSpan, colorSpan);
-        return this.generateColorFromHue((hsl.h + 180 + shift + 360) % 360, hsl.s, hsl.l);
+        
+        // Generate complementary color
+        const complementaryHue = (hsl.h + 180 + this.random(-colorSpan, colorSpan) + 360) % 360;
+        const complementaryColor = this.generateColorFromHue(complementaryHue, hsl.s, hsl.l);
+        
+        // Decide whether to return the original color or the complementary color
+        return this.random(0, 1) === 0 ? baseColor || this.rgbToHex(this.hslToRgb(hsl.h, hsl.s, hsl.l).r, this.hslToRgb(hsl.h, hsl.s, hsl.l).g, this.hslToRgb(hsl.h, hsl.s, hsl.l).b) : complementaryColor;
     }
 
     static triadic(baseColor = null, colorSpan = 80) {
@@ -152,19 +157,19 @@ class ColorRandH {
         return this.generateColorFromHue((hsl.h + baseShift + shift + 360) % 360, hsl.s, hsl.l);
     }
     
-    static splitComplementary(baseColor = null, colorSpan = 30) {
-        let hsl;
-        if (baseColor) {
-            hsl = this.getHslFromHex(baseColor);
-        } else {
-            hsl = this.getRandomBaseHsl();
-        }
-        const shifts = [150, 210];
-        const baseShift = shifts[this.random(0, 1)];
-        const shift = this.random(-colorSpan, colorSpan)
-        return this.generateColorFromHue((hsl.h + baseShift + shift + 360) % 360, hsl.s, hsl.l);
-        //NEED REWORK
-    }
+    //static splitComplementary(baseColor = null, colorSpan = 60) {
+    //    let hsl;
+    //    if (baseColor) {
+    //        hsl = this.getHslFromHex(baseColor);
+    //    } else {
+    //        hsl = this.getRandomBaseHsl();
+    //    }
+    //    const shifts = [150, 210];
+    //    const baseShift = shifts[this.random(0, 1)];
+    //    const shift = this.random(-colorSpan, colorSpan)
+    //    return this.generateColorFromHue((hsl.h + baseShift + shift + 360) % 360, hsl.s, hsl.l);
+    //    //NEED REWORK
+    //}
     
     static tetradic(baseColor = null, colorSpan = 24) {
         let hsl;
