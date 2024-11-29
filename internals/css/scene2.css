@@ -53,17 +53,6 @@
   }
 }
 
-.deco {
-  position: absolute;
-  width: 20%;
-  height: 60px;
-}
-
-.leftSection {
-  position: absolute;
-  width: 20%;
-}
-
 .rightSection {
   position: relative;
   width: 430px;
@@ -104,7 +93,16 @@
   width: 300px;
   height: 300px;
   z-index: 11;
+  /*
+  &.cf1 {
+      //background: radial-gradient(circle at top left, rgba(255,255,245,1) 0%, rgba(255, 255, 245, 0.418) 100%);
+  }
+  &.cf2 {
+
+  }
+  */
 }
+
 #gradients {
   position: relative;
   width: 100%;
@@ -120,7 +118,6 @@
   border-radius: 50%;
   transform-origin: center;
   transition: filter 0.5s var(--accel);
-  mix-blend-mode: overlay;
   opacity: 0.7;
   filter: blur(6px);
   box-shadow: 0 0 10px rgb(255, 255, 255);
@@ -158,12 +155,6 @@
   transform: scale(1.5);
   background: var(--cellColor);
   width: 60px;
-}
-
-.something {
-  position: absolute;
-  width: 130px;
-  height: 60px;
 }
 
 .pgCamSprite {
@@ -431,4 +422,35 @@
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
+}
+
+.deco {
+  position: absolute;
+  width: 20%;
+  height: 60px;
+}
+
+.leftSection {
+  position: absolute;
+  width: 25%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding-left: 4em;
+  flex-direction: column;
+}
+
+.textInteract, .textExplain {
+  font-family: var(--fontDisplay);
+}
+
+.textInteract {
+  font-size: 1.5em;
+  line-height: 1.5em;
+}
+
+.textExplain {
+  margin-top: 1.5em;
+  font-size: 1em;
+  line-height: 2em;
 }/*# sourceMappingURL=scene2.css.map */

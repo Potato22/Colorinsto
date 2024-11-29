@@ -29,7 +29,7 @@ function generateColorGlob(genMode, colorInput) {
     
     if (!genMode || !('analogous' || 'splitComplementary' || 'triadic' || 'tetradic' || 'complementary')) {
         console.log('[generateColorGlob] Empty or invalid mode of operation! Falling back to analogous')
-        genMode = 'analogous'
+        genMode = 'random'
     }
     
     const gradients = document.getElementById('gradients');
@@ -64,6 +64,9 @@ function generateColorGlob(genMode, colorInput) {
         //GEN COLOR
         let colorGenTarget
         switch (genMode) {
+            case 'random':
+            colorGenTarget = ColorRandH.analogous();
+                break;
             case 'analogous':
             colorGenTarget = ColorRandH.analogous(colorInput);
                 break;
