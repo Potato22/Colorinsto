@@ -23,25 +23,25 @@ const primaryInteractive = [
     {
         id: 'modeLights',
         element: modeLights,
-        text: "<b>Lights Mode: </b>Simulate the colors as if it were glowing",
+        text: "<b style='color:var(--global-theme)'>Lights Mode: </b>Simulate the colors as if it were glowing",
         explain: "Colors may appear whiter and darker colors turning pale when it is actively illuminating."
     },
     {
         id: 'modeTrue',
         element: modeTrue,
-        text: "<b>True Mode: </b>See colors as is",
+        text: "<b style='color:var(--global-theme)'>True Mode: </b>See colors as is",
         explain: "So true."
     },
     {
         id: 'modeDay',
         element: modeDay,
-        text: "<b>Day Mode: </b>Simulate the impact of sunlight towards the generated colors",
+        text: "<b style='color:var(--global-theme)'>Day Mode: </b>Simulate the impact of sunlight towards the generated colors",
         explain: "Colors under direct sunlight may look washed out and brighter on a clear day because of the intense reflection of sunlight. Besides the additional ambient light scattered by the blue sky."
     },
     {
         id: 'modeNight',
         element: modeNight,
-        text: "<b>Night Mode: </b>Simulate the impact of night time towards the generated colors",
+        text: "<b style='color:var(--global-theme)'>Night Mode: </b>Simulate the impact of night time towards the generated colors",
         explain: "In the dark, your perception of color becomes blue-ish. A human eye has three color cones and luminoscity cones that only detect brightness. However, your blue cones in particular happens to be the most sensitive of all three color cones."
     },
 
@@ -53,27 +53,27 @@ const primaryInteractive = [
     },
     {
         element: hRandom,
-        text: "<b>Random</b>",
+        text: "<b style='color:var(--global-theme)'>Random</b>",
         explain: "Disregard color input completely and go hog wild"
     },
     {
         element: hAnalogous,
-        text: "<b>Analogous</b>",
+        text: "<b style='color:var(--global-theme)'>Analogous</b>",
         explain: "Generate colors that are adjacent of the color input relative to the color wheel"
     },
     {
         element: hComplementary,
-        text: "<b>Complementary</b>",
+        text: "<b style='color:var(--global-theme)'>Complementary</b>",
         explain: "Generate colors opposite of the color input relative the color wheel"
     },
     {
         element: hTriadic,
-        text: "<b>Triadic</b>",
+        text: "<b style='color:var(--global-theme)'>Triadic</b>",
         explain: "Generate three triangular colors evenly spaced on the color wheel based of the color input"
     },
     {
         element: hTetradic,
-        text: "<b>Tetradic</b>",
+        text: "<b style='color:var(--global-theme)'>Tetradic</b>",
         explain: "Generate four colors forming a rectangle on the color wheel based of the color input"
     }
 ];

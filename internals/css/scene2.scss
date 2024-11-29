@@ -476,8 +476,16 @@
 
 .deco {
     position: absolute;
-    width: 20%;
+    width: 30%;
     height: 60px;
+    //background: red;
+}
+
+#decoPath {
+    fill: none;
+    stroke: var(--global-theme);
+    stroke-miterlimit: 10;
+    stroke-width: 10px;
 }
 
 .leftSection {
@@ -490,7 +498,8 @@
     flex-direction: column;
 }
 
-.textInteract, .textExplain{
+.textInteract,
+.textExplain {
     font-family: var(--fontDisplay);
 }
 
@@ -498,6 +507,7 @@
     font-size: 1.5em;
     line-height: 1.5em;
 }
+
 .textExplain {
     margin-top: 1.5em;
     font-size: 1em;

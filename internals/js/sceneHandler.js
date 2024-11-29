@@ -38,6 +38,9 @@ const sceneCameraPriming = $("#camModSc") //1
 const scenePlayground = $("#playgroundSc") //2
 
 
+const regenColorData = document.querySelector('#playgroundSc')
+
+
 
 function sceneHandler(sceneTarget) {
     switch (sceneTarget) {
@@ -342,7 +345,7 @@ Coloris({
         regenColor = color
         input.style.backgroundColor = color
         if (randomMode == false) {
-            document.querySelector('.regenButton').style.setProperty('--regen-color', color)
+            regenColorData.style.setProperty('--regen-color', color)
         }
     },
     wrap: false,
@@ -350,7 +353,7 @@ Coloris({
 
 
 let regenAccentFallback = 'white'
-document.querySelector('.regenButton').style.setProperty('--regen-color', regenAccentFallback)
+regenColorData.style.setProperty('--regen-color', regenAccentFallback)
 
 
 document.addEventListener('coloris:pick', event => {
@@ -358,7 +361,7 @@ document.addEventListener('coloris:pick', event => {
     const colorPickerTargetColorValue = event.detail.currentEl.value
     console.log('global! ', colorPickerClassName, colorPickerTargetColorValue);
 
-    //document.querySelector('.regenButton').style.setProperty('--regen-color', colorPickerTargetColorValue)
+    //regenColorData.style.setProperty('--regen-color', colorPickerTargetColorValue)
 
     switch (colorPickerClassName) {
         case "startCol":
@@ -417,16 +420,16 @@ document.querySelector('.CHGOptions').addEventListener('click', event => {
             case 'random':
                 randomMode = true
                 CHGModeText.textContent = 'Random...'
-                document.querySelector('.regenButton').style.setProperty('--regen-color', regenAccentFallback)
+                regenColorData.style.setProperty('--regen-color', regenAccentFallback)
                 break;
             case 'analogous':
                 randomMode = false
                 selectedRegenMode = 'analogous'
                 CHGModeText.textContent = 'Analogous'
                 if (!regenColor) {
-                    document.querySelector('.regenButton').style.setProperty('--regen-color', regenAccentFallback)
+                    regenColorData.style.setProperty('--regen-color', regenAccentFallback)
                 } else {
-                    document.querySelector('.regenButton').style.setProperty('--regen-color', regenColor)
+                    regenColorData.style.setProperty('--regen-color', regenColor)
                 }
                 break;
             case 'splitComplementary':
@@ -434,9 +437,9 @@ document.querySelector('.CHGOptions').addEventListener('click', event => {
                 selectedRegenMode = 'splitComplementary'
                 CHGModeText.textContent = 'Split Complementary'
                 if (!regenColor) {
-                    document.querySelector('.regenButton').style.setProperty('--regen-color', regenAccentFallback)
+                    regenColorData.style.setProperty('--regen-color', regenAccentFallback)
                 } else {
-                    document.querySelector('.regenButton').style.setProperty('--regen-color', regenColor)
+                    regenColorData.style.setProperty('--regen-color', regenColor)
                 }
                 break;
             case 'triadic':
@@ -444,9 +447,9 @@ document.querySelector('.CHGOptions').addEventListener('click', event => {
                 selectedRegenMode = 'triadic'
                 CHGModeText.textContent = 'Triadic'
                 if (!regenColor) {
-                    document.querySelector('.regenButton').style.setProperty('--regen-color', regenAccentFallback)
+                    regenColorData.style.setProperty('--regen-color', regenAccentFallback)
                 } else {
-                    document.querySelector('.regenButton').style.setProperty('--regen-color', regenColor)
+                    regenColorData.style.setProperty('--regen-color', regenColor)
                 }
                 break;
             case 'tetradic':
@@ -454,9 +457,9 @@ document.querySelector('.CHGOptions').addEventListener('click', event => {
                 selectedRegenMode = 'tetradic'
                 CHGModeText.textContent = 'Tertradic'
                 if (!regenColor) {
-                    document.querySelector('.regenButton').style.setProperty('--regen-color', regenAccentFallback)
+                    regenColorData.style.setProperty('--regen-color', regenAccentFallback)
                 } else {
-                    document.querySelector('.regenButton').style.setProperty('--regen-color', regenColor)
+                    regenColorData.style.setProperty('--regen-color', regenColor)
                 }
                 break;
             case 'complementary':
@@ -464,9 +467,9 @@ document.querySelector('.CHGOptions').addEventListener('click', event => {
                 selectedRegenMode = 'complementary'
                 CHGModeText.textContent = 'Complementary'
                 if (!regenColor) {
-                    document.querySelector('.regenButton').style.setProperty('--regen-color', regenAccentFallback)
+                    regenColorData.style.setProperty('--regen-color', regenAccentFallback)
                 } else {
-                    document.querySelector('.regenButton').style.setProperty('--regen-color', regenColor)
+                    regenColorData.style.setProperty('--regen-color', regenColor)
                 }
                 break;
 
