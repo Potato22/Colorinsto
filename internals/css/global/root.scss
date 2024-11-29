@@ -227,6 +227,19 @@ a {
     }
   }
 }
+.SCRIPT-sceneOutScaleDown {
+  animation: sceneOutScaleUp .5s forwards var(--accel);
+  @keyframes sceneOutScaleUp {
+    from {
+      transform: scale(1);
+      opacity: 1;
+    }
+    to {
+      transform: scale(.5);
+      opacity: 0;
+    }
+  }
+}
 
 @keyframes elemEnter-scale {
   from {

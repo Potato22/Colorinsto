@@ -8,6 +8,28 @@ import chroma, {
     random
 } from 'chroma-js';
 
+// Constants for time calculations
+const ONE_DAY = 864e5; // 86400000 milliseconds = 1 day
+const SEVEN_DAY = 6048e5; // 604800000 milliseconds = 7 days
+
+// Function to check if the Terms of Service (TOS) have been accepted
+function isTitleSkipped() {
+    const titleEntered = localStorage.getItem("titleEntered");
+    if (!titleEntered) {
+        return false;
+    }
+    // Check if the stored timestamp is within the last 7 days
+    const timeElapsed = Date.now() - new Date(titleEntered).getTime();
+    return timeElapsed <= ONE_DAY;
+}
+
+// Function to record the acceptance of the TOS
+function titleEntered() {
+    // Store the current date and time as ISO string
+    localStorage.setItem("titleEntered", (new Date()).toISOString());
+}
+
+
 let currentScene = 0
 console.log('currentScene', currentScene)
 
@@ -15,7 +37,6 @@ const sceneTitle = $("#titleSc") //0
 const sceneCameraPriming = $("#camModSc") //1
 const scenePlayground = $("#playgroundSc") //2
 
-sceneHandler(2)
 
 
 function sceneHandler(sceneTarget) {
@@ -40,11 +61,13 @@ function sceneHandler(sceneTarget) {
         case 2:
             currentScene = 2
 
+            sceneTitle.addClass('SCRIPT-sceneOutScaleDown')
             sceneCameraPriming.addClass('SCRIPT-sceneOutLeft')
             setTimeout(() => {
                 sceneCameraPriming.hide()
                 sceneCameraPriming.removeClass('SCRIPT-sceneOutLeft')
                 sceneTitle.hide()
+                sceneTitle.removeClass('SCRIPT-sceneOutScaleUp')
                 scenePlayground.show()
                 scenePlayground.addClass('SCRIPT-sceneInScaleDown')
             }, 1000);
@@ -58,10 +81,15 @@ function sceneHandler(sceneTarget) {
 }
 
 //SCENE 0
+if (isTitleSkipped()) {
+    sceneHandler(2)
+} else {
+    sceneHandler(0)
+}
 const startButton = $('#startEvent')
 startButton.on('click', function () {
-    //sceneHandler(1)
     sceneHandler(2)
+    titleEntered()
 })
 
 
@@ -249,7 +277,10 @@ function getCurrentMode() {
     return currentMode;
 }
 
-export { modeHandler, getCurrentMode }
+export {
+    modeHandler,
+    getCurrentMode
+}
 
 theWheel.addEventListener('click', (event) => {
     // Find the closest parent with the 'modes' class

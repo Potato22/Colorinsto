@@ -214,6 +214,20 @@ a:link, a:visited {
   }
 }
 
+.SCRIPT-sceneOutScaleDown {
+  animation: sceneOutScaleUp 0.5s forwards var(--accel);
+}
+@keyframes sceneOutScaleUp {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+}
+
 @keyframes elemEnter-scale {
   from {
     opacity: 0;
