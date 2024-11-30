@@ -4,16 +4,6 @@ import chroma from 'chroma-js';
 import "@melloware/coloris/dist/coloris.css";
 import Coloris, { init } from "@melloware/coloris";
 
-Coloris.init();
-//coloris config
-Coloris({
-    themeMode: 'dark',
-    alpha: false,
-    formatToggle: true,
-    clearButton: true,
-    clearLabel: 'Clear',
-})
-
 // RAND UTIL
 function random(min, max) {
     return Math.random() * (max - min) + min;

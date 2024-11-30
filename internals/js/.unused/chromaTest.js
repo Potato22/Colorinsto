@@ -7,16 +7,6 @@ import {
 import "@melloware/coloris/dist/coloris.css";
 import Coloris, { init } from "@melloware/coloris";
 
-Coloris.init();
-//coloris config
-Coloris({
-    themeMode: 'dark',
-    alpha: false,
-    formatToggle: true,
-    clearButton: true,
-    clearLabel: 'Clear',
-})
-
 
 const initColorSet = new Array(chroma.random(), chroma.random());
 let initialColor = chroma.random();

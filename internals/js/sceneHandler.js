@@ -4,9 +4,6 @@ import Coloris, {
     init
 } from "@melloware/coloris";
 import paletteAppend from "./colorEngine";
-import chroma, {
-    random
-} from 'chroma-js';
 
 // Constants for time calculations
 const ONE_DAY = 864e5; // 86400000 milliseconds = 1 day
@@ -195,8 +192,9 @@ function fxFilter(mode) {
         case 'lights':
             colorGlobParticles.style.mixBlendMode = 'screen'
 
-            fxElem1.style.opacity = '.5'
+            fxElem1.style.opacity = '.8'
             fxElem1.style.filter = 'blur(30px)'
+            fxElem1.style.transform = "scale(1.2)"
             fxElem1.style.backgroundColor = 'var(--global-theme)'
             fxElem1.style.mixBlendMode = 'overlay'
 
@@ -205,6 +203,7 @@ function fxFilter(mode) {
         case 'true':
             colorGlobParticles.style.mixBlendMode = 'normal'
 
+            fxElem1.style.transform = "scale(1)"
             fxElem1.style.filter = 'none'
             fxElem1.style.opacity = '0'
             fxElem2.style.opacity = '0'
@@ -212,18 +211,20 @@ function fxFilter(mode) {
         case 'day':
             colorGlobParticles.style.mixBlendMode = 'normal'
 
+            fxElem1.style.transform = "scale(1)"
             fxElem1.style.filter = 'none'
             fxElem1.style.background = 'radial-gradient(circle at top left, rgba(255,255,245,1) 0%, rgba(255, 255, 245, 0.418) 100%)';
             fxElem1.style.mixBlendMode = 'overlay'
-            fxElem1.style.opacity = '1'
+            fxElem1.style.opacity = '.8'
 
             fxElem2.style.backgroundColor = 'rgb(31, 31, 41)';
             fxElem2.style.mixBlendMode = 'multiply';
-            fxElem2.style.opacity = '.2';
+            fxElem2.style.opacity = '0';
             break;
         case 'night':
             colorGlobParticles.style.mixBlendMode = 'normal'
 
+            fxElem1.style.transform = "scale(1)"
             fxElem1.style.backgroundColor = 'rgb(36, 51, 70)';
             fxElem1.style.mixBlendMode = 'multiply';
             fxElem1.style.opacity = '.7';
@@ -339,6 +340,15 @@ let regenColor
 let regenMode
 
 //INSTANCING
+Coloris.init();
+//coloris config
+Coloris({
+    themeMode: 'dark',
+    alpha: false,
+    formatToggle: true,
+    clearButton: true,
+    clearLabel: 'Clear',
+})
 Coloris({
     el: ".regenColInput",
     onChange: (color, input) => {
@@ -351,31 +361,30 @@ Coloris({
     wrap: false,
 });
 
-
 let regenAccentFallback = 'white'
 regenColorData.style.setProperty('--regen-color', regenAccentFallback)
 
 
-document.addEventListener('coloris:pick', event => {
-    const colorPickerClassName = event.detail.currentEl.className
-    const colorPickerTargetColorValue = event.detail.currentEl.value
-    console.log('global! ', colorPickerClassName, colorPickerTargetColorValue);
-
-    //regenColorData.style.setProperty('--regen-color', colorPickerTargetColorValue)
-
-    switch (colorPickerClassName) {
-        case "startCol":
-            //alert('box 1 ' + colorPickerTargetColorValue)
-            break;
-        case "endCol":
-            //alert('box 2 ' + colorPickerTargetColorValue)
-            break;
-
-        default:
-            break;
-    }
-    //updateSets()
-});
+//document.addEventListener('coloris:pick', event => {
+//    const colorPickerClassName = event.detail.currentEl.className
+//    const colorPickerTargetColorValue = event.detail.currentEl.value
+//    console.log('global! ', colorPickerClassName, colorPickerTargetColorValue);
+//
+//    //regenColorData.style.setProperty('--regen-color', colorPickerTargetColorValue)
+//
+//    switch (colorPickerClassName) {
+//        case "startCol":
+//            //alert('box 1 ' + colorPickerTargetColorValue)
+//            break;
+//        case "endCol":
+//            //alert('box 2 ' + colorPickerTargetColorValue)
+//            break;
+//
+//        default:
+//            break;
+//    }
+//    //updateSets()
+//});
 
 //REGEN UTIL
 const genDropdown = $('.genDropdown')
