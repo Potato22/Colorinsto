@@ -219,7 +219,7 @@ function fxFilter(mode) {
 
             fxElem2.style.backgroundColor = 'rgb(31, 31, 41)';
             fxElem2.style.mixBlendMode = 'multiply';
-            fxElem2.style.opacity = '0';
+            fxElem2.style.opacity = '.1';
             break;
         case 'night':
             colorGlobParticles.style.mixBlendMode = 'normal'
