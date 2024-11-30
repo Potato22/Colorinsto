@@ -96,7 +96,7 @@ primaryInteractive.forEach(({
 }) => {
 
     $(element).on('mouseenter', function(event) {
-        console.log(event.currentTarget)
+        //console.log(event.currentTarget)
         clearTimeout(idle)
         $textBox.fadeOut(fadeDuration, function () {
             $(this).html(text).fadeIn(fadeDuration);

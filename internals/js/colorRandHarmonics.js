@@ -128,7 +128,7 @@ class ColorRandH {
         return this.generateColorFromHue((hsl.h + shift + 360) % 360, hsl.s, hsl.l);
     }
 
-    static complementary(baseColor = null, colorSpan = 50) {
+    static complementary(baseColor = null, colorSpan = 20) {
         let hsl;
         if (baseColor) {
             hsl = this.getHslFromHex(baseColor);

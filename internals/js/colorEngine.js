@@ -27,11 +27,6 @@ function random(min, max) {
 
 function generateColorGlob(genMode, colorInput) {
     
-    if (!genMode || !('analogous' || 'splitComplementary' || 'triadic' || 'tetradic' || 'complementary')) {
-        console.log('[generateColorGlob] Empty or invalid mode of operation! Falling back to analogous')
-        genMode = 'random'
-    }
-    
     const gradients = document.getElementById('gradients');
     // ONCE CALLED AGAIN, CLEAR
     gradients.innerHTML = '';
@@ -129,6 +124,10 @@ function generateColorGlob(genMode, colorInput) {
 }
 
 function paletteAppend(genMode, colorInput) {
+    if (!genMode || genMode === '') {
+        console.log('[generateColorGlob] Empty or invalid mode of operation! Falling back to random')
+        genMode = 'random'
+    }
 console.log('[paletteAppend]', genMode, colorInput)
     function sortColorsByHue(colors) {
        return colors.sort((a, b) => {

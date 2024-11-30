@@ -316,7 +316,7 @@ $('.modes').on('mouseenter', function () {
     } else {
         delay = 800
     }
-    console.log('delay', delay, 'currentMode', currentMode)
+    //console.log('delay', delay, 'currentMode', currentMode)
     enterTimeout = setTimeout(() => {
         theWheelContainer.style.zIndex = "5"
         filmWrapper.style.opacity = ".1"
@@ -419,6 +419,7 @@ document.querySelector('.CHGOptions').addEventListener('click', event => {
         switch (mode) {
             case 'random':
                 randomMode = true
+                selectedRegenMode = 'random'
                 CHGModeText.textContent = 'Random...'
                 regenColorData.style.setProperty('--regen-color', regenAccentFallback)
                 break;
@@ -486,7 +487,7 @@ regenButton.on('click', function () {
         paletteAppend(selectedRegenMode, regenColor)
     } else {
         paletteAppend()
-        randomMode = false
+        randomMode = true
     }
 })
 
