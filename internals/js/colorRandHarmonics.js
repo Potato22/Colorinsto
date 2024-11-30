@@ -144,19 +144,49 @@ class ColorRandH {
         return this.random(0, 1) === 0 ? baseColor || this.rgbToHex(this.hslToRgb(hsl.h, hsl.s, hsl.l).r, this.hslToRgb(hsl.h, hsl.s, hsl.l).g, this.hslToRgb(hsl.h, hsl.s, hsl.l).b) : complementaryColor;
     }
 
-    static triadic(baseColor = null, colorSpan = 80) {
+    static triadic(baseColor = null, colorSpan = 10) {
         let hsl;
         if (baseColor) {
             hsl = this.getHslFromHex(baseColor);
         } else {
             hsl = this.getRandomBaseHsl();
         }
+        
         const shifts = [120, 240];
         const baseShift = shifts[this.random(0, 1)];
-        const shift = this.random(-colorSpan, colorSpan)
-        return this.generateColorFromHue((hsl.h + baseShift + shift + 360) % 360, hsl.s, hsl.l);
+        const shift = this.random(-colorSpan, colorSpan);
+        
+        // Generate triadic color
+        const triadicHue = (hsl.h + baseShift + shift + 360) % 360;
+        const triadicColor = this.generateColorFromHue(triadicHue, hsl.s, hsl.l);
+        
+        // Randomly decide whether to return the original color or the triadic color
+        return this.random(0, 1) === 0 ? 
+            baseColor || this.rgbToHex(this.hslToRgb(hsl.h, hsl.s, hsl.l).r, this.hslToRgb(hsl.h, hsl.s, hsl.l).g, this.hslToRgb(hsl.h, hsl.s, hsl.l).b) : 
+            triadicColor;
     }
     
+    static tetradic(baseColor = null, colorSpan = 24) {
+        let hsl;
+        if (baseColor) {
+            hsl = this.getHslFromHex(baseColor);
+        } else {
+            hsl = this.getRandomBaseHsl();
+        }
+        
+        const shifts = [90, 180, 270];
+        const baseShift = shifts[this.random(0, 2)];
+        const shift = this.random(-colorSpan, colorSpan);
+        
+        // Generate tetradic color
+        const tetradicHue = (hsl.h + baseShift + shift + 360) % 360;
+        const tetradicColor = this.generateColorFromHue(tetradicHue, hsl.s, hsl.l);
+        
+        // Randomly decide whether to return the original color or the tetradic color
+        return this.random(0, 1) === 0 ? 
+            baseColor || this.rgbToHex(this.hslToRgb(hsl.h, hsl.s, hsl.l).r, this.hslToRgb(hsl.h, hsl.s, hsl.l).g, this.hslToRgb(hsl.h, hsl.s, hsl.l).b) : 
+            tetradicColor;
+    }
     //static splitComplementary(baseColor = null, colorSpan = 60) {
     //    let hsl;
     //    if (baseColor) {
@@ -170,19 +200,6 @@ class ColorRandH {
     //    return this.generateColorFromHue((hsl.h + baseShift + shift + 360) % 360, hsl.s, hsl.l);
     //    //NEED REWORK
     //}
-    
-    static tetradic(baseColor = null, colorSpan = 24) {
-        let hsl;
-        if (baseColor) {
-            hsl = this.getHslFromHex(baseColor);
-        } else {
-            hsl = this.getRandomBaseHsl();
-        }
-        const shifts = [90, 180, 270];
-        const baseShift = shifts[this.random(0, 2)];
-        const shift = this.random(-colorSpan, colorSpan)
-        return this.generateColorFromHue((hsl.h + baseShift + shift + 360) % 360, hsl.s, hsl.l);
-    }
 }
 
 export default ColorRandH;

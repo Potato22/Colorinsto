@@ -226,7 +226,7 @@ function fxFilter(mode) {
 
             fxElem1.style.backgroundColor = 'rgb(36, 51, 70)';
             fxElem1.style.mixBlendMode = 'multiply';
-            fxElem1.style.opacity = '.5';
+            fxElem1.style.opacity = '.7';
 
             fxElem2.style.filter = 'none'
             fxElem2.style.backgroundColor = '#000000';

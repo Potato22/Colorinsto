@@ -10,7 +10,7 @@ const modeDay = document.querySelector('.modeDay');
 const modeNight = document.querySelector('.modeNight');
 
 //color harmonics
-const hSelect = document.querySelector('.genDropdown');
+//const hSelect = document.querySelector('.genDropdown');
 
 const hRandom = document.querySelector('#CHG-random');
 const hAnalogous = document.querySelector('#CHG-analogous');
@@ -46,11 +46,11 @@ const primaryInteractive = [
     },
 
     //Harmonics
-    {
-        element: hSelect,
-        text: "Select a color harmonic to generate with...",
-        explain: ''
-    },
+    //{
+    //    element: hSelect,
+    //    text: "Select a color harmonic to generate with...",
+    //    explain: ''
+    //},
     {
         element: hRandom,
         text: "<b style='color:var(--global-theme)'>Random</b>",
@@ -59,22 +59,22 @@ const primaryInteractive = [
     {
         element: hAnalogous,
         text: "<b style='color:var(--global-theme)'>Analogous</b>",
-        explain: "Generate colors that are adjacent of the color input relative to the color wheel"
+        explain: "Generate colors that are adjacent of the color input relative to the color wheel<br><br>These are group of colors that are neighboring of each other within the color wheel. This pattern is most prominent in nature and is often used to illustrate natural elements and atmosphere or give the natural impression of a design."
     },
     {
         element: hComplementary,
         text: "<b style='color:var(--global-theme)'>Complementary</b>",
-        explain: "Generate colors opposite of the color input relative the color wheel"
+        explain: "Generate colors opposite of the color input relative the color wheel<br><br>Complementary are pairs of colors that 'cancels' each other when combined, which produces a chromaless color (greyscale). Artists may not always use these colors to be combined however, more of a technique to lure the viewer's eye or add visual emphasis to a certain spot of their artwork or design."
     },
     {
         element: hTriadic,
         text: "<b style='color:var(--global-theme)'>Triadic</b>",
-        explain: "Generate three triangular colors evenly spaced on the color wheel based of the color input"
+        explain: "Generate three triangular colors evenly spaced on the color wheel based of the color input<br><br>Part of a color scheme formula, is a 3-color combination: the base, and the two colors that are at least 120 and 240 degrees apart. This usually produces a vibrant and high contrast palette, although not as contrasting as the complementary, it is still ideal tecnhique to make a design or artwork 'pop' in viewer's eye."
     },
     {
         element: hTetradic,
         text: "<b style='color:var(--global-theme)'>Tetradic</b>",
-        explain: "Generate four colors forming a rectangle on the color wheel based of the color input"
+        explain: "Generate four colors forming a rectangle on the color wheel based of the color input<br><br>Due to the shape it forms in the color wheel, it forms complementary pairs, double in fact. The this palette should not be used as is, as using all 4 colors equally will make the scheme looks unpleasantly unbalanced. It needs at least 1 color as a dominant."
     }
 ];
 
@@ -95,7 +95,8 @@ primaryInteractive.forEach(({
     explain
 }) => {
 
-    $(element).on('mouseenter', function () {
+    $(element).on('mouseenter', function(event) {
+        console.log(event.currentTarget)
         clearTimeout(idle)
         $textBox.fadeOut(fadeDuration, function () {
             $(this).html(text).fadeIn(fadeDuration);
@@ -129,6 +130,6 @@ primaryInteractive.forEach(({
                     $(this).html('').fadeIn(fadeDuration);
                 });
             }
-        }, 1000);
+        }, 30000);
     });
 });
