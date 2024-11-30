@@ -10,16 +10,18 @@
   background: white;
   width: 50vw;
   height: 70vh;
-  background: url("../assets/local/camart.png");
-  background-size: cover;
+  background: url("../assets/local/colorinstoIllust.png");
+  background-size: contain;
   background-position: center;
   animation: elemEnter-scale 0.8s var(--anchorhead) forwards;
 }
 
 .titleArt {
-  font-size: 8em;
-  font-family: intertight;
-  font-weight: 800;
+  background: url("../assets/local/colorinstoLogo.png");
+  background-size: contain;
+  background-position: center;
+  width: 600px;
+  height: 200px;
   transform: translateX(-3rem);
   opacity: 0;
   animation: elemEnter-slideRight 0.8s var(--anchorhead) 0.15s forwards;

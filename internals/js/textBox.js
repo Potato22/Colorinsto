@@ -130,6 +130,6 @@ primaryInteractive.forEach(({
                     $(this).html('').fadeIn(fadeDuration);
                 });
             }
-        }, 30000);
+        }, 10000);
     });
 });
