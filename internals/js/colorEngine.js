@@ -185,7 +185,7 @@ function paletteAppend(genMode, colorInput) {
             try {
                 await navigator.clipboard.writeText(hexColor);
 
-                pushToast(`Copied! (<span style="color:${hexColor}">${hexColor}</span>)`, {
+                pushToast(`Copied! (<span style="color:${hexColor}; font-family: var(--fontSecondary)">${hexColor}</span>)`, {
                     tone: 'fade',
                 })
 
