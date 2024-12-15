@@ -4,25 +4,26 @@ import Coloris, {
     init
 } from "@melloware/coloris";
 import paletteAppend from "./colorEngine";
+import pushToast from "./toast"
 
 // Constants for time calculations
 const ONE_DAY = 864e5; // 86400000 milliseconds = 1 day
 const SEVEN_DAY = 6048e5; // 604800000 milliseconds = 7 days
 
-// Function to check if the Terms of Service (TOS) have been accepted
+// skip title n shit
 function isTitleSkipped() {
     const titleEntered = localStorage.getItem("titleEntered");
     if (!titleEntered) {
         return false;
     }
-    // Check if the stored timestamp is within the last 7 days
+    // check expiry
     const timeElapsed = Date.now() - new Date(titleEntered).getTime();
     return timeElapsed <= ONE_DAY;
 }
+export default isTitleSkipped
 
-// Function to record the acceptance of the TOS
+// write regenColorData
 function titleEntered() {
-    // Store the current date and time as ISO string
     localStorage.setItem("titleEntered", (new Date()).toISOString());
 }
 
@@ -81,11 +82,19 @@ function sceneHandler(sceneTarget) {
 }
 
 //SCENE 0
+//skip for returning users, if for some godadmn reason they wanted to return to this fucking shite hole.
 if (isTitleSkipped()) {
+    //pushToast("Welcome back", "boing", undefined, 2000)
+    pushToast('Welcome back!', {
+        tone: 'boing',
+        duration: 2000,
+        delay: 2000
+    })
     sceneHandler(2)
 } else {
     sceneHandler(0)
 }
+
 const startButton = $('#startEvent')
 startButton.on('click', function () {
     sceneHandler(2)
@@ -345,8 +354,8 @@ Coloris.init();
 Coloris({
     themeMode: 'dark',
     alpha: false,
-    formatToggle: true,
-    clearButton: true,
+    formatToggle: false,
+    clearButton: false,
     clearLabel: 'Clear',
 })
 Coloris({

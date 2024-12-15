@@ -93,7 +93,7 @@ body::-webkit-scrollbar-thumb:active {
   --accel: cubic-bezier(0.72, 0.06, 0.96, 0.57);
   --anchorhead: cubic-bezier(0.24, 0.01, 0.01, 1);
   --bounce: cubic-bezier(0.57, 0.07, 0.41, 1.95);
-  --quickBounce: cubic-bezier(0,1.81,.41,.95);
+  --quickBounce: cubic-bezier(0, 1.81, .41, .95);
   --brightnessD: brightness(1.2);
   --brightnessL: brightness(.8);
 }
@@ -125,20 +125,6 @@ a {
 a:link, a:visited {
   text-decoration: none !important;
   color: currentColor;
-}
-
-.lorem, .ipsum {
-  color: var(--textD);
-  position: absolute;
-}
-
-.lorem {
-  font-family: InterTight;
-}
-
-.ipsum {
-  font-family: "JetBrains Mono";
-  margin-top: 3rem;
 }
 
 .scene {

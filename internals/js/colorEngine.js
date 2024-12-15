@@ -1,8 +1,7 @@
 //COLOR HARMONIC RANDOMIZER
 import ColorRandH from './colorRandHarmonics.js'
 import chroma from 'chroma-js';
-import "@melloware/coloris/dist/coloris.css";
-import Coloris, { init } from "@melloware/coloris";
+import pushToast from './toast.js';
 
 // RAND UTIL
 function random(min, max) {
@@ -16,7 +15,7 @@ function random(min, max) {
 //tetradic
 
 function generateColorGlob(genMode, colorInput) {
-    
+
     const gradients = document.getElementById('gradients');
     // ONCE CALLED AGAIN, CLEAR
     gradients.innerHTML = '';
@@ -45,29 +44,29 @@ function generateColorGlob(genMode, colorInput) {
         const scale = random(SCALE_RANGE.min, SCALE_RANGE.max);
         const rotateX = random(ROTATION_RANGE.min, ROTATION_RANGE.max);
         const rotateY = random(ROTATION_RANGE.min, ROTATION_RANGE.max);
-        
+
         //GEN COLOR
         let colorGenTarget
         switch (genMode) {
             case 'random':
-            colorGenTarget = ColorRandH.analogous();
+                colorGenTarget = ColorRandH.analogous();
                 break;
             case 'analogous':
-            colorGenTarget = ColorRandH.analogous(colorInput);
+                colorGenTarget = ColorRandH.analogous(colorInput);
                 break;
             case 'splitComplementary':
-            colorGenTarget = ColorRandH.splitComplementary(colorInput);
+                colorGenTarget = ColorRandH.splitComplementary(colorInput);
                 break;
             case 'triadic':
-            colorGenTarget = ColorRandH.triadic(colorInput);
+                colorGenTarget = ColorRandH.triadic(colorInput);
                 break;
             case 'tetradic':
-            colorGenTarget = ColorRandH.tetradic(colorInput);
+                colorGenTarget = ColorRandH.tetradic(colorInput);
                 break;
             case 'complementary':
-            colorGenTarget = ColorRandH.complementary(colorInput);
+                colorGenTarget = ColorRandH.complementary(colorInput);
                 break;
-        
+
             default:
                 break;
         }
@@ -118,50 +117,51 @@ function paletteAppend(genMode, colorInput) {
         console.log('[generateColorGlob] Empty or invalid mode of operation! Falling back to random')
         genMode = 'random'
     }
-console.log('[paletteAppend]', genMode, colorInput)
+    console.log('[paletteAppend]', genMode, colorInput)
+
     function sortColorsByHue(colors) {
-       return colors.sort((a, b) => {
-           // Convert color to HSL to extract hue
-           const hslA = hexToHSL(a);
-           const hslB = hexToHSL(b);
-           return hslA[0] - hslB[0];
-       });
+        return colors.sort((a, b) => {
+            // Convert color to HSL to extract hue
+            const hslA = hexToHSL(a);
+            const hslB = hexToHSL(b);
+            return hslA[0] - hslB[0];
+        });
     }
 
     function hexToHSL(hex) {
-       // Remove # if present
-       hex = hex.replace('#', '');
+        // Remove # if present
+        hex = hex.replace('#', '');
 
-       // Convert hex to RGB
-       const r = parseInt(hex.substring(0, 2), 16) / 255;
-       const g = parseInt(hex.substring(2, 4), 16) / 255;
-       const b = parseInt(hex.substring(4, 6), 16) / 255;
+        // Convert hex to RGB
+        const r = parseInt(hex.substring(0, 2), 16) / 255;
+        const g = parseInt(hex.substring(2, 4), 16) / 255;
+        const b = parseInt(hex.substring(4, 6), 16) / 255;
 
-       const max = Math.max(r, g, b);
-       const min = Math.min(r, g, b);
-       let h, s, l = (max + min) / 2;
+        const max = Math.max(r, g, b);
+        const min = Math.min(r, g, b);
+        let h, s, l = (max + min) / 2;
 
-       if (max === min) {
-           h = s = 0; // achromatic
-       } else {
-           const d = max - min;
-           s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        if (max === min) {
+            h = s = 0; // achromatic
+        } else {
+            const d = max - min;
+            s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
 
-           switch (max) {
-               case r:
-                   h = (g - b) / d + (g < b ? 6 : 0);
-                   break;
-               case g:
-                   h = (b - r) / d + 2;
-                   break;
-               case b:
-                   h = (r - g) / d + 4;
-                   break;
-           }
-           h *= 60;
-       }
+            switch (max) {
+                case r:
+                    h = (g - b) / d + (g < b ? 6 : 0);
+                    break;
+                case g:
+                    h = (b - r) / d + 2;
+                    break;
+                case b:
+                    h = (r - g) / d + 4;
+                    break;
+            }
+            h *= 60;
+        }
 
-       return [h, s, l];
+        return [h, s, l];
     }
 
     //CALL GLOBBER
@@ -179,18 +179,17 @@ console.log('[paletteAppend]', genMode, colorInput)
     [...pcells].forEach((cell, index) => {
         const hexColor = chromaPulledColors[index];
         cell.style.setProperty('--cellColor', hexColor);
-        
+
         // Add click handler to copy color
         cell.addEventListener('click', async () => {
             try {
                 await navigator.clipboard.writeText(hexColor);
-                
-                // PLACEHOLDER FEEDBACK
-                cell.textContent = 'Copied!';
-                setTimeout(() => {
-                    cell.textContent = '';
-                }, 1000);
-                
+
+                pushToast(`Copied! (<span style="color:${hexColor}">${hexColor}</span>)`, {
+                    tone: 'fade',
+                })
+
+
             } catch (err) {
                 console.error('Failed to copy:', err);
             }

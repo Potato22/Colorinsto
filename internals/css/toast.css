@@ -1,0 +1,104 @@
+.toastAlign {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99;
+  display: grid;
+  place-items: center;
+  --toastBorderRadius: 10px;
+  pointer-events: none;
+  display: none;
+  transition: 0.3s opacity;
+}
+.toastAlign.toasted {
+  opacity: 0 !important;
+}
+.toastAlign .toastWrap {
+  transition: 0.3s opacity;
+  opacity: 0;
+}
+.toastAlign .toastWrap.toastBoing {
+  opacity: 1;
+  animation: boing 1.2s both;
+}
+.toastAlign .toastWrap.toastPushed {
+  opacity: 1;
+  animation: fade 0.5s forwards;
+}
+.toastAlign .toast {
+  display: flex;
+  align-items: center;
+  margin: auto;
+  position: relative;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  background: var(--baseD);
+  background-clip: padding-box;
+  border: solid 1px transparent;
+  border-radius: var(--toastBorderRadius);
+  box-shadow: rgba(0, 0, 0, 0.5) 0 3px 120px 80px;
+}
+.toastAlign .toast:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  margin: -1px;
+  border-radius: inherit;
+  background: linear-gradient(rgba(89, 105, 107, 0.8), rgba(235, 235, 235, 0.8));
+}
+.toastAlign .toastDashes {
+  padding: 1rem;
+  border: solid 1px rgba(255, 255, 255, 0.5);
+  border-style: dashed;
+  border-radius: calc(var(--toastBorderRadius) / 2);
+  color: white;
+  font-family: var(--fontDisplay);
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes boing {
+  0% {
+    opacity: 0;
+  }
+  24% {
+    opacity: 0;
+    transform: translateY(0px);
+    animation-timing-function: ease-in;
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(-20px);
+    animation-timing-function: ease-in;
+  }
+  65% {
+    transform: translateY(-10px);
+    animation-timing-function: ease-in;
+  }
+  82% {
+    transform: translateY(-4px);
+    animation-timing-function: ease-in;
+  }
+  93% {
+    transform: translateY(-2px);
+    animation-timing-function: ease-in;
+  }
+  25%, 55%, 75%, 87% {
+    transform: translateY(0px);
+    animation-timing-function: ease-out;
+  }
+  100% {
+    transform: translateY(0px);
+    animation-timing-function: ease-out;
+  }
+}/*# sourceMappingURL=toast.css.map */

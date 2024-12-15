@@ -61,10 +61,10 @@ body {
 .material-symbols-rounded {
   vertical-align: middle;
   font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 60
+    'FILL'0,
+    'wght'400,
+    'GRAD'0,
+    'opsz'60
 }
 
 :root {
@@ -108,7 +108,7 @@ body {
   --accel: cubic-bezier(0.72, 0.06, 0.96, 0.57);
   --anchorhead: cubic-bezier(0.24, 0.01, 0.01, 1);
   --bounce: cubic-bezier(0.57, 0.07, 0.41, 1.95);
-  --quickBounce: cubic-bezier(0,1.81,.41,.95);
+  --quickBounce: cubic-bezier(0, 1.81, .41, .95);
 
   --brightnessD: brightness(1.2);
   --brightnessL: brightness(.8);
@@ -146,18 +146,6 @@ a {
   }
 }
 
-.lorem, .ipsum {
-  color: var(--textD);
-  position: absolute;
-}
-.lorem {
-  font-family: InterTight;
-}
-.ipsum {
-  font-family: 'JetBrains Mono';
-  margin-top: 3rem;
-}
-
 .scene {
   min-height: 100vh;
   min-width: 100vw;
@@ -170,30 +158,36 @@ a {
 .SCRIPT-sceneDraw {
   display: block;
 }
+
 .SCRIPT-sceneHide {
   display: none;
 }
 
 .SCRIPT-sceneInScaleUp {
   animation: sceneInScaleUp .5s forwards var(--sleek);
+
   @keyframes sceneInScaleUp {
     from {
       transform: scale(.5);
       opacity: 0;
     }
+
     to {
       transform: scale(1);
       opacity: 1;
     }
   }
 }
+
 .SCRIPT-sceneInScaleDown {
   animation: sceneInScaleDown .5s forwards var(--sleek);
+
   @keyframes sceneInScaleDown {
     from {
       transform: scale(1.2);
       opacity: 0;
     }
+
     to {
       transform: scale(1);
       opacity: 1;
@@ -203,37 +197,45 @@ a {
 
 .SCRIPT-sceneOutLeft {
   animation: sceneOutLeft .5s forwards var(--accel);
+
   @keyframes sceneOutLeft {
     from {
       transform: translateX(0vw);
       opacity: 1;
     }
+
     to {
       transform: translateX(-100vw);
       opacity: 0;
     }
   }
 }
+
 .SCRIPT-sceneOutScaleUp {
   animation: sceneOutScaleUp .5s forwards var(--accel);
+
   @keyframes sceneOutScaleUp {
     from {
       transform: scale(1);
       opacity: 1;
     }
+
     to {
       transform: scale(1.5);
       opacity: 0;
     }
   }
 }
+
 .SCRIPT-sceneOutScaleDown {
   animation: sceneOutScaleUp .5s forwards var(--accel);
+
   @keyframes sceneOutScaleUp {
     from {
       transform: scale(1);
       opacity: 1;
     }
+
     to {
       transform: scale(.5);
       opacity: 0;
@@ -246,36 +248,43 @@ a {
     opacity: 0;
     transform: scale(.5);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
   }
 }
+
 @keyframes elemEnter-slideRight {
   from {
     opacity: 0;
     transform: translateX(-3em);
   }
+
   to {
     opacity: 1;
     transform: translateX(0em);
   }
 }
+
 @keyframes elemEnter-slideLeft {
   from {
     opacity: 0;
     transform: translateX(3em);
   }
+
   to {
     opacity: 1;
     transform: translateX(0em);
   }
 }
+
 @keyframes elemEnter-slideDown {
   from {
     opacity: 0;
     transform: translateY(-1em);
   }
+
   to {
     opacity: 1;
     transform: translateX(0em);
