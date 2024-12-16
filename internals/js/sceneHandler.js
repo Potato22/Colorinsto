@@ -144,10 +144,12 @@ cameraDoor.on("click", function () {
             toastPush({text: "Great! You can see the cartridge there"}, {
                 tone: 'boing',
                 duration: 3000,
+                skippable: true,
             })
             toastPush({text: "Just on top of it, is the 'magical' substance that will magically change how the film behaves"}, {
                 duration: 4000,
-                position: 'top'
+                position: 'top',
+                skippable: true,
             })
             toastPush(
                 {
@@ -173,7 +175,7 @@ cameraDoor.on("click", function () {
                         },
                         highlight: true,
                     }],
-                    iconUrl: "../assets/local/stop.svg"
+                    icon: "stop"
                 }, 
             )
         }, 500);

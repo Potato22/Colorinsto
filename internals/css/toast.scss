@@ -94,8 +94,22 @@
             background: var(--toastIconUrl);
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
             margin-bottom: 1rem;
             margin-top: .5rem;
+
+            &.tiStop {
+                background: url(../assets/local/stop.svg);
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+            &.tiWarn {
+                background: url(../assets/local/warn.svg);
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
         }
 
         .toastTitle {

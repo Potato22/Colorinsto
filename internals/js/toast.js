@@ -6,6 +6,11 @@ const toastContent = document.querySelector('.toastText');
 const toastButtons = document.querySelector('.toastButtons');
 const toastTransformWrap = document.querySelector('.toastTransformWrap');
 
+function toastPush(content = {}, settings = {}) {
+    toastQueue.push({ content, settings });
+    if (!toasting) nextQueue(); 
+}
+
 const DEFAULT_TIMER = 2000;
 const POSITION_PRESETS = {
     top: 'calc(-100vh / 3)', 
@@ -40,11 +45,6 @@ function toastDismiss() {
 function toastClear() {
     toastQueue.length = 0; 
     toastDismiss(); 
-}
-
-function toastPush(content = {}, settings = {}) {
-    toastQueue.push({ content, settings });
-    if (!toasting) nextQueue(); 
 }
 
 function setPosition(position) {
@@ -93,6 +93,7 @@ function nextQueue() {
     const {
         title = '', 
         text = '', 
+        icon = '', 
         iconUrl = '', 
         button = [], 
     } = content;
@@ -104,6 +105,7 @@ function nextQueue() {
         position, 
         hold = false, 
         interactive = false, 
+        skippable = false, 
     } = settings;
 
     resetTimers(); 
@@ -112,11 +114,23 @@ function nextQueue() {
 
         toastTitle.innerHTML = title;
         toastContent.innerHTML = text;
-        toastIcon.style.setProperty('--toastIconUrl', `url(${iconUrl})`);
+        toastIcon.style.setProperty('--toastIconUrl', `url('${iconUrl}')`);
+
+        switch (icon) {
+            case 'warn':
+                toastIcon.classList.add('tiWarn')
+                break;
+            case 'stop':
+                toastIcon.classList.add('tiStop')
+                break;
+        
+            default:
+                break;
+        }
 
         applyStyles(toastAligner, {
             display: 'grid', 
-            pointerEvents: interactive || button.length > 0 ? 'auto' : 'none', 
+            pointerEvents: interactive || skippable || button.length > 0 ? 'auto' : 'none', 
         });
 
         toastAligner.classList.remove('toasted'); 
@@ -126,20 +140,21 @@ function nextQueue() {
         configureButtons(button); 
 
         applyStyles(toastTitle, { display: title ? 'block' : 'none' });
-        applyStyles(toastIcon, { display: iconUrl ? 'block' : 'none' });
+        applyStyles(toastIcon, { display: iconUrl || icon ? 'block' : 'none' });
         applyStyles(toastButtons, { display: button.length > 0 ? 'flex' : 'none' });
 
-        if (!hold && !interactive && button.length === 0) {
-
+        if (!hold && (!interactive || skippable) && button.length === 0) {
             expiryTimer = setTimeout(() => {
                 toastDismiss();
             }, duration);
-
-        } else if (interactive) {
-
-            toastAligner.addEventListener('click', toastDismiss);
-            
         }
+        
+        if ((interactive || skippable) && button.length === 0) {
+            toastAligner.addEventListener('click', toastDismiss);
+        } else {
+            toastAligner.removeEventListener('click', toastDismiss)
+        }
+
     }, delay); 
 }
 

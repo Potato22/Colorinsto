@@ -88,7 +88,7 @@ const defaultText = '[ . . . ] ~';
 // Predefine fade settings
 const fadeDuration = 100;
 
-let idle
+let idle, debounce
 primaryInteractive.forEach(({
     element,
     text,
@@ -96,20 +96,22 @@ primaryInteractive.forEach(({
 }) => {
 
     $(element).on('mouseenter', function(event) {
-        //console.log(event.currentTarget)
         clearTimeout(idle)
-        $textBox.fadeOut(fadeDuration, function () {
-            $(this).html(text).fadeIn(fadeDuration);
-        });
-        $textExplain.fadeOut(fadeDuration, function () {
-            $(this).html(explain).fadeIn(fadeDuration);
-        })
+        debounce = setTimeout(() => {
+            //console.log(event.currentTarget)
+            $textBox.fadeOut(fadeDuration, function () {
+                $(this).html(text).fadeIn(fadeDuration);
+            });
+            $textExplain.fadeOut(fadeDuration, function () {
+                $(this).html(explain).fadeIn(fadeDuration);
+            })
+        }, 200);
     });
 
     //return to current active mode
     $(element).on('mouseleave', function () {
         const activeMode = getCurrentMode();
-
+        clearTimeout(debounce)
         // Find the matching mode object
         const activeModeObj = primaryInteractive.find(item => item.id === activeMode);
 
