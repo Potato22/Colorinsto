@@ -64,16 +64,21 @@ function sceneHandler(sceneTarget) {
 
             }, 500);
 
-            toastPush(
-                {text: "Hello! Welcome to Colorinsto"}, {
+            toastPush({
+                text: "Hello! Welcome to Colorinsto"
+            }, {
                 tone: 'boing',
                 delay: 1000,
             })
-            toastPush({text: "This camera uses.. 'enchanted' films"}, {
+            toastPush({
+                text: "This camera uses.. 'enchanted' films"
+            }, {
                 tone: 'fade',
                 duration: 2000,
             })
-            toastPush({text: "Before we start, let's open it up"}, {
+            toastPush({
+                text: "Before we start, let's open it up"
+            }, {
                 position: 'bottom',
                 hold: true,
             })
@@ -81,6 +86,14 @@ function sceneHandler(sceneTarget) {
         case 2:
             currentScene = 2
 
+            toastPush({
+                title: "Generate more in the playground",
+                text: "Change your color, select your color combination, and press regenerate (<span class='material-symbols-rounded'>replay</span>)"
+            }, {
+                tone: 'fade',
+                duration: 7000,
+                position: "bottom",
+            })
             sceneTitle.addClass('SCRIPT-sceneOutScaleDown')
             sceneCameraPriming.addClass('SCRIPT-sceneOutLeft')
             setTimeout(() => {
@@ -104,8 +117,9 @@ function sceneHandler(sceneTarget) {
 //skip for returning users, if for some godadmn reason they wanted to return to this fucking shite hole.
 
 if (isTitleSkipped()) {
-    toastPush(
-        {text: "Welcome back"}, {
+    toastPush({
+        text: "Welcome back"
+    }, {
         tone: 'boing',
         position: 'bottom',
         delay: 1000,
@@ -141,18 +155,21 @@ cameraDoor.on("click", function () {
         cameraDoor.addClass('cameraDoorOpened')
         setTimeout(() => {
             cartridgeWrap.addClass('modding')
-            toastPush({text: "Great! You can see the cartridge there"}, {
+            toastPush({
+                text: "Great! You can see the cartridge there"
+            }, {
                 tone: 'boing',
                 duration: 3000,
                 skippable: true,
             })
-            toastPush({text: "Just on top of it, is the 'magical' substance that will magically change how the film behaves"}, {
+            toastPush({
+                text: "Just on top of it, is the 'magical' substance that will magically change how the film behaves"
+            }, {
                 duration: 4000,
                 position: 'top',
                 skippable: true,
             })
-            toastPush(
-                {
+            toastPush({
                 title: "Pick a color!",
                 text: "Click on the white box!",
                 button: [{
@@ -163,21 +180,19 @@ cameraDoor.on("click", function () {
             }, {
                 tone: "boing",
             });
-            toastPush(
-                {
-                    title: "Uh oh. This webapp is not finished",
-                    text: "You can tell, we'll skip this part.",
-                    button: [{
-                        label: "Too bad.",
-                        onClick: () => {
-                            toastDismiss()
-                            sceneHandler(2)
-                        },
-                        highlight: true,
-                    }],
-                    icon: "stop"
-                }, 
-            )
+            toastPush({
+                title: "Uh oh. This webapp is not finished",
+                text: "You can tell, we'll skip this part.",
+                button: [{
+                    label: "Too bad.",
+                    onClick: () => {
+                        toastDismiss()
+                        sceneHandler(2)
+                    },
+                    highlight: true,
+                }],
+                icon: "stop"
+            }, )
         }, 500);
     }, 300);
 
