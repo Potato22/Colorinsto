@@ -103,19 +103,19 @@ function sceneHandler(sceneTarget) {
 //SCENE 0
 //skip for returning users, if for some godadmn reason they wanted to return to this fucking shite hole.
 
-//if (isTitleSkipped()) {
-//    toastPush(
-//        {text: "Welcome back"}, {
-//        tone: 'boing',
-//        position: 'bottom',
-//        delay: 1000,
-//    })
-//    sceneHandler(2)
-//} else {
-//    sceneHandler(0)
-//}
+if (isTitleSkipped()) {
+    toastPush(
+        {text: "Welcome back"}, {
+        tone: 'boing',
+        position: 'bottom',
+        delay: 1000,
+    })
+    sceneHandler(2)
+} else {
+    sceneHandler(0)
+}
 
-sceneHandler(0)
+//sceneHandler(0)
 
 
 const startButton = $('#startEvent')
