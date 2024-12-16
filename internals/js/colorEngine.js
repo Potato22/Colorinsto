@@ -1,7 +1,11 @@
 //COLOR HARMONIC RANDOMIZER
 import ColorRandH from './colorRandHarmonics.js'
 import chroma from 'chroma-js';
-import pushToast from './toast.js';
+import {
+    toastPush,
+    toastDismiss,
+    toastClear
+} from "./toast"
 
 // RAND UTIL
 function random(min, max) {
@@ -185,7 +189,8 @@ function paletteAppend(genMode, colorInput) {
             try {
                 await navigator.clipboard.writeText(hexColor);
 
-                pushToast(`Copied! (<span style="color:${hexColor}; font-family: var(--fontSecondary)">${hexColor}</span>)`, {
+                toastClear()
+                toastPush(`Copied! (<span style="color:${hexColor}; font-family: var(--fontSecondary)">${hexColor}</span>)`, {
                     tone: 'fade',
                 })
 

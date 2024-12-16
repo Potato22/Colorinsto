@@ -1,8 +1,12 @@
 #camModSc {
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
   height: 100vh;
 }
 
@@ -10,9 +14,12 @@
   width: 400px;
   height: 400px;
   background: white;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -ms-flex-align: center;
+      align-items: center;
   animation: elemEnter-scale 0.5s forwards var(--sleek);
 }
 
@@ -21,8 +28,10 @@
   width: 300px;
   height: 300px;
   background: rgb(192, 192, 192);
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -ms-flex-pack: center;
+      justify-content: center;
   padding-top: 20px;
   cursor: pointer;
   transform-origin: bottom;
@@ -93,8 +102,10 @@
 
 .cartridgeWrap {
   position: absolute;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -ms-flex-direction: column;
+      flex-direction: column;
   transition: 0.5s transform var(--anchorhead);
 }
 

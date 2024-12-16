@@ -8,6 +8,7 @@ body {
   overflow-x: hidden;
   -webkit-user-select: none !important;
      -moz-user-select: none !important;
+      -ms-user-select: none !important;
           user-select: none !important;
 }
 
@@ -61,7 +62,7 @@ body::-webkit-scrollbar-thumb:active {
   --alphabaseL: rgba(252, 242, 233, 0.7);
   --alpha2baseD: rgba(24, 24, 24, 0.3);
   --alpha2baseL: rgba(252, 242, 233, 0.3);
-  --basesecondaryD: rgb(44, 44, 44);
+  --basesecondaryD: rgb(63, 63, 63);
   --basesecondaryL: rgb(199, 194, 189);
   --textD: rgb(255, 255, 255);
   --textL: rgb(19, 19, 19);
@@ -131,9 +132,12 @@ a:link, a:visited {
   min-height: 100vh;
   min-width: 100vw;
   color: white;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -ms-flex-align: center;
+      align-items: center;
 }
 
 .SCRIPT-sceneDraw {

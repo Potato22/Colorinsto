@@ -28,10 +28,20 @@
 
 <body>
     <div class="toastAlign">
-        <div class="toastWrap">
-            <div class="toast">
-                <div class="toastDashes">
-                    <!-- Something -->
+        <div class="toastTransformWrap">
+            <!-- positioning -->
+            <div class="toastWrap">
+                <!-- animation -->
+                <div class="toast">
+                    <div class="toastDashes">
+                        <!-- Something -->
+                        <div class="toastIcon"></div>
+                        <div class="toastTitle"></div>
+                        <div class="toastText"></div>
+                        <div class="toastButtons">
+                            <!-- buttons gets injected here -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -48,7 +58,9 @@
         <div style="display: none" class="scene" id="camModSc">
             <div class="cameraSprite">
                 <div class="cartridgeWrap">
-                    <div class="ink"></div>
+                    <div class="ink">
+                        <input type="text" class="regenColInput singleColCompute" data-coloris>
+                    </div>
                     <div class="cartridge"></div>
                 </div>
                 <div class="cameraDoor">
@@ -61,8 +73,9 @@
         <div style="display: none" class="scene" id="playgroundSc">
             <div class="deco">
                 <svg id="deco" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1405.82 106.39">
-                    <path id="decoPath" class="cls-1" d="M1340.21,103.8l61.34-101.21M1279.49,103.8l61.34-101.21M1218.76,103.8l61.34-101.21M1158.04,103.8l61.34-101.21M1097.31,103.8l61.34-101.21M1097.93,2.59l-61.34,101.21M975.87,103.8l61.34-101.21M915.14,103.8L976.48,2.59M854.42,103.8L915.75,2.59M793.69,103.8L855.03,2.59M732.97,103.8L794.31,2.59M672.24,103.8L733.58,2.59M611.52,103.8L672.86,2.59M550.79,103.8L612.13,2.59M551.41,2.59l-61.34,101.21M429.35,103.8L490.68,2.59M368.62,103.8L429.96,2.59M307.9,103.8L369.24,2.59M247.17,103.8L308.51,2.59M186.45,103.8L247.79,2.59M125.72,103.8L187.06,2.59M65,103.8L126.34,2.59M4.28,103.8L65.61,2.59"/>
-                  </svg>
+                    <path id="decoPath" class="cls-1"
+                        d="M1340.21,103.8l61.34-101.21M1279.49,103.8l61.34-101.21M1218.76,103.8l61.34-101.21M1158.04,103.8l61.34-101.21M1097.31,103.8l61.34-101.21M1097.93,2.59l-61.34,101.21M975.87,103.8l61.34-101.21M915.14,103.8L976.48,2.59M854.42,103.8L915.75,2.59M793.69,103.8L855.03,2.59M732.97,103.8L794.31,2.59M672.24,103.8L733.58,2.59M611.52,103.8L672.86,2.59M550.79,103.8L612.13,2.59M551.41,2.59l-61.34,101.21M429.35,103.8L490.68,2.59M368.62,103.8L429.96,2.59M307.9,103.8L369.24,2.59M247.17,103.8L308.51,2.59M186.45,103.8L247.79,2.59M125.72,103.8L187.06,2.59M65,103.8L126.34,2.59M4.28,103.8L65.61,2.59" />
+                </svg>
             </div>
             <div class="leftSection">
                 <div class="textInteract">
@@ -177,6 +190,13 @@
             </div>
         </div>
     </div>
+    <div class="ghostLoader" style="background: url(./internals/assets/local/stop.svg);"></div>
+    <div class="ghostLoader" style="background: url(./internals/assets/local/warn.svg);"></div>
 </body>
-
+<script>
+    setTimeout(() => {
+    const ghostLoaders = document.querySelectorAll('.ghostLoader');
+    ghostLoaders.forEach(loader => loader.remove());
+}, 1000);
+</script>
 </html>

@@ -17,9 +17,12 @@
   position: relative;
   width: 100vw;
   height: 100vh;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: flex-end;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -ms-flex-align: end;
+      align-items: flex-end;
   transform-origin: bottom;
 }
 @media screen and (max-width: 1920px) {
@@ -64,8 +67,10 @@
   position: relative;
   width: 100%;
   height: 100%;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: flex-start;
+  -ms-flex-pack: start;
+      justify-content: flex-start;
   transition: all 0.3s var(--sleek);
 }
 
@@ -76,8 +81,10 @@
   height: 400px;
   outline: 3px solid white;
   margin-bottom: 500px;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -ms-flex-pack: center;
+      justify-content: center;
   padding-top: 1.5em;
   border-radius: 3px;
 }
@@ -127,10 +134,14 @@
   position: relative;
   width: 40px;
   height: 400px;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -ms-flex-direction: column;
+      flex-direction: column;
   margin-right: 2em;
   background: var(--baseD);
 }
@@ -161,9 +172,12 @@
   position: absolute;
   max-height: 500px;
   min-width: 600px;
+  display: -ms-flexbox;
   display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
+  -ms-flex-align: end;
+      align-items: flex-end;
+  -ms-flex-pack: end;
+      justify-content: flex-end;
   z-index: 2;
   transform: translateX(30px);
 }
@@ -196,10 +210,14 @@
 }
 
 .wheelContainer {
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -ms-flex-pack: end;
+      justify-content: flex-end;
+  -ms-flex-align: center;
+      align-items: center;
   position: absolute;
   width: 100vw;
   height: 100vh;
@@ -218,8 +236,10 @@
   min-height: var(--wheelSize);
   border-radius: 50%;
   outline: 3px solid white;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: flex-end;
+  -ms-flex-pack: end;
+      justify-content: flex-end;
   transition: transform var(--modeWheelSpeed) var(--modeWheelTiming), outline-color 0.5s var(--sleek);
 }
 
@@ -231,8 +251,10 @@
   top: calc(50% - 30px);
   font-family: var(--fontDisplay);
   font-size: 30px;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -ms-flex-align: center;
+      align-items: center;
   opacity: 0.4;
   transition: transform var(--modeWheelSpeed) var(--modeWheelTiming), 0.2s font-weight var(--sleek), 0.2s font-size var(--sleek), 0.2s color;
 }
@@ -273,8 +295,10 @@
 .regenButton {
   position: absolute;
   margin-bottom: 22em;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -ms-flex-align: center;
+      align-items: center;
 }
 
 #regen {
@@ -312,6 +336,7 @@
   text-shadow: none;
   -webkit-user-select: none;
      -moz-user-select: none;
+      -ms-user-select: none;
           user-select: none;
   border-radius: 10px 0 0 10px;
   border: none;
@@ -328,10 +353,14 @@
   padding: 0.2rem;
   box-sizing: border-box;
   background: var(--alphabaseD);
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -ms-flex-align: center;
+      align-items: center;
   transition: 0.3s background var(--sleek), 0.3s color var(--sleek), transform 0.2s var(--bounce), box-shadow 0.2s var(--bounce), 0.3s border var(--sleek);
 }
 .genDropdown:hover {
@@ -360,9 +389,11 @@
   border: 2px solid transparent;
   margin: 1rem 0 1rem 0;
   font-size: 1em;
+  display: -ms-flexbox;
   display: flex;
   padding: 1rem;
-  align-items: center;
+  -ms-flex-align: center;
+      align-items: center;
   opacity: 0.5;
   transition: 0.2s opacity var(--sleek), 0.2s border var(--sleek), 0.1s transform var(--bounce);
 }
@@ -441,10 +472,13 @@
   position: absolute;
   width: 25%;
   height: 100vh;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -ms-flex-pack: center;
+      justify-content: center;
   padding-left: 4em;
-  flex-direction: column;
+  -ms-flex-direction: column;
+      flex-direction: column;
 }
 
 .textInteract,

@@ -4,7 +4,11 @@ import Coloris, {
     init
 } from "@melloware/coloris";
 import paletteAppend from "./colorEngine";
-import pushToast from "./toast"
+import {
+    toastPush,
+    toastDismiss,
+    toastClear
+} from "./toast"
 
 // Constants for time calculations
 const ONE_DAY = 864e5; // 86400000 milliseconds = 1 day
@@ -57,7 +61,22 @@ function sceneHandler(sceneTarget) {
                 sceneTitle.removeClass('SCRIPT-sceneOutScaleUp')
                 scenePlayground.hide()
                 sceneCameraPriming.show()
+
             }, 500);
+
+            toastPush(
+                {text: "Hello! Welcome to Colorinsto"}, {
+                tone: 'boing',
+                delay: 1000,
+            })
+            toastPush({text: "This camera uses.. 'enchanted' films"}, {
+                tone: 'fade',
+                duration: 2000,
+            })
+            toastPush({text: "Before we start, let's open it up"}, {
+                position: 'bottom',
+                hold: true,
+            })
             break;
         case 2:
             currentScene = 2
@@ -83,52 +102,92 @@ function sceneHandler(sceneTarget) {
 
 //SCENE 0
 //skip for returning users, if for some godadmn reason they wanted to return to this fucking shite hole.
-if (isTitleSkipped()) {
-    //pushToast("Welcome back", "boing", undefined, 2000)
-    pushToast('Welcome back!', {
-        tone: 'boing',
-        duration: 2000,
-        delay: 2000
-    })
-    sceneHandler(2)
-} else {
-    sceneHandler(0)
-}
+
+//if (isTitleSkipped()) {
+//    toastPush(
+//        {text: "Welcome back"}, {
+//        tone: 'boing',
+//        position: 'bottom',
+//        delay: 1000,
+//    })
+//    sceneHandler(2)
+//} else {
+//    sceneHandler(0)
+//}
+
+sceneHandler(0)
+
 
 const startButton = $('#startEvent')
 startButton.on('click', function () {
-    sceneHandler(2)
+    sceneHandler(1)
     titleEntered()
 })
 
 
 
 //SCENE 1
+//dialogue
+
 const cameraSprite = $(".cameraSprite")
 const cameraDoor = $(".cameraDoor")
 const cameraDoorLatch = $(".cameraDoorLatch")
 const cartridgeWrap = $('.cartridgeWrap')
 
 cameraDoor.on("click", function () {
+    toastClear()
     cameraDoorLatch.addClass('cameraDoorLatchPoked')
     setTimeout(() => {
         cameraDoor.addClass('cameraDoorOpened')
         setTimeout(() => {
             cartridgeWrap.addClass('modding')
+            toastPush({text: "Great! You can see the cartridge there"}, {
+                tone: 'boing',
+                duration: 3000,
+            })
+            toastPush({text: "Just on top of it, is the 'magical' substance that will magically change how the film behaves"}, {
+                duration: 4000,
+                position: 'top'
+            })
+            toastPush(
+                {
+                title: "Pick a color!",
+                text: "Click on the white box!",
+                button: [{
+                    label: "Ok",
+                    onClick: () => toastDismiss(),
+                    highlight: true,
+                }],
+            }, {
+                tone: "boing",
+            });
+            toastPush(
+                {
+                    title: "Uh oh. This webapp is not finished",
+                    text: "You can tell, we'll skip this part.",
+                    button: [{
+                        label: "Too bad.",
+                        onClick: () => {
+                            toastDismiss()
+                            sceneHandler(2)
+                        },
+                        highlight: true,
+                    }],
+                    iconUrl: "../assets/local/stop.svg"
+                }, 
+            )
         }, 500);
     }, 300);
 
-    setTimeout(() => {
-        cartridgeWrap.removeClass('modding')
-        setTimeout(() => {
-            cameraDoor.removeClass('cameraDoorOpened')
-            cameraDoor.addClass('cameradoorClosed')
-            cameraDoorLatch.removeClass('cameraDoorLatchPoked')
-            setTimeout(() => {
-                sceneHandler(2)
-            }, 300);
-        }, 200);
-    }, 2000);
+    //cartridgeWrap.removeClass('modding')
+    //setTimeout(() => {
+    //    cameraDoor.removeClass('cameraDoorOpened')
+    //    cameraDoor.addClass('cameradoorClosed')
+    //    cameraDoorLatch.removeClass('cameraDoorLatchPoked')
+    //    setTimeout(() => {
+    //        sceneHandler(2)
+    //    }, 300);
+    //}, 200);
 })
 
 //SCENE 2
