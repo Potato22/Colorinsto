@@ -93,6 +93,7 @@ function sceneHandler(sceneTarget) {
                 tone: 'fade',
                 duration: 7000,
                 position: "bottom",
+                skippable: true,
             })
             sceneTitle.addClass('SCRIPT-sceneOutScaleDown')
             sceneCameraPriming.addClass('SCRIPT-sceneOutLeft')
