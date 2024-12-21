@@ -24,7 +24,7 @@ const primaryInteractive = [
         id: 'modeLights',
         element: modeLights,
         text: "<b style='color:var(--global-theme)'>Lights Mode: </b>Simulate the colors as if it were glowing",
-        explain: "Colors may appear whiter and darker colors turning pale when it is actively illuminating."
+        explain: "Saturated and bright colors may appear whiter, while darker colors, although appearing brighter, turn pale or light-gray when they are actively illuminating."
     },
     {
         id: 'modeTrue',
@@ -36,13 +36,15 @@ const primaryInteractive = [
         id: 'modeDay',
         element: modeDay,
         text: "<b style='color:var(--global-theme)'>Day Mode: </b>Simulate the impact of sunlight towards the generated colors",
-        explain: "Colors under direct sunlight may look washed out and brighter on a clear day because of the intense reflection of sunlight. Besides the additional ambient light scattered by the blue sky."
+        explain: `<b>Bezold–Brücke Shift:</b> At higher light intensity, colors may shift towards blue or yellow; for instance, reds may shift towards yellowish in increased brightness.<br><br>
+        Do note that this can vary drastically depending on the material on which the colors were painted or printed; glossy materials may retain the saturation, but rougher surfaces may diffuse the reflection. Naturally, that means it would look softer and washed out.`
     },
     {
         id: 'modeNight',
         element: modeNight,
         text: "<b style='color:var(--global-theme)'>Night Mode: </b>Simulate the impact of night time towards the generated colors",
-        explain: "In the dark, your perception of color becomes blue-ish. A human eye has three color cones and luminoscity cones that only detect brightness. However, your blue cones in particular happens to be the most sensitive of all three color cones."
+        explain: `<b>Purkinje effect:</b> blue and green hues appear more vivid than darker reds in low lights. <br><br>In dim lighting, your perception of colors shifts toward blue-green hues due to the Purkinje effect: where rods, which dominate low-light vision, are more sensitive to shorter wavelengths (aka green-bluish).
+        The human eye has three types of color-sensitive cones that detect light in the red, green, and blue wavelengths. Along with it are rods that only perceive luminosity (brightness). In very low light, these rods dominate your vision.`,
     },
 
     //Harmonics
@@ -59,22 +61,22 @@ const primaryInteractive = [
     {
         element: hAnalogous,
         text: "<b style='color:var(--global-theme)'>Analogous</b>",
-        explain: "Generate colors that are adjacent of the color input relative to the color wheel<br><br>These are group of colors that are neighboring of each other within the color wheel. This pattern is most prominent in nature and is often used to illustrate natural elements and atmosphere or give the natural impression of a design."
+        explain: "Generate colors adjacent to the color input relative to the color wheel<br><br>These are groups of colors that are neighboring each other within the color wheel. This pattern is most prominent in nature and is often used to illustrate natural elements and atmosphere or give the natural impression of a design."
     },
     {
         element: hComplementary,
         text: "<b style='color:var(--global-theme)'>Complementary</b>",
-        explain: "Generate colors opposite of the color input relative the color wheel<br><br>Complementary are pairs of colors that 'cancels' each other when combined, which produces a chromaless color (greyscale). Artists may not always use these colors to be combined however, more of a technique to lure the viewer's eye or add visual emphasis to a certain spot of their artwork or design."
+        explain: "Generate colors opposite of the color input relative to the color wheel<br><br>Complementary are pairs of colors that 'cancel' each other when combined, which produces a greyscale. Artists may not always use these colors to be blended together however, it is one of the several techniques used by artists to lure the viewer's eye or add visual emphasis to a certain spot of their artwork, design, or simply to maximize contrast."
     },
     {
         element: hTriadic,
         text: "<b style='color:var(--global-theme)'>Triadic</b>",
-        explain: "Generate three triangular colors evenly spaced on the color wheel based of the color input<br><br>Part of a color scheme formula, is a 3-color combination: the base, and the two colors that are at least 120 and 240 degrees apart. This usually produces a vibrant and high contrast palette, although not as contrasting as the complementary, it is still ideal tecnhique to make a design or artwork 'pop' in viewer's eye."
+        explain: "Generate three triangular colors evenly spaced on the color wheel based on the color input<br><br>Part of a color scheme formula, is a 3-color combination: the base, and the two colors at least 120 and 240 degrees apart. This usually produces a vibrant and high contrast palette, although not as contrasting as the complementary, it is still an ideal technique to make a design or artwork 'pop' in the viewer's eye."
     },
     {
         element: hTetradic,
         text: "<b style='color:var(--global-theme)'>Tetradic</b>",
-        explain: "Generate four colors forming a rectangle on the color wheel based of the color input<br><br>Due to the shape it forms in the color wheel, it forms complementary pairs, double in fact. The this palette should not be used as is, as using all 4 colors equally will make the scheme looks unpleasantly unbalanced. It needs at least 1 color as a dominant."
+        explain: "Generate four colors forming a rectangle on the color wheel based on the color input<br><br>Due to the shape it forms in the color wheel, it forms complementary pairs, double in fact. This palette should not be used as is, as using all 4 colors equally will make the scheme look unpleasantly unbalanced. It needs at least 1 color as a dominant."
     }
 ];
 
@@ -95,7 +97,7 @@ primaryInteractive.forEach(({
     explain
 }) => {
 
-    $(element).on('mouseenter', function(event) {
+    $(element).on('mouseenter', function (event) {
         clearTimeout(idle)
         debounce = setTimeout(() => {
             //console.log(event.currentTarget)

@@ -10,6 +10,7 @@ import {
     toastClear
 } from "./toast"
 
+
 // Constants for time calculations
 const ONE_DAY = 864e5; // 86400000 milliseconds = 1 day
 const SEVEN_DAY = 6048e5; // 604800000 milliseconds = 7 days
@@ -24,9 +25,7 @@ function isTitleSkipped() {
     const timeElapsed = Date.now() - new Date(titleEntered).getTime();
     return timeElapsed <= ONE_DAY;
 }
-export default isTitleSkipped
 
-// write regenColorData
 function titleEntered() {
     localStorage.setItem("titleEntered", (new Date()).toISOString());
 }
@@ -38,10 +37,6 @@ console.log('currentScene', currentScene)
 const sceneTitle = $("#titleSc") //0
 const sceneCameraPriming = $("#camModSc") //1
 const scenePlayground = $("#playgroundSc") //2
-
-
-const regenColorData = document.querySelector('#playgroundSc')
-
 
 
 function sceneHandler(sceneTarget) {
@@ -56,6 +51,7 @@ function sceneHandler(sceneTarget) {
             currentScene = 1
 
             sceneTitle.addClass('SCRIPT-sceneOutScaleUp')
+            sceneCameraPriming.addClass('SCRIPT-sceneInScaleUp')
             setTimeout(() => {
                 sceneTitle.hide()
                 sceneTitle.removeClass('SCRIPT-sceneOutScaleUp')
@@ -67,7 +63,7 @@ function sceneHandler(sceneTarget) {
             toastPush({
                 text: "Hello! Welcome to Colorinsto"
             }, {
-                tone: 'boing',
+                tone: 'bounce',
                 delay: 1000,
             })
             toastPush({
@@ -88,7 +84,7 @@ function sceneHandler(sceneTarget) {
 
             toastPush({
                 title: "Generate more in the playground",
-                text: "Change your color, select your color combination, and press regenerate (<span class='material-symbols-rounded'>replay</span>)"
+                text: "Change your color, select your color harmony, and press regenerate (<span class='material-symbols-rounded'>replay</span>)"
             }, {
                 tone: 'fade',
                 duration: 7000,
@@ -96,12 +92,14 @@ function sceneHandler(sceneTarget) {
                 skippable: true,
             })
             sceneTitle.addClass('SCRIPT-sceneOutScaleDown')
+            sceneCameraPriming.removeClass('SCRIPT-sceneInScaleUp')
             sceneCameraPriming.addClass('SCRIPT-sceneOutLeft')
             setTimeout(() => {
                 sceneCameraPriming.hide()
                 sceneCameraPriming.removeClass('SCRIPT-sceneOutLeft')
                 sceneTitle.hide()
                 sceneTitle.removeClass('SCRIPT-sceneOutScaleUp')
+
                 scenePlayground.show()
                 scenePlayground.addClass('SCRIPT-sceneInScaleDown')
             }, 1000);
@@ -116,25 +114,53 @@ function sceneHandler(sceneTarget) {
 
 //SCENE 0
 //skip for returning users, if for some godadmn reason they wanted to return to this fucking shite hole.
-
-if (isTitleSkipped()) {
-    toastPush({
-        text: "Welcome back"
-    }, {
-        tone: 'boing',
-        position: 'bottom',
-        delay: 1000,
-    })
-    sceneHandler(2)
+if (window.innerWidth >= 1280) {
+    if (isTitleSkipped()) {
+        toastPush({
+            text: "Welcome back"
+        }, {
+            tone: 'bounce',
+            position: 'bottom',
+            delay: 1000,
+            skippable: true,
+        })
+        sceneHandler(2)
+    } else {
+        sceneHandler(0)
+    }
 } else {
-    sceneHandler(0)
+    toastPush({
+        title: "Uh oh",
+        text: "This webapp does not support mobile viewports yet... Sorry!",
+        button: [{
+            label: "Too bad.",
+            onClick: () => {
+                toastDismiss()
+                toastPush({
+                    text: "App content failed to load: aborted (003)"
+                }, {
+                    tone: 'fade',
+                    duration: 4000,
+                })
+                //setTimeout(() => {
+                //    //window.close()
+                //}, 4500);
+            },
+            highlight: true,
+        }],
+        icon: "stop"
+    },{
+        tone: 'bounce'
+    })
 }
+
+
 
 //sceneHandler(0)
 
 
-const startButton = $('#startEvent')
-startButton.on('click', function () {
+const $startButton = $('#startEvent')
+$startButton.on('click', function () {
     sceneHandler(1)
     titleEntered()
 })
@@ -145,67 +171,126 @@ startButton.on('click', function () {
 //dialogue
 
 const cameraSprite = $(".cameraSprite")
-const cameraDoor = $(".cameraDoor")
-const cameraDoorLatch = $(".cameraDoorLatch")
-const cartridgeWrap = $('.cartridgeWrap')
+const $cameraDoor = $(".cameraDoor")
+const $cameraDoorLatch = $(".cameraDoorLatch")
+const $cartridgeWrap = $('.cartridgeWrap')
 
-cameraDoor.on("click", function () {
+$cameraDoor.on("click", function () {
     toastClear()
-    cameraDoorLatch.addClass('cameraDoorLatchPoked')
+    $cameraDoorLatch.addClass('cameraDoorLatchPoked')
     setTimeout(() => {
-        cameraDoor.addClass('cameraDoorOpened')
+        $cameraDoor.addClass('cameraDoorOpened')
         setTimeout(() => {
-            cartridgeWrap.addClass('modding')
+            $cartridgeWrap.addClass('modding')
             toastPush({
                 text: "Great! You can see the cartridge there"
             }, {
-                tone: 'boing',
+                tone: 'bounce',
                 duration: 3000,
                 skippable: true,
+                position: 'left',
             })
             toastPush({
-                text: "Just on top of it, is the 'magical' substance that will magically change how the film behaves"
+                text: "This is the 'magical' tool that will magically change how the film behaves"
             }, {
-                duration: 4000,
-                position: 'top',
+                duration: 4500,
+                position: 'top_right',
                 skippable: true,
             })
             toastPush({
-                title: "Pick a color!",
-                text: "Click on the white box!",
-                button: [{
-                    label: "Ok",
-                    onClick: () => toastDismiss(),
-                    highlight: true,
-                }],
+                title: "Pick a color",
+                text: "Click on the solid white rectangle!",
             }, {
-                tone: "boing",
+                duration: 3000,
+                tone: "bounce",
+                position: 'right',
+                skippable: true,
             });
-            toastPush({
-                title: "Uh oh. This webapp is not finished",
-                text: "You can tell, we'll skip this part.",
-                button: [{
-                    label: "Too bad.",
-                    onClick: () => {
-                        toastDismiss()
-                        sceneHandler(2)
-                    },
-                    highlight: true,
-                }],
-                icon: "stop"
-            }, )
         }, 500);
     }, 300);
 
-    //cartridgeWrap.removeClass('modding')
+    //$cartridgeWrap.removeClass('modding')
     //setTimeout(() => {
-    //    cameraDoor.removeClass('cameraDoorOpened')
-    //    cameraDoor.addClass('cameradoorClosed')
-    //    cameraDoorLatch.removeClass('cameraDoorLatchPoked')
+    //    $cameraDoor.removeClass('cameraDoorOpened')
+    //    $cameraDoor.addClass('cameradoorClosed')
+    //    $cameraDoorLatch.removeClass('cameraDoorLatchPoked')
     //    setTimeout(() => {
     //        sceneHandler(2)
     //    }, 300);
     //}, 200);
+
+    const $submitButton = $('.submitModeOverride')
+    const $toolThing = $('.ink')
+
+    const submitTrigg = () => {
+        $submitButton.off('click', submitTrigg)
+        $submitButton.addClass('submit')
+        $toolThing.addClass('submit')
+        $cartridgeWrap.removeClass('modding')
+
+        function moveOnToPlayground() {
+            setTimeout(() => {
+                toastPush({
+                    text: "Tada!"
+                }, {
+                    delay: 500,
+                    tone: 'bounce'
+                })
+                sceneHandler(2)
+            }, 500);
+        }
+
+        setTimeout(() => {
+            $cameraDoor.removeClass('cameraDoorOpened')
+            $cameraDoor.addClass('cameradoorClosed')
+            $cameraDoorLatch.removeClass('cameraDoorLatchPoked')
+            setTimeout(() => {
+                toastPush({
+                    title: "Choose!",
+                    text: "Pick one, the tool will extrapolate your submitted color within these color harmonics",
+                    button: [{
+                        label: "Analogous",
+                        onClick: () => {
+                            paletteAppend('analogous', regenColor)
+                            toastDismiss()
+                            moveOnToPlayground()
+                        },
+                    }, {
+                        label: "Triadic",
+                        onClick: () => {
+                            paletteAppend('triadic', regenColor)
+                            toastDismiss()
+                            moveOnToPlayground()
+                        },
+                    }, {
+                        label: "Complementary",
+                        onClick: () => {
+                            paletteAppend('complementary', regenColor)
+                            toastDismiss()
+                            moveOnToPlayground()
+                        },
+                    }, {
+                        label: "I don't know ...",
+                        onClick: () => {
+                            toastDismiss()
+                            const randomizeCH = [
+                                () => paletteAppend('analogous', regenColor),
+                                () => paletteAppend('complementary', regenColor),
+                                () => paletteAppend('triadic', regenColor),
+                                () => paletteAppend('tetradic', regenColor),
+                            ];
+                            const randomIndex = Math.floor(Math.random() * randomizeCH.length);
+                            randomizeCH[randomIndex]();
+                            moveOnToPlayground()
+                        },
+                    }],
+                    iconUrl: "../assets/local/choices.png"
+                },)
+            }, 300);
+        }, 500);
+    }
+
+    $submitButton.on('click', submitTrigg)
 })
 
 //SCENE 2
@@ -422,6 +507,8 @@ $('.modes').on('mouseleave', function () {
     }, 500); // 100ms delay, adjust as needed
 })
 
+const injectRegenColorDataTarget = document.querySelector('#playgroundSc')
+const injectSequenceSubmit = document.querySelector('#camModSc')
 let regenColor
 let regenMode
 
@@ -441,14 +528,15 @@ Coloris({
         regenColor = color
         input.style.backgroundColor = color
         if (randomMode == false) {
-            regenColorData.style.setProperty('--regen-color', color)
+            injectRegenColorDataTarget.style.setProperty('--regen-color', color);
+            injectSequenceSubmit.style.setProperty('--regen-color', color);
         }
     },
     wrap: false,
 });
 
 let regenAccentFallback = 'white'
-regenColorData.style.setProperty('--regen-color', regenAccentFallback)
+injectRegenColorDataTarget.style.setProperty('--regen-color', regenAccentFallback)
 
 
 //document.addEventListener('coloris:pick', event => {
@@ -456,7 +544,7 @@ regenColorData.style.setProperty('--regen-color', regenAccentFallback)
 //    const colorPickerTargetColorValue = event.detail.currentEl.value
 //    console.log('global! ', colorPickerClassName, colorPickerTargetColorValue);
 //
-//    //regenColorData.style.setProperty('--regen-color', colorPickerTargetColorValue)
+//    //injectRegenColorDataTarget.style.setProperty('--regen-color', colorPickerTargetColorValue)
 //
 //    switch (colorPickerClassName) {
 //        case "startCol":
@@ -473,21 +561,21 @@ regenColorData.style.setProperty('--regen-color', regenAccentFallback)
 //});
 
 //REGEN UTIL
-const genDropdown = $('.genDropdown')
-const CHGOptions = $('.CHGOptions')
+const $genDropdown = $('.genDropdown')
+const $CHGOptions = $('.CHGOptions')
 
 function updateDropdown(closed) {
     if (closed == true) {
-        CHGOptions.addClass('dropdownClosed')
-    } else [
-        CHGOptions.removeClass('dropdownClosed')
+        $CHGOptions.addClass('dropdownClosed')
+    } else[
+        $CHGOptions.removeClass('dropdownClosed')
     ]
 }
-genDropdown.on('click', function () {
+$genDropdown.on('click', function () {
     updateDropdown(false)
 })
 
-genDropdown.on('mouseleave', function () {
+$genDropdown.on('mouseleave', function () {
     updateDropdown(true)
 })
 
@@ -516,16 +604,16 @@ document.querySelector('.CHGOptions').addEventListener('click', event => {
                 randomMode = true
                 selectedRegenMode = 'random'
                 CHGModeText.textContent = 'Random...'
-                regenColorData.style.setProperty('--regen-color', regenAccentFallback)
+                injectRegenColorDataTarget.style.setProperty('--regen-color', regenAccentFallback)
                 break;
             case 'analogous':
                 randomMode = false
                 selectedRegenMode = 'analogous'
                 CHGModeText.textContent = 'Analogous'
                 if (!regenColor) {
-                    regenColorData.style.setProperty('--regen-color', regenAccentFallback)
+                    injectRegenColorDataTarget.style.setProperty('--regen-color', regenAccentFallback)
                 } else {
-                    regenColorData.style.setProperty('--regen-color', regenColor)
+                    injectRegenColorDataTarget.style.setProperty('--regen-color', regenColor)
                 }
                 break;
             case 'splitComplementary':
@@ -533,9 +621,9 @@ document.querySelector('.CHGOptions').addEventListener('click', event => {
                 selectedRegenMode = 'splitComplementary'
                 CHGModeText.textContent = 'Split Complementary'
                 if (!regenColor) {
-                    regenColorData.style.setProperty('--regen-color', regenAccentFallback)
+                    injectRegenColorDataTarget.style.setProperty('--regen-color', regenAccentFallback)
                 } else {
-                    regenColorData.style.setProperty('--regen-color', regenColor)
+                    injectRegenColorDataTarget.style.setProperty('--regen-color', regenColor)
                 }
                 break;
             case 'triadic':
@@ -543,9 +631,9 @@ document.querySelector('.CHGOptions').addEventListener('click', event => {
                 selectedRegenMode = 'triadic'
                 CHGModeText.textContent = 'Triadic'
                 if (!regenColor) {
-                    regenColorData.style.setProperty('--regen-color', regenAccentFallback)
+                    injectRegenColorDataTarget.style.setProperty('--regen-color', regenAccentFallback)
                 } else {
-                    regenColorData.style.setProperty('--regen-color', regenColor)
+                    injectRegenColorDataTarget.style.setProperty('--regen-color', regenColor)
                 }
                 break;
             case 'tetradic':
@@ -553,9 +641,9 @@ document.querySelector('.CHGOptions').addEventListener('click', event => {
                 selectedRegenMode = 'tetradic'
                 CHGModeText.textContent = 'Tertradic'
                 if (!regenColor) {
-                    regenColorData.style.setProperty('--regen-color', regenAccentFallback)
+                    injectRegenColorDataTarget.style.setProperty('--regen-color', regenAccentFallback)
                 } else {
-                    regenColorData.style.setProperty('--regen-color', regenColor)
+                    injectRegenColorDataTarget.style.setProperty('--regen-color', regenColor)
                 }
                 break;
             case 'complementary':
@@ -563,9 +651,9 @@ document.querySelector('.CHGOptions').addEventListener('click', event => {
                 selectedRegenMode = 'complementary'
                 CHGModeText.textContent = 'Complementary'
                 if (!regenColor) {
-                    regenColorData.style.setProperty('--regen-color', regenAccentFallback)
+                    injectRegenColorDataTarget.style.setProperty('--regen-color', regenAccentFallback)
                 } else {
-                    regenColorData.style.setProperty('--regen-color', regenColor)
+                    injectRegenColorDataTarget.style.setProperty('--regen-color', regenColor)
                 }
                 break;
 
@@ -575,9 +663,9 @@ document.querySelector('.CHGOptions').addEventListener('click', event => {
     }
 });
 
-const regenButton = $('#regen')
+const $regenButton = $('#regen')
 
-regenButton.on('click', function () {
+$regenButton.on('click', function () {
     if (randomMode == false) {
         paletteAppend(selectedRegenMode, regenColor)
     } else {

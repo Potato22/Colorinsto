@@ -11,35 +11,45 @@
 }
 
 .cameraSprite {
-  width: 400px;
-  height: 400px;
-  background: white;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: center;
-      justify-content: center;
-  -ms-flex-align: center;
-      align-items: center;
-  animation: elemEnter-scale 0.5s forwards var(--sleek);
+  position: absolute;
+  width: 512px;
+  height: 460px;
+}
+
+#camSequence {
+  fill: white;
+  stroke-width: 0;
+}
+
+#camDeco {
+  stroke: white;
 }
 
 .cameraDoor {
-  z-index: 1;
-  width: 300px;
-  height: 300px;
-  background: rgb(192, 192, 192);
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: center;
-      justify-content: center;
-  padding-top: 20px;
+  position: absolute;
+  margin-right: 50px;
+  margin-top: 70px;
+  z-index: 2;
+  width: 325px;
+  height: 358px;
   cursor: pointer;
   transform-origin: bottom;
+  transition: 0.5s margin-top;
+}
+
+#door {
+  fill: white;
+  stroke-width: 0;
+}
+
+#doorFill {
+  fill: var(--baseD);
 }
 
 .cameraDoorOpened {
   cursor: auto;
   animation: openDoor 1s forwards;
+  margin-top: 50px !important;
 }
 
 .cameradoorClosed {
@@ -50,6 +60,7 @@
 @keyframes openDoor {
   0% {
     transform: rotateX(0deg);
+    margin-top: 70px !important;
   }
   36% {
     transform: rotateX(100deg);
@@ -82,7 +93,6 @@
   }
 }
 .cameraDoorLatch {
-  background: red;
   height: 10px;
   width: 60px;
   transform: translateY(0px);
@@ -97,36 +107,103 @@
   position: absolute;
   height: 20px;
   width: 60px;
-  outline: 1px solid blue;
 }
 
 .cartridgeWrap {
+  margin-right: 45px;
+  margin-top: 70px;
   position: absolute;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-direction: column;
       flex-direction: column;
-  transition: 0.5s transform var(--anchorhead);
+  -ms-flex-align: center;
+      align-items: center;
+  transition: 0.5s all var(--anchorhead);
+  z-index: 1;
 }
 
 .cartridge {
-  background: purple;
-  height: 290px;
-  width: 290px;
+  width: 320px;
+  height: 358px;
+  fill: white;
+}
+
+#cartridgeFill {
+  fill: var(--baseD);
 }
 
 .ink {
   z-index: -1;
   position: absolute;
-  background: pink;
-  height: 100px;
-  width: 290px;
+  height: 110px;
+  width: 320px;
   transition: 0.5s transform var(--anchorhead);
+  transform: translateY(100px);
+  font-family: var(--fontSecondary);
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -ms-flex-align: center;
+      align-items: center;
+  padding: 1em;
+  border-radius: 20px 20px 0 0;
+  border: 2px solid white;
+  border-bottom: 20px solid white;
+}
+
+.submitModeOverride {
+  position: absolute;
+  font-variation-settings: "FILL" 0, "wght" 600, "GRAD" 0, "opsz" 20;
+  font-size: 48px;
+  border: 3px solid white;
+  text-align: center;
+  padding: 0.2rem;
+  box-sizing: border-box;
+  background: var(--alphabaseD);
+  border-radius: 10px;
+  width: 60px;
+  height: 60px;
+  transition: all 0.5s var(--sleek);
+  transform: translateY(100px);
+  z-index: -1;
+}
+.submitModeOverride:hover {
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 20;
+  width: 320px;
+  cursor: pointer;
+  border: 3px solid white;
+  background: white;
+  color: var(--baseD);
+  transform: translateY(0px);
+  pointer-events: auto;
+  opacity: 1;
+  border-radius: 0px;
 }
 
 .modding {
   transform: translateX(400px);
+  margin-right: -200px;
+  margin-top: 70px;
 }
 .modding .ink {
-  transform: translateY(-130px);
+  transform: translateY(-120px);
+}
+.modding .ink.submit {
+  transform: translateY(100px);
+}
+.modding .submitModeOverride {
+  transform: translateY(0px);
+  z-index: 1;
+}
+.modding .submitModeOverride:hover {
+  transform: translateY(-10px);
+}
+.modding .submitModeOverride.submit {
+  transform: translateY(100px);
+  width: 320px;
+  background: white;
+  color: var(--baseD);
+  opacity: 0;
 }/*# sourceMappingURL=scene1.css.map */

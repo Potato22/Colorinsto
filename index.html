@@ -56,18 +56,146 @@
         </div>
 
         <div style="display: none" class="scene" id="camModSc">
-            <div class="cameraSprite">
-                <div class="cartridgeWrap">
-                    <div class="ink">
-                        <input type="text" class="regenColInput singleColCompute" data-coloris>
-                    </div>
-                    <div class="cartridge"></div>
+            <svg id="door" class="cameraDoor" xmlns="http://www.w3.org/2000/svg" baseProfile="tiny" version="1.2"
+                viewBox="0 0 537 567.01">
+                <path id="doorFill" d="M527.36,0H9.64C4.32,0,0,4.32,0,9.65v557.36h537V9.65c0-5.33-4.32-9.64-9.64-9.64h0Z"
+                    fill="#ffffff" stroke-width="0" />
+                <path
+                    d="M527.36,4c3.11,0,5.64,2.53,5.64,5.64v553.36H4V9.65c0-3.11,2.53-5.64,5.64-5.64h517.71M527.36,0H9.64C4.32,0,0,4.32,0,9.65v557.36h537V9.65c0-5.33-4.32-9.64-9.64-9.64h0Z"/>
+                <path class="cameraDoorLatchBound" id="latchBound"
+                    d="M311.36,20.94c3.11,0,5.64,2.53,5.64,5.64v15.71c0,3.11-2.53,5.64-5.64,5.64h-85.71c-3.11,0-5.64-2.53-5.64-5.64v-15.71c0-3.11,2.53-5.64,5.64-5.64h85.71M311.36,16.94h-85.71c-5.33,0-9.64,4.32-9.64,9.64v15.71c0,5.33,4.32,9.64,9.64,9.64h85.71c5.33,0,9.64-4.32,9.64-9.64v-15.71c0-5.33-4.32-9.64-9.64-9.64h0Z"/>
+                <path class="cameraDoorLatch" id="latch"
+                    d="M311.36,20.94c3.11,0,5.64,2.53,5.64,5.64v1.71c0,3.11-2.53,5.64-5.64,5.64h-85.71c-3.11,0-5.64-2.53-5.64-5.64v-1.71c0-3.11,2.53-5.64,5.64-5.64h85.71M311.36,16.94h-85.71c-5.33,0-9.64,4.32-9.64,9.64v1.71c0,5.33,4.32,9.64,9.64,9.64h85.71c5.33,0,9.64-4.32,9.64-9.64v-1.71c0-5.33-4.32-9.64-9.64-9.64h0Z"/>
+            </svg>
+            <div class="cartridgeWrap">
+                <div class="ink">
+                    <input type="text" class="regenColInput sequencePageOverride" data-coloris>
+                    <div>//// Colorinsto ////</div>
+                    <!-- THIS IS NOT THE TITLE YOU FUCK -->
                 </div>
-                <div class="cameraDoor">
-                    <div class="cameraDoorLatch"></div>
-                    <div class="cameraDoorLatchBound"></div>
-                </div>
+                <div id="submitRegen" class="material-symbols-rounded submitModeOverride">keyboard_double_arrow_down</div>
+                <svg class="cartridge" d="Cartridge" xmlns="http://www.w3.org/2000/svg" baseProfile="tiny" version="1.2" viewBox="0 0 538 566">
+                    <rect id="cartridgeFill" x="3.41" y="3.06" width="531.69" height="559.88" rx="5.33" ry="5.33"/>
+                    <path d="M529.61,0H8.39C4.03,0,.5,3.53.5,7.87v550.25c0,4.35,3.53,7.87,7.89,7.87h521.22c4.36,0,7.89-3.53,7.89-7.87V7.87c0-4.35-3.53-7.87-7.89-7.87ZM533.5,558.13c0,2.14-1.74,3.88-3.89,3.88H86.5v-43.92h-33v43.92H8.39c-2.14,0-3.89-1.74-3.89-3.88V7.87c0-2.14,1.74-3.88,3.89-3.88h521.22c2.14,0,3.89,1.74,3.89,3.88v550.25h0ZM449.64,76.86H88.36c-19.25,0-34.86,15.58-34.86,34.8v56.19c0,19.22,15.61,34.8,34.86,34.8h361.29c19.25,0,34.86-15.58,34.86-34.8v-56.19c0-19.22-15.61-34.8-34.86-34.8h-.01ZM480.5,167.85c0,16.98-13.84,30.8-30.86,30.8H88.36c-17.01,0-30.86-13.82-30.86-30.8v-56.19c0-16.98,13.84-30.8,30.86-30.8h361.29c17.01,0,30.86,13.82,30.86,30.8v56.19h-.01ZM449.64,298.47H88.36c-19.25,0-34.86,15.58-34.86,34.8v56.19c0,19.22,15.61,34.8,34.86,34.8h361.29c19.25,0,34.86-15.58,34.86-34.8v-56.19c0-19.22-15.61-34.8-34.86-34.8h-.01ZM480.5,389.45c0,16.98-13.84,30.8-30.86,30.8H88.36c-17.01,0-30.86-13.82-30.86-30.8v-56.19c0-16.98,13.84-30.8,30.86-30.8h361.29c17.01,0,30.86,13.82,30.86,30.8v56.19h-.01Z" stroke-width="0"/>
+                  </svg>
             </div>
+            <svg id="camSequence" class="cameraSprite" xmlns="http://www.w3.org/2000/svg" baseProfile="tiny"
+                version="1.2" viewBox="0 0 812 760">
+                <path
+                    d="M766.18,7.88c20.27,0,36.76,16.49,36.76,36.76v670.49c0,20.27-16.49,36.76-36.76,36.76H45.7c-20.27,0-36.76-16.49-36.76-36.76V44.64C8.94,24.37,25.43,7.88,45.7,7.88h720.49M766.18,3.88H45.7C23.19,3.88,4.94,22.13,4.94,44.64v670.49c0,22.51,18.25,40.76,40.76,40.76h720.49c22.51,0,40.76-18.25,40.76-40.76V44.64c0-22.51-18.25-40.76-40.76-40.76h0Z" />
+                <path
+                    d="M625.3,159.88c3.11,0,5.64,2.53,5.64,5.64v553.36H101.94V165.53c0-3.11,2.53-5.64,5.64-5.64h517.71M625.3,155.88H107.58c-5.33,0-9.64,4.32-9.64,9.64v557.36h537V165.53c0-5.33-4.32-9.64-9.64-9.64h0Z" />
+                <path
+                    d="M565.18,200.88c2.62,0,4.76,2.13,4.76,4.76v467.49c0,2.62-2.13,4.76-4.76,4.76H167.7c-2.62,0-4.76-2.13-4.76-4.76V205.64c0-2.62,2.13-4.76,4.76-4.76h397.49M565.18,196.88H167.7c-4.84,0-8.76,3.92-8.76,8.76v467.49c0,4.84,3.92,8.76,8.76,8.76h397.49c4.84,0,8.76-3.92,8.76-8.76V205.64c0-4.84-3.92-8.76-8.76-8.76h0Z" />
+                <path
+                    d="M475.18,306.06c2.62,0,4.76,2.13,4.76,4.76v257.12c0,2.62-2.13,4.76-4.76,4.76h-217.49c-2.62,0-4.76-2.13-4.76-4.76v-257.12c0-2.62,2.13-4.76,4.76-4.76h217.49M475.18,302.06h-217.49c-4.84,0-8.76,3.92-8.76,8.76v257.12c0,4.84,3.92,8.76,8.76,8.76h217.49c4.84,0,8.76-3.92,8.76-8.76v-257.12c0-4.84-3.92-8.76-8.76-8.76h0Z" />
+                <path
+                    d="M403.18,398.05c2.62,0,4.76,2.13,4.76,4.76v73.16c0,2.62-2.13,4.76-4.76,4.76h-73.49c-2.62,0-4.76-2.13-4.76-4.76v-73.16c0-2.62,2.13-4.76,4.76-4.76h73.49M403.18,394.05h-73.49c-4.84,0-8.76,3.92-8.76,8.76v73.16c0,4.84,3.92,8.76,8.76,8.76h73.49c4.84,0,8.76-3.92,8.76-8.76v-73.16c0-4.84-3.92-8.76-8.76-8.76h0Z" />
+                <path
+                    d="M766.18,7.88c20.27,0,36.76,16.49,36.76,36.76v91.49c0,20.27-16.49,36.76-36.76,36.76h-74.49c-20.27,0-36.76-16.49-36.76-36.76V44.64c0-20.27,16.49-36.76,36.76-36.76h74.49M766.18,3.88h-74.49c-22.51,0-40.76,18.25-40.76,40.76v91.49c0,22.51,18.25,40.76,40.76,40.76h74.49c22.51,0,40.76-18.25,40.76-40.76V44.64c0-22.51-18.25-40.76-40.76-40.76h0Z" />
+                <path
+                    d="M763.57,30.81c12.33,0,22.37,10.03,22.37,22.37v42.87c0,12.33-10.03,22.37-22.37,22.37h-43.27c-12.33,0-22.37-10.03-22.37-22.37v-42.87c0-12.33,10.03-22.37,22.37-22.37h43.27M763.57,26.81h-43.27c-14.56,0-26.37,11.81-26.37,26.37v42.87c0,14.56,11.81,26.37,26.37,26.37h43.27c14.56,0,26.37-11.81,26.37-26.37v-42.87c0-14.56-11.81-26.37-26.37-26.37h0Z" />
+                <path
+                    d="M755.12,52.24c5.07,0,9.19,4.12,9.19,9.19v26.36c0,5.07-4.12,9.19-9.19,9.19h-26.36c-5.07,0-9.19-4.12-9.19-9.19v-26.36c0-5.07,4.12-9.19,9.19-9.19h26.36M755.12,48.24h-26.36c-7.28,0-13.19,5.9-13.19,13.19v26.36c0,7.28,5.9,13.19,13.19,13.19h26.36c7.28,0,13.19-5.9,13.19-13.19v-26.36c0-7.28-5.9-13.19-13.19-13.19h0Z" />
+                <path
+                    d="M666.19,7.88c-11.62,8.09-19.25,21.55-19.25,36.76v89.24H45.7c-20.27,0-36.76-16.49-36.76-36.76v-52.49C8.94,24.37,25.43,7.88,45.7,7.88h620.49M691.7,3.88H45.7C23.19,3.88,4.94,22.13,4.94,44.64v52.49c0,22.51,18.25,40.76,40.76,40.76h605.29c-.02-.58-.04-1.17-.04-1.76V44.64c0-22.51,18.25-40.76,40.76-40.76h0Z" />
+                <g id="camDeco">
+                    <line x1="47.94" y1="70.88" x2="20.67" y2="115.88" fill="none" stroke-miterlimit="10"
+                        stroke-width="2" />
+                    <line x1="74.94" y1="70.88" x2="47.67" y2="115.88" fill="none" stroke-miterlimit="10"
+                        stroke-width="2" />
+                    <line x1="101.94" y1="70.88" x2="74.67" y2="115.88" fill="none" stroke-miterlimit="10"
+                        stroke-width="2" />
+                    <line x1="128.94" y1="70.88" x2="101.67" y2="115.88" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="155.94" y1="70.88" x2="128.67" y2="115.88" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="182.94" y1="70.88" x2="155.67" y2="115.88" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="209.94" y1="70.88" x2="182.67" y2="115.88" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="236.94" y1="70.88" x2="209.67" y2="115.88" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="263.94" y1="70.88" x2="236.67" y2="115.88" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="290.94" y1="70.88" x2="263.67" y2="115.88" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="317.94" y1="70.88" x2="290.67" y2="115.88" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="344.94" y1="70.88" x2="317.67" y2="115.88" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="371.94" y1="70.88" x2="344.67" y2="115.88" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="398.94" y1="70.88" x2="371.67" y2="115.88" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="425.94" y1="70.88" x2="398.67" y2="115.88" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="452.94" y1="70.88" x2="425.67" y2="115.88" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="479.94" y1="70.88" x2="452.67" y2="115.88" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="506.94" y1="70.88" x2="479.67" y2="115.88" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="533.94" y1="70.88" x2="506.67" y2="115.88" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="560.94" y1="70.88" x2="533.67" y2="115.88" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="587.94" y1="70.88" x2="560.67" y2="115.88" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="614.94" y1="70.88" x2="587.67" y2="115.88" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="641.94" y1="70.88" x2="614.67" y2="115.88" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                </g>
+                <g id="camDeco">
+                    <line x1="556.8" y1="228.9" x2="523.55" y2="208.75" fill="none" stroke-miterlimit="10"
+                        stroke-width="2" />
+                    <line x1="556.8" y1="248.85" x2="523.55" y2="228.7" fill="none" stroke-miterlimit="10"
+                        stroke-width="2" />
+                    <line x1="556.8" y1="268.81" x2="523.55" y2="248.65" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="556.8" y1="288.76" x2="523.55" y2="268.61" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="556.8" y1="308.72" x2="523.55" y2="288.56" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="556.8" y1="328.67" x2="523.55" y2="308.51" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="556.8" y1="348.62" x2="523.55" y2="328.47" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="556.8" y1="368.58" x2="523.55" y2="348.42" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="556.8" y1="388.53" x2="523.55" y2="368.38" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="556.8" y1="408.48" x2="523.55" y2="388.33" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="556.8" y1="428.44" x2="523.55" y2="408.28" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="556.8" y1="448.39" x2="523.55" y2="428.24" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="556.8" y1="468.35" x2="523.55" y2="448.19" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="556.8" y1="488.3" x2="523.55" y2="468.14" fill="none" stroke-miterlimit="10"
+                        stroke-width="2" />
+                    <line x1="556.8" y1="508.25" x2="523.55" y2="488.1" fill="none" stroke-miterlimit="10"
+                        stroke-width="2" />
+                    <line x1="556.8" y1="528.21" x2="523.55" y2="508.05" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="556.8" y1="548.16" x2="523.55" y2="528" fill="none" stroke-miterlimit="10"
+                        stroke-width="2" />
+                    <line x1="556.8" y1="568.11" x2="523.55" y2="547.96" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="556.8" y1="588.07" x2="523.55" y2="567.91" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="556.8" y1="608.02" x2="523.55" y2="587.87" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="556.8" y1="627.97" x2="523.55" y2="607.82" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="556.8" y1="647.93" x2="523.55" y2="627.77" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                    <line x1="556.8" y1="667.88" x2="523.55" y2="647.73" fill="none"
+                        stroke-miterlimit="10" stroke-width="2" />
+                </g>
+            </svg>
         </div>
 
         <div style="display: none" class="scene" id="playgroundSc">
@@ -154,7 +282,7 @@
                         <div class="genDropdown">
 
                             <div class="CHGModeText">
-                                Random...
+                                Color Harmony
                             </div>
 
                             <div class="CHGOptions dropdownClosed">
@@ -195,8 +323,9 @@
 </body>
 <script>
     setTimeout(() => {
-    const ghostLoaders = document.querySelectorAll('.ghostLoader');
-    ghostLoaders.forEach(loader => loader.remove());
-}, 1000);
+        const ghostLoaders = document.querySelectorAll('.ghostLoader');
+        ghostLoaders.forEach(loader => loader.remove());
+    }, 1000);
 </script>
+
 </html>

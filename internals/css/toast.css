@@ -1,5 +1,6 @@
 .toastAlign {
   position: fixed;
+  top: 0;
   width: 100vw;
   height: 100vh;
   z-index: 99;
@@ -8,7 +9,9 @@
   --toastBorderRadius: 20px;
   pointer-events: none;
   display: none;
-  transition: 0.3s opacity;
+  transition: 0.3s opacity, 0.5s -webkit-backdrop-filter;
+  transition: 0.3s opacity, 0.5s backdrop-filter;
+  transition: 0.3s opacity, 0.5s backdrop-filter, 0.5s -webkit-backdrop-filter;
 }
 .toastAlign.toasted {
   opacity: 0 !important;
@@ -108,15 +111,16 @@
   width: 100%;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: justify;
-      justify-content: space-between;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   margin-top: 1.5rem;
 }
 .toastAlign .toastDashes .tbButton {
   font-size: 1.2em;
   font-weight: 500;
   padding: 0.3rem;
-  width: 48%;
+  min-width: 130px;
+  max-width: 130px;
   border-radius: calc(var(--toastBorderRadius) / 2);
   background: var(--basesecondaryD);
   display: grid;
@@ -131,7 +135,7 @@
   background: linear-gradient(#2590ff, #007bff);
 }
 .toastAlign .toastDashes .tbButton.vertical {
-  width: 100%;
+  min-width: 100% !important;
   margin-top: 1em;
 }
 

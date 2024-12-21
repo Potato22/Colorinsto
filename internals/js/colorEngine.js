@@ -58,9 +58,9 @@ function generateColorGlob(genMode, colorInput) {
             case 'analogous':
                 colorGenTarget = ColorRandH.analogous(colorInput);
                 break;
-            case 'splitComplementary':
-                colorGenTarget = ColorRandH.splitComplementary(colorInput);
-                break;
+            //case 'splitComplementary':
+            //    colorGenTarget = ColorRandH.splitComplementary(colorInput);
+            //    break;
             case 'triadic':
                 colorGenTarget = ColorRandH.triadic(colorInput);
                 break;

@@ -342,6 +342,12 @@
   border: none;
   cursor: pointer;
 }
+.regenColInput.sequencePageOverride {
+  width: 150px;
+  height: 30px;
+  border-radius: 10px;
+  margin-bottom: 1em;
+}
 
 .genDropdown {
   width: 300px;
