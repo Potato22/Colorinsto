@@ -121,7 +121,7 @@ function sceneHandler(sceneTarget) {
 
 //SCENE 0
 //skip for returning users, if for some godadmn reason they wanted to return to this fucking shite hole.
-if (window.innerWidth >= 970) {
+if (window.innerWidth >= 890) {
     if (isTitleSkipped()) {
         toastPush({
             text: "Welcome back"
@@ -138,7 +138,7 @@ if (window.innerWidth >= 970) {
 } else {
     toastPush({
         title: "Uh oh",
-        text: "This webapp does not support mobile viewports yet... Sorry!",
+        text: "This webapp does not support mobile viewports yet... Sorry!<br><span style='font-family: var(--fontSecondary)'>(Minimal: 890px wide)</span>",
         button: [
             {
                 label: "Too bad.",
