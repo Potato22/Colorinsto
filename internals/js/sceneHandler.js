@@ -89,19 +89,22 @@ function sceneHandler(sceneTarget) {
                 tone: 'fade',
                 duration: 7000,
                 position: "bottom",
-                skippable: true,
+                //skippable: true,
             })
+
             sceneTitle.addClass('SCRIPT-sceneOutScaleDown')
             sceneCameraPriming.removeClass('SCRIPT-sceneInScaleUp')
-            sceneCameraPriming.addClass('SCRIPT-sceneOutLeft')
+            sceneCameraPriming.addClass('SCRIPT-sceneOutDown')
+
             setTimeout(() => {
-                sceneCameraPriming.hide()
-                sceneCameraPriming.removeClass('SCRIPT-sceneOutLeft')
                 sceneTitle.hide()
-                sceneTitle.removeClass('SCRIPT-sceneOutScaleUp')
+                sceneTitle.removeClass('SCRIPT-sceneOutScaleDown')
+            
+                sceneCameraPriming.hide()
+                sceneCameraPriming.removeClass('SCRIPT-sceneOutDown')    
 
                 scenePlayground.show()
-                scenePlayground.addClass('SCRIPT-sceneInScaleDown')
+                scenePlayground.addClass('SCRIPT-sceneInUp')
             }, 1000);
             break;
 
@@ -114,7 +117,7 @@ function sceneHandler(sceneTarget) {
 
 //SCENE 0
 //skip for returning users, if for some godadmn reason they wanted to return to this fucking shite hole.
-if (window.innerWidth >= 1280) {
+if (window.innerWidth > 1280) {
     if (isTitleSkipped()) {
         toastPush({
             text: "Welcome back"
@@ -132,24 +135,32 @@ if (window.innerWidth >= 1280) {
     toastPush({
         title: "Uh oh",
         text: "This webapp does not support mobile viewports yet... Sorry!",
-        button: [{
-            label: "Too bad.",
-            onClick: () => {
-                toastDismiss()
-                toastPush({
-                    text: "App content failed to load: aborted (003)"
-                }, {
-                    tone: 'fade',
-                    duration: 4000,
-                })
-                //setTimeout(() => {
-                //    //window.close()
-                //}, 4500);
+        button: [
+            {
+                label: "Too bad.",
+                onClick: () => {
+                    toastDismiss()
+                    toastPush({
+                        text: "App content failed to load: aborted (003)"
+                    }, {
+                        tone: 'fade',
+                        duration: 4000,
+                    })
+                    setTimeout(() => {
+                        window.close()
+                    }, 4500);
+                },
             },
-            highlight: true,
-        }],
+            {
+                label: "Retry ...",
+                onClick: () => {
+                    location.reload()
+                },
+                highlight: true,
+            },
+        ],
         icon: "stop"
-    },{
+    }, {
         tone: 'bounce'
     })
 }
@@ -162,7 +173,6 @@ if (window.innerWidth >= 1280) {
 const $startButton = $('#startEvent')
 $startButton.on('click', function () {
     sceneHandler(1)
-    titleEntered()
 })
 
 
@@ -175,7 +185,12 @@ const $cameraDoor = $(".cameraDoor")
 const $cameraDoorLatch = $(".cameraDoorLatch")
 const $cartridgeWrap = $('.cartridgeWrap')
 
-$cameraDoor.on("click", function () {
+const $submitButton = $('.submitModeOverride')
+const $toolThing = $('.ink')
+const $sequenceColorInput = $('#colInputSequence')
+
+const cameraDoorOpened = () => {
+    $cameraDoor.off('click', cameraDoorOpened)
     toastClear()
     $cameraDoorLatch.addClass('cameraDoorLatchPoked')
     setTimeout(() => {
@@ -188,110 +203,115 @@ $cameraDoor.on("click", function () {
                 tone: 'bounce',
                 duration: 3000,
                 skippable: true,
-                position: 'left',
+                position: 'bottom_right',
             })
             toastPush({
-                text: "This is the 'magical' tool that will magically change how the film behaves"
+                text: "On top if it is the 'magical' tool that will magically change how the film behaves"
             }, {
                 duration: 4500,
-                position: 'top_right',
+                position: 'bottom_right',
                 skippable: true,
             })
             toastPush({
                 title: "Pick a color",
                 text: "Click on the solid white rectangle!",
             }, {
-                duration: 3000,
                 tone: "bounce",
-                position: 'right',
-                skippable: true,
+                position: 'bottom_right',
+                hold: true,
             });
         }, 500);
     }, 300);
+}
+const submitTrigg = () => {
+    //titleEntered()
+    $submitButton.off('click', submitTrigg)
+    $submitButton.addClass('submit')
+    $toolThing.addClass('submit')
+    $cartridgeWrap.removeClass('modding')
 
-    //$cartridgeWrap.removeClass('modding')
-    //setTimeout(() => {
-    //    $cameraDoor.removeClass('cameraDoorOpened')
-    //    $cameraDoor.addClass('cameradoorClosed')
-    //    $cameraDoorLatch.removeClass('cameraDoorLatchPoked')
-    //    setTimeout(() => {
-    //        sceneHandler(2)
-    //    }, 300);
-    //}, 200);
-
-    const $submitButton = $('.submitModeOverride')
-    const $toolThing = $('.ink')
-
-    const submitTrigg = () => {
-        $submitButton.off('click', submitTrigg)
-        $submitButton.addClass('submit')
-        $toolThing.addClass('submit')
-        $cartridgeWrap.removeClass('modding')
-
-        function moveOnToPlayground() {
-            setTimeout(() => {
-                toastPush({
-                    text: "Tada!"
-                }, {
-                    delay: 500,
-                    tone: 'bounce'
-                })
-                sceneHandler(2)
-            }, 500);
-        }
-
+    function moveOnToPlayground() {
         setTimeout(() => {
-            $cameraDoor.removeClass('cameraDoorOpened')
-            $cameraDoor.addClass('cameradoorClosed')
-            $cameraDoorLatch.removeClass('cameraDoorLatchPoked')
-            setTimeout(() => {
-                toastPush({
-                    title: "Choose!",
-                    text: "Pick one, the tool will extrapolate your submitted color within these color harmonics",
-                    button: [{
-                        label: "Analogous",
-                        onClick: () => {
-                            paletteAppend('analogous', regenColor)
-                            toastDismiss()
-                            moveOnToPlayground()
-                        },
-                    }, {
-                        label: "Triadic",
-                        onClick: () => {
-                            paletteAppend('triadic', regenColor)
-                            toastDismiss()
-                            moveOnToPlayground()
-                        },
-                    }, {
-                        label: "Complementary",
-                        onClick: () => {
-                            paletteAppend('complementary', regenColor)
-                            toastDismiss()
-                            moveOnToPlayground()
-                        },
-                    }, {
-                        label: "I don't know ...",
-                        onClick: () => {
-                            toastDismiss()
-                            const randomizeCH = [
-                                () => paletteAppend('analogous', regenColor),
-                                () => paletteAppend('complementary', regenColor),
-                                () => paletteAppend('triadic', regenColor),
-                                () => paletteAppend('tetradic', regenColor),
-                            ];
-                            const randomIndex = Math.floor(Math.random() * randomizeCH.length);
-                            randomizeCH[randomIndex]();
-                            moveOnToPlayground()
-                        },
-                    }],
-                    iconUrl: "../assets/local/choices.png"
-                },)
-            }, 300);
+            toastPush({
+                text: "Tada!"
+            }, {
+                delay: 500,
+                tone: 'bounce'
+            })
+            toastPush({
+                text: "Click on these little color cells to copy them!"
+            }, {
+                duration: 3000,
+                delay: 500,
+                tone: 'fade',
+                position: 'top_left'
+            })
+            sceneHandler(2)
         }, 500);
     }
 
-    $submitButton.on('click', submitTrigg)
-})
+    setTimeout(() => {
+        $cameraDoor.removeClass('cameraDoorOpened')
+        $cameraDoor.addClass('cameradoorClosed')
+        $cameraDoorLatch.removeClass('cameraDoorLatchPoked')
+        setTimeout(() => {
+            toastPush({
+                title: "Choose!",
+                text: "Pick one, the tool will extrapolate your submitted color within these color harmonics",
+                button: [{
+                    label: "Analogous",
+                    onClick: () => {
+                        paletteAppend('analogous', regenColor)
+                        toastDismiss()
+                        moveOnToPlayground()
+                    },
+                }, {
+                    label: "Triadic",
+                    onClick: () => {
+                        paletteAppend('triadic', regenColor)
+                        toastDismiss()
+                        moveOnToPlayground()
+                    },
+                }, {
+                    label: "Complementary",
+                    onClick: () => {
+                        paletteAppend('complementary', regenColor)
+                        toastDismiss()
+                        moveOnToPlayground()
+                    },
+                }, {
+                    label: "I don't know ...",
+                    onClick: () => {
+                        toastDismiss()
+                        const randomizeCH = [
+                            () => paletteAppend('analogous', regenColor),
+                            () => paletteAppend('complementary', regenColor),
+                            () => paletteAppend('triadic', regenColor),
+                            () => paletteAppend('tetradic', regenColor),
+                        ];
+                        const randomIndex = Math.floor(Math.random() * randomizeCH.length);
+                        randomizeCH[randomIndex]();
+                        moveOnToPlayground()
+                    },
+                }],
+                iconUrl: "../assets/local/choices.png"
+            },)
+        }, 300);
+    }, 500);
+}
+
+$cameraDoor.on("click", cameraDoorOpened)
+
+const theyFoundTheColorPickerWow = () => {
+    toastClear();
+    $sequenceColorInput.off('click', theyFoundTheColorPickerWow)
+    $submitButton.addClass('colorPicked submitPulse')
+    setTimeout(() => {
+        $submitButton.removeClass('submitPulse')
+    }, 300);
+}
+$sequenceColorInput.on('click', theyFoundTheColorPickerWow);
+$submitButton.on('click', submitTrigg)
 
 //SCENE 2
 const wheel = document.getElementById('wheel');

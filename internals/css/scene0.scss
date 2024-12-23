@@ -14,14 +14,15 @@
   background: url('../assets/local/colorinstoIllust.png');
   background-size: contain;
   background-position: center;
+  background-repeat: no-repeat;
   animation: elemEnter-scale .8s var(--anchorhead) forwards;
-
 }
 
 .titleArt {
   background: url('../assets/local/colorinstoLogo.png');
   background-size: contain;
   background-position: center;
+  background-repeat: no-repeat;
   width: 600px;
   height: 200px;
   transform: translateX(-3rem);

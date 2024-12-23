@@ -5,7 +5,7 @@ body {
   outline: 0;
   max-width: 100%;
   background: var(--baseD);
-  overflow-x: hidden;
+  overflow: hidden;
   -webkit-user-select: none !important;
      -moz-user-select: none !important;
       -ms-user-select: none !important;
@@ -148,6 +148,20 @@ a:link, a:visited {
   display: none;
 }
 
+.SCRIPT-sceneInUp {
+  animation: sceneInUp 0.5s forwards var(--anchorhead);
+}
+@keyframes sceneInUp {
+  from {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0vh);
+    opacity: 1;
+  }
+}
+
 .SCRIPT-sceneInScaleUp {
   animation: sceneInScaleUp 0.5s forwards var(--sleek);
 }
@@ -186,6 +200,20 @@ a:link, a:visited {
   }
   to {
     transform: translateX(-100vw);
+    opacity: 0;
+  }
+}
+
+.SCRIPT-sceneOutDown {
+  animation: sceneOutDown 0.5s forwards var(--accel);
+}
+@keyframes sceneOutDown {
+  from {
+    transform: translateY(0vh);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100vh);
     opacity: 0;
   }
 }
@@ -257,4 +285,8 @@ a:link, a:visited {
     opacity: 1;
     transform: translateX(0em);
   }
+}
+.ghostLoader {
+  z-index: -99;
+  opacity: 0;
 }/*# sourceMappingURL=root.css.map */

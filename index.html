@@ -69,7 +69,7 @@
             </svg>
             <div class="cartridgeWrap">
                 <div class="ink">
-                    <input type="text" class="regenColInput sequencePageOverride" data-coloris>
+                    <input id="colInputSequence" type="text" class="regenColInput sequencePageOverride" data-coloris>
                     <div>//// Colorinsto ////</div>
                 </div>
                 <div id="submitRegen" class="material-symbols-rounded submitModeOverride">keyboard_double_arrow_down</div>
@@ -319,11 +319,12 @@
     </div>
     <div class="ghostLoader" style="background: url(./internals/assets/local/stop.svg);"></div>
     <div class="ghostLoader" style="background: url(./internals/assets/local/warn.svg);"></div>
+    <div class="ghostLoader" style="background: url(./internals/assets/local/choices.png);"></div>
 </body>
 <script>
     setTimeout(() => {
         const ghostLoaders = document.querySelectorAll('.ghostLoader');
-        ghostLoaders.forEach(loader => loader.remove());
+        ghostLoaders.forEach(loaders => loaders.remove());
     }, 1000);
 </script>
 

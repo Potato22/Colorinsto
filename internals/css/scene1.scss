@@ -180,7 +180,8 @@
     transform: translateY(100px);
     z-index: -1;
 
-    &:hover {
+    &:hover,
+    &.submitPulse {
         font-variation-settings:
             'FILL' 0,
             'wght' 300,
@@ -191,10 +192,14 @@
         border: 3px solid white;
         background: white;
         color: var(--baseD);
-        transform: translateY(0px);
         pointer-events: auto;
         opacity: 1;
         border-radius: 0px;
+        transform: translateY(-10px);
+
+        &.submitPulse {
+            pointer-events: none;
+        }
     }
 }
 
@@ -212,12 +217,16 @@
         }
     }
 
-    & .submitModeOverride {
+    & .submitModeOverride.colorPicked {
         transform: translateY(0px);
         z-index: 1;
+        animation: pulse 1s both infinite;
 
         &:hover {
             transform: translateY(-10px);
+            animation: none;
+            background: white !important;
+            color: var(--baseD) !important;
         }
 
         &.submit {
@@ -227,5 +236,31 @@
             color: var(--baseD);
             opacity: 0;
         }
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    20% {
+        background: var(--baseD);
+        color: white;
+    }
+
+    10%,
+    30% {
+        background: white;
+        color: var(--baseD);
+    }
+
+    40%,
+    50%,
+    60%,
+    70%,
+    80%,
+    90%,
+    100% {
+        background: var(--baseD);
+        color: white;
     }
 }

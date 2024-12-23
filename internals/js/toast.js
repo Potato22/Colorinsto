@@ -53,8 +53,8 @@ const POSITION_PRESETS = {
 
     top_left: 'translate(calc(-100vw / 3.9), calc(-100vh / 3))',
     top_right: 'translate(calc(100vw / 3.9), calc(-100vh / 3))',
-    bottom_left: 'translate(calc(100vw / 3), calc(100vh / 3))',
-    bottom_right: 'translate(calc(100vw / 3), calc(100vh / 3))',
+    bottom_left: 'translate(calc(100vw / 3.9), calc(100vh / 3))',
+    bottom_right: 'translate(calc(100vw / 3.9), calc(100vh / 3))',
 };
 
 function setPosition(position) {
