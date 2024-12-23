@@ -224,7 +224,7 @@ const cameraDoorOpened = () => {
     }, 300);
 }
 const submitTrigg = () => {
-    //titleEntered()
+    titleEntered()
     $submitButton.off('click', submitTrigg)
     $submitButton.addClass('submit')
     $toolThing.addClass('submit')

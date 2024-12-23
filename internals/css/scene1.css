@@ -168,6 +168,7 @@
   transition: all 0.5s var(--sleek);
   transform: translateY(100px);
   z-index: -1;
+  opacity: 0;
 }
 .submitModeOverride:hover, .submitModeOverride.submitPulse {
   font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 20;
@@ -197,6 +198,7 @@
   transform: translateY(100px);
 }
 .modding .submitModeOverride.colorPicked {
+  opacity: 1;
   transform: translateY(0px);
   z-index: 1;
   animation: pulse 1s both infinite;

@@ -179,6 +179,7 @@
     transition: all .5s var(--sleek);
     transform: translateY(100px);
     z-index: -1;
+    opacity: 0;
 
     &:hover,
     &.submitPulse {
@@ -218,6 +219,7 @@
     }
 
     & .submitModeOverride.colorPicked {
+        opacity: 1;
         transform: translateY(0px);
         z-index: 1;
         animation: pulse 1s both infinite;
