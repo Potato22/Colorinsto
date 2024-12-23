@@ -121,7 +121,7 @@ function sceneHandler(sceneTarget) {
 
 //SCENE 0
 //skip for returning users, if for some godadmn reason they wanted to return to this fucking shite hole.
-if (window.innerWidth > 1280) {
+if (window.innerWidth >= 970) {
     if (isTitleSkipped()) {
         toastPush({
             text: "Welcome back"

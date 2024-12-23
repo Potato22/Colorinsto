@@ -521,3 +521,19 @@
     font-size: 1em;
     line-height: 2em;
 }
+@media screen and (max-width: 1400px) {
+    .textInteract {
+        font-size: 1.2em;
+        line-height: 1.2em;
+    }
+
+    .textExplain {
+        font-size: 1em;
+        line-height: 1.5em;
+    }
+    
+    .leftSection {
+    padding-left: 2em;
+    }
+    
+}
