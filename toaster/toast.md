@@ -1,6 +1,6 @@
 # Toaster
 
-Toast notification utility
+Toast notification utility by Potto.
 
 ## Quirks
 
