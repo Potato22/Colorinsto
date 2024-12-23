@@ -147,7 +147,7 @@ if (window.innerWidth > 1280) {
                     toastPush({
                         text: "App content failed to load: aborted (003)"
                     }, {
-                        tone: 'fade',
+                        tone: 'error',
                         duration: 4000,
                     })
                     setTimeout(() => {

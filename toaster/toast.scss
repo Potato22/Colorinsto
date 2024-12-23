@@ -1,4 +1,8 @@
 .toastAlign {
+    --toastBorderRadius: 20px;
+    --toastColor: #212728;
+    --err: rgb(241, 99, 99);
+    
     position: fixed;
     top: 0;
     width: 100vw;
@@ -6,7 +10,6 @@
     z-index: 99;
     display: grid;
     place-items: center;
-    --toastBorderRadius: 20px;
     pointer-events: none;
     //opacity: 0;
     display: none;
@@ -30,6 +33,26 @@
             animation: boing 1.2s forwards;
         }
 
+        &.toastErr {
+            opacity: 1;
+            animation: shake .5s forwards ease-in-out;
+
+            .toast {
+                background: var(--err);
+            }
+
+            .toastDashes {
+                border: solid 1px var(--toastColor);
+                border-style: dashed;
+                color: var(--toastColor);
+            }
+        }
+
+        &.toastShake {
+            opacity: 1;
+            animation: shake .5s forwards ease-in-out;
+        }
+
         &.toastPushed {
             opacity: 1;
             animation: fade .5s forwards;
@@ -51,13 +74,15 @@
         padding: .5rem;
 
         $border: 1px;
-        background: var(--baseD);
+        background: var(--toastColor);
         background-clip: padding-box;
 
         border: solid $border transparent;
 
         border-radius: var(--toastBorderRadius);
         box-shadow: rgba(27, 32, 32, 0.788) 0 3px 120px 80px;
+
+        transition: .5s background;
 
         &:before {
             content: '';
@@ -106,6 +131,7 @@
                 background-position: center;
                 background-repeat: no-repeat;
             }
+
             &.tiWarn {
                 background: url(./icons/warn.svg);
                 background-size: cover;
@@ -213,5 +239,29 @@
     100% {
         transform: translateY(0px);
         animation-timing-function: ease-out;
+    }
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-5px);
+    }
+
+    40% {
+        transform: translateX(3px);
+    }
+
+    60% {
+        transform: translateX(-2px);
+    }
+
+    80% {
+        transform: translateX(1px);
     }
 }

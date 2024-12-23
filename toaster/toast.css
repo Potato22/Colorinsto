@@ -1,4 +1,7 @@
 .toastAlign {
+  --toastBorderRadius: 20px;
+  --toastColor: #212728;
+  --err: rgb(241, 99, 99);
   position: fixed;
   top: 0;
   width: 100vw;
@@ -6,7 +9,6 @@
   z-index: 99;
   display: grid;
   place-items: center;
-  --toastBorderRadius: 20px;
   pointer-events: none;
   display: none;
   transition: 0.3s opacity, 0.5s -webkit-backdrop-filter;
@@ -27,6 +29,22 @@
   opacity: 1;
   animation: boing 1.2s forwards;
 }
+.toastAlign .toastWrap.toastErr {
+  opacity: 1;
+  animation: shake 0.5s forwards ease-in-out;
+}
+.toastAlign .toastWrap.toastErr .toast {
+  background: var(--err);
+}
+.toastAlign .toastWrap.toastErr .toastDashes {
+  border: solid 1px var(--toastColor);
+  border-style: dashed;
+  color: var(--toastColor);
+}
+.toastAlign .toastWrap.toastShake {
+  opacity: 1;
+  animation: shake 0.5s forwards ease-in-out;
+}
 .toastAlign .toastWrap.toastPushed {
   opacity: 1;
   animation: fade 0.5s forwards;
@@ -41,11 +59,12 @@
   position: relative;
   box-sizing: border-box;
   padding: 0.5rem;
-  background: var(--baseD);
+  background: var(--toastColor);
   background-clip: padding-box;
   border: solid 1px transparent;
   border-radius: var(--toastBorderRadius);
   box-shadow: rgba(27, 32, 32, 0.788) 0 3px 120px 80px;
+  transition: 0.5s background;
 }
 .toastAlign .toast:before {
   content: "";
@@ -180,5 +199,22 @@
   100% {
     transform: translateY(0px);
     animation-timing-function: ease-out;
+  }
+}
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-5px);
+  }
+  40% {
+    transform: translateX(3px);
+  }
+  60% {
+    transform: translateX(-2px);
+  }
+  80% {
+    transform: translateX(1px);
   }
 }/*# sourceMappingURL=toast.css.map */

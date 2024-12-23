@@ -140,7 +140,21 @@ function nextQueue() {
         });
 
         toastAligner.classList.remove('toasted');
-        toastWrapper.classList.add(tone === 'bounce' ? 'toastBoing' : 'toastPushed');
+
+        switch (tone) {
+            case 'bounce':
+                toastWrapper.classList.add('toastBoing');
+                break;
+            case 'shake':
+                toastWrapper.classList.add('toastShake');
+                break;
+            case 'error':
+                toastWrapper.classList.add('toastErr');
+                break;
+            default:
+                toastWrapper.classList.add('toastPushed');
+                break;
+        }
 
         setPosition(position);
         configureButtons(button);
