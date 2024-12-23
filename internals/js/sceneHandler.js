@@ -8,8 +8,12 @@ import {
     toastPush,
     toastDismiss,
     toastClear
-} from "./toast"
+} from "../../toaster/toast"
 
+//vite fucks up images names on build, this have to do.
+function getIconUrl(fileName) {
+    return new URL(`./icons/${fileName}`, import.meta.url).href;
+}
 
 // Constants for time calculations
 const ONE_DAY = 864e5; // 86400000 milliseconds = 1 day
@@ -99,9 +103,9 @@ function sceneHandler(sceneTarget) {
             setTimeout(() => {
                 sceneTitle.hide()
                 sceneTitle.removeClass('SCRIPT-sceneOutScaleDown')
-            
+
                 sceneCameraPriming.hide()
-                sceneCameraPriming.removeClass('SCRIPT-sceneOutDown')    
+                sceneCameraPriming.removeClass('SCRIPT-sceneOutDown')
 
                 scenePlayground.show()
                 scenePlayground.addClass('SCRIPT-sceneInUp')
@@ -224,7 +228,6 @@ const cameraDoorOpened = () => {
     }, 300);
 }
 const submitTrigg = () => {
-    titleEntered()
     $submitButton.off('click', submitTrigg)
     $submitButton.addClass('submit')
     $toolThing.addClass('submit')
@@ -264,6 +267,7 @@ const submitTrigg = () => {
                         paletteAppend('analogous', regenColor)
                         toastDismiss()
                         moveOnToPlayground()
+                        titleEntered()
                     },
                 }, {
                     label: "Triadic",
@@ -271,6 +275,7 @@ const submitTrigg = () => {
                         paletteAppend('triadic', regenColor)
                         toastDismiss()
                         moveOnToPlayground()
+                        titleEntered()
                     },
                 }, {
                     label: "Complementary",
@@ -278,6 +283,7 @@ const submitTrigg = () => {
                         paletteAppend('complementary', regenColor)
                         toastDismiss()
                         moveOnToPlayground()
+                        titleEntered()
                     },
                 }, {
                     label: "I don't know ...",
@@ -292,9 +298,11 @@ const submitTrigg = () => {
                         const randomIndex = Math.floor(Math.random() * randomizeCH.length);
                         randomizeCH[randomIndex]();
                         moveOnToPlayground()
+                        titleEntered()
                     },
                 }],
-                iconUrl: "../assets/local/choices.png"
+                iconUrl: getIconUrl('choices.png'),
+                //icon: 'warn'
             },)
         }, 300);
     }, 500);

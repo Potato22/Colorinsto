@@ -80,7 +80,7 @@
 .toastAlign .toastDashes .toastIcon {
   width: 100px;
   height: 100px;
-  background: var(--toastIconUrl);
+  background-image: var(--toastIconUrl);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -88,13 +88,13 @@
   margin-top: 0.5rem;
 }
 .toastAlign .toastDashes .toastIcon.tiStop {
-  background: url(../assets/local/stop.svg);
+  background: url(stop.svg);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 .toastAlign .toastDashes .toastIcon.tiWarn {
-  background: url(../assets/local/warn.svg);
+  background: url(warn.svg);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

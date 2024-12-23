@@ -127,7 +127,7 @@ function nextQueue() {
 
         toastTitle.innerHTML = title;
         toastContent.innerHTML = text;
-        toastIcon.style.setProperty('--toastIconUrl', `url('${iconUrl}')`);
+        toastIcon.style.setProperty('--toastIconUrl', `url(${iconUrl})`);
 
         switch (icon) {
             case 'warn':
