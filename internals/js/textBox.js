@@ -43,7 +43,7 @@ const primaryInteractive = [
         id: 'modeNight',
         element: modeNight,
         text: "<b style='color:var(--global-theme)'>Night Mode: </b>Simulate the impact of night time towards the generated colors",
-        explain: `<b>Purkinje effect:</b> blue and green hues appear more vivid than darker reds in low lights. <br><br>In dim lighting, your perception of colors shifts toward blue-green hues due to the Purkinje effect: where rods, which dominate low-light vision, are more sensitive to shorter wavelengths (aka green-bluish).
+        explain: `<b>Purkinje effect:</b> blue and green hues appear more vivid than darker reds in low lights. <br><br>In dim lighting, your perception of colors shifts toward blue-green hues due to the Purkinje effect: where rods, which dominate low-light vision, are more sensitive to shorter wavelengths (aka green-bluish).<br>
         The human eye has three types of color-sensitive cones that detect light in the red, green, and blue wavelengths. Along with it are rods that only perceive luminosity (brightness). In very low light, these rods dominate your vision.`,
     },
 
