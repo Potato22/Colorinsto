@@ -60,11 +60,9 @@ function configureButtons(buttons, forceVerticalButtons) {
         const btnElement = document.createElement('div');
         btnElement.textContent = btn.label || btn;
         btnElement.id = (btn.label || btn.id || '').replace(/\s+/g, '_').toLowerCase();
-        //regex is a mistake
         btnElement.className = `tbButton${isVertical || forceVerticalButtons ? ' vertical' : ''}`;
         if (btn.highlight) btnElement.classList.add('highlight');
 
-        // I aint gonna lie for the love of me I'm not too familiar with async shite so I needed an ai for this shit lmao
         const handleClick = async (event) => {
             try {
                 // default behavior
@@ -72,8 +70,7 @@ function configureButtons(buttons, forceVerticalButtons) {
                     await btn.onClick(event);
                 }
             } finally {
-                // adding toastDismiss() or toastClear() to EACH button event is forgetful
-                // so, a fallback if one forgets.
+                // no dissmis n clear fallback
                 toastDismiss();
             }
         };
@@ -83,7 +80,7 @@ function configureButtons(buttons, forceVerticalButtons) {
     });
 }
 
-//side effect of using bundlers I guess
+// Helper function to resolve asset URLs
 function resolveIconUrl(iconFileName) {
     return new URL(`./icons/${iconFileName}`, import.meta.url).href;
 }
@@ -128,11 +125,11 @@ function nextQueue() {
         interactive = false,
         skippable = false,
         forceVerticalButtons = false,
-        onSkip = () => { },
-        onQueue = () => { },
-        onInteract = () => { },
+        onQueue,
+        onInteract,
     } = settings;
 
+    // onQueue
     if (typeof onQueue === 'function') {
         onQueue();
     }
@@ -143,6 +140,7 @@ function nextQueue() {
         toastTitle.innerHTML = title;
         toastContent.innerHTML = text;
 
+        // Resolve iconUrl dynamically if not provided
         const resolvedIconUrl = iconUrl || (icon && resolveIconUrl(`${icon}.png`)) || '';
         toastIcon.style.setProperty('--toastIconUrl', `url(${resolvedIconUrl})`);
 
@@ -161,11 +159,14 @@ function nextQueue() {
             display: 'grid',
             pointerEvents: interactive || skippable || button.length > 0 ? 'auto' : 'none',
         });
-        if (interactive || skippable) {
-            toastAligner.classList.add('next');
-        }
 
         toastAligner.classList.remove('toasted');
+
+        if (interactive || skippable) {
+            toastAligner.classList.add('next');
+        } else {
+            toastAligner.classList.remove('next');
+        }
 
         switch (tone) {
             case 'bounce':
@@ -196,15 +197,20 @@ function nextQueue() {
         }
 
         if ((interactive || skippable) && button.length === 0) {
-            toastAligner.addEventListener('click', () => {
-                toastDismiss();
-                if (interactive && typeof onInteract === 'function') {
+
+            //this shit took WAY too long to figure out
+            //I'm giving the name fuck and you can't do anything about it
+            //this shit the one handles the onInteract thing
+            //i'm so fuckign tired 
+            const fuck = () => {
+                if (typeof onInteract === 'function') {
                     onInteract();
                 }
-                if (skippable && typeof onSkip === 'function') {
-                    onSkip();
-                }
-            });
+                toastDismiss();
+                toastAligner.removeEventListener('click', fuck);
+            }
+
+            toastAligner.addEventListener('click', fuck);
         } else {
             toastAligner.removeEventListener('click', toastDismiss);
         }

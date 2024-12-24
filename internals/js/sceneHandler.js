@@ -62,6 +62,7 @@ function sceneHandler(sceneTarget) {
                     {
                         label: "Sure",
                         onClick: () => {
+                            //toastDismiss()
                             sceneCameraPriming.addClass('SCRIPT-sceneInScaleUp')
                             setTimeout(() => {
                                 sceneTitle.hide()
@@ -96,16 +97,14 @@ function sceneHandler(sceneTarget) {
                     {
                         label: "Let me explore on my own!",
                         onClick: () => {
+                            //toastDismiss()
                             toastPush(
                                 {
                                     text: `You can always go back and have a look at the intro by pressing <span style="font-family: var(--fontSecondary); color:var(--textaccentD);">introductory</span> in the bottom left of the screen`
                                 }, {
                                     tone: 'fade',
                                     interactive: true,
-                                    onInteract: () => { 
-                                        //titleEntered();
-                                        sceneHandler(2);
-                                    }
+                                    onInteract: () => sceneHandler(2),
                                 }
                             )
                         },
@@ -118,7 +117,6 @@ function sceneHandler(sceneTarget) {
             break;
         case 2:
             currentScene = 2
-            alert('hi')
             toastPush({
                 title: "Generate more in the playground",
                 text: "Change your color, select your color harmony, and press regenerate (<span class='material-symbols-rounded'>replay</span>)"
@@ -126,6 +124,7 @@ function sceneHandler(sceneTarget) {
                 tone: 'fade',
                 position: "bottom",
                 interactive: true,
+                //onQueue: () => { alert ('hi')}
                 //delay: 1000,
             })
 
