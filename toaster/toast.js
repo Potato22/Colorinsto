@@ -9,8 +9,9 @@ const toastTransformWrap = document.querySelector('.toastTransformWrap');
 const DEFAULT_TIMER = 2000;
 
 let delayTimer, expiryTimer, resetTimer;
-const toastQueue = [];
 let toasting = false;
+
+const toastQueue = [];
 
 function resetTimers() {
     clearTimeout(delayTimer);
@@ -80,7 +81,7 @@ function configureButtons(buttons, forceVerticalButtons) {
     });
 }
 
-// Helper function to resolve asset URLs
+//side effect of bundlers I guess
 function resolveIconUrl(iconFileName) {
     return new URL(`./icons/${iconFileName}`, import.meta.url).href;
 }
@@ -125,6 +126,7 @@ function nextQueue() {
         interactive = false,
         skippable = false,
         forceVerticalButtons = false,
+        noWidthLimit = false,
         onQueue,
         onInteract,
     } = settings;
@@ -140,7 +142,7 @@ function nextQueue() {
         toastTitle.innerHTML = title;
         toastContent.innerHTML = text;
 
-        // Resolve iconUrl dynamically if not provided
+        // convoluted but it works
         const resolvedIconUrl = iconUrl || (icon && resolveIconUrl(`${icon}.png`)) || '';
         toastIcon.style.setProperty('--toastIconUrl', `url(${resolvedIconUrl})`);
 
@@ -188,6 +190,7 @@ function nextQueue() {
 
         applyStyles(toastTitle, { display: title ? 'block' : 'none' });
         applyStyles(toastIcon, { display: resolvedIconUrl || icon ? 'block' : 'none' });
+        applyStyles(toastContent, {maxWidth: noWidthLimit ? 'none' : '300px'});
         applyStyles(toastButtons, { display: button.length > 0 ? 'flex' : 'none' });
 
         if (!hold && (!interactive || skippable) && button.length === 0) {
@@ -205,6 +208,7 @@ function nextQueue() {
             const fuck = () => {
                 if (typeof onInteract === 'function') {
                     onInteract();
+                    
                 }
                 toastDismiss();
                 toastAligner.removeEventListener('click', fuck);

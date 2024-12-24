@@ -38,85 +38,99 @@ function titleEntered() {
 let currentScene = 0
 console.log('currentScene', currentScene)
 
-const sceneTitle = $("#titleSc") //0
-const sceneCameraPriming = $("#camModSc") //1
-const scenePlayground = $("#playgroundSc") //2
+const $sceneTitle = $("#titleSc") //0
+const $sceneCameraPriming = $("#camModSc") //1
+const $scenePlayground = $("#playgroundSc") //2
+const $extraButtons = $("#extraButtons")
 
+toastPush({
+    title: 'Changelog',
+    text: `
+    <ul style="text-align: left;">
+        <li>Improved UI comprehensiveness</li>
+        <li>Intro sequence is now skippable entirely</li>
+        <li>The toasts no longer disappear too quick</li>
+        <li>Made it clearer you can copy the palette cells hex code</li>
+        <li>Improved intro sequence to be more comprehensive</li>
+        <li>The film regenerates immediate after selecting a color harmony</li>
+        <li>Film size increased</li>
+        <li>Added several visual cues to improve user experience</li>
+        <li>Generated palette will now be more diverse</li>
+    </ul><br>
+    Thank you for everyone's feedback!
+    `
+}, {
+    interactive: true,
+    noWidthLimit: true,
+})
 
 function sceneHandler(sceneTarget) {
     switch (sceneTarget) {
         case 0:
             currentScene = 0
 
-            sceneTitle.fadeIn();
+            $sceneTitle.fadeIn();
             break;
 
         case 1:
             currentScene = 1
-            sceneTitle.addClass('SCRIPT-sceneOutScaleUp')
+
+            $scenePlayground.addClass('SCRIPT-sceneOutScaleUp')
+            $sceneTitle.addClass('SCRIPT-sceneOutScaleUp')
+            $sceneCameraPriming.addClass('SCRIPT-sceneInScaleUp')
+            $extraButtons.css({ 'opacity': '0' })
+
+            $cameraDoor.on("click", cameraDoorOpened)
+
+            setTimeout(() => {
+                $sceneCameraPriming.show()
+
+                $sceneTitle.hide()
+                $sceneTitle.removeClass('SCRIPT-sceneOutScaleUp')
+
+                $scenePlayground.hide()
+                $scenePlayground.removeClass('SCRIPT-sceneOutScaleUp')
+            }, 500);
 
             toastPush({
-                title: "Before we delve in...",
-                text: "Do you want to go through an introduction?",
-                button: [
-                    {
-                        label: "Sure",
-                        onClick: () => {
-                            //toastDismiss()
-                            sceneCameraPriming.addClass('SCRIPT-sceneInScaleUp')
-                            setTimeout(() => {
-                                sceneTitle.hide()
-                                sceneTitle.removeClass('SCRIPT-sceneOutScaleUp')
-                                scenePlayground.hide()
-                                sceneCameraPriming.show()
-
-                            }, 500);
-                            toastPush({
-                                title: "Hello! Welcome to Colorinsto",
-                                text: "Click on screen to progress"
-                            }, {
-                                tone: 'bounce',
-                                interactive: true,
-                            })
-                            toastPush({
-                                text: "This camera uses.. 'enchanted' films"
-                            }, {
-                                tone: 'fade',
-                                duration: 2000,
-                                interactive: true,
-                            })
-                            toastPush({
-                                text: "Before we start, let's open it up"
-                            }, {
-                                position: 'bottom',
-                                hold: true,
-                            })
-                        },
-                        highlight: true,
-                    },
-                    {
-                        label: "Let me explore on my own!",
-                        onClick: () => {
-                            //toastDismiss()
-                            toastPush(
-                                {
-                                    text: `You can always go back and have a look at the intro by pressing <span style="font-family: var(--fontSecondary); color:var(--textaccentD);">introductory</span> in the bottom left of the screen`
-                                }, {
-                                    tone: 'fade',
-                                    interactive: true,
-                                    onInteract: () => sceneHandler(2),
-                                }
-                            )
-                        },
-                    },
-                ],
+                title: "Hello! Welcome to Colorinsto",
+                text: "Click on screen to progress"
             }, {
                 tone: 'bounce',
-                forceVerticalButtons: true,
+                interactive: true,
+            })
+            toastPush({
+                text: "This camera uses.. 'enchanted' films"
+            }, {
+                tone: 'fade',
+                duration: 2000,
+                interactive: true,
+            })
+            toastPush({
+                text: "Before we start, let's open it up... Click on the back of the camera!"
+            }, {
+                position: 'bottom',
+                hold: true,
             })
             break;
         case 2:
+            const paletteCells = document.querySelectorAll('.paletteCells');
+
             currentScene = 2
+            toastPush({
+                text: "Click on these little color cells to copy them!"
+            }, {
+                tone: 'fade',
+                position: 'top_left',
+                interactive: true,
+                onQueue: () => {
+                    paletteCells.forEach(cell => cell.classList.add('pulseCells'));
+                },
+                onInteract: () => {
+                    paletteCells.forEach(cell => cell.classList.remove('pulseCells'));
+                },
+                delay: 1000,
+            })
             toastPush({
                 title: "Generate more in the playground",
                 text: "Change your color, select your color harmony, and press regenerate (<span class='material-symbols-rounded'>replay</span>)"
@@ -125,22 +139,23 @@ function sceneHandler(sceneTarget) {
                 position: "bottom",
                 interactive: true,
                 //onQueue: () => { alert ('hi')}
-                //delay: 1000,
             })
 
-            sceneTitle.addClass('SCRIPT-sceneOutScaleDown')
-            sceneCameraPriming.removeClass('SCRIPT-sceneInScaleUp')
-            sceneCameraPriming.addClass('SCRIPT-sceneOutDown')
+            $sceneTitle.addClass('SCRIPT-sceneOutScaleDown')
+            $sceneCameraPriming.removeClass('SCRIPT-sceneInScaleUp')
+            $sceneCameraPriming.addClass('SCRIPT-sceneOutDown')
 
             setTimeout(() => {
-                sceneTitle.hide()
-                sceneTitle.removeClass('SCRIPT-sceneOutScaleDown')
+                $sceneTitle.hide()
+                $sceneTitle.removeClass('SCRIPT-sceneOutScaleDown')
 
-                sceneCameraPriming.hide()
-                sceneCameraPriming.removeClass('SCRIPT-sceneOutDown')
+                $sceneCameraPriming.hide()
+                $sceneCameraPriming.removeClass('SCRIPT-sceneOutDown')
 
-                scenePlayground.show()
-                scenePlayground.addClass('SCRIPT-sceneInUp')
+                $scenePlayground.show()
+                $scenePlayground.addClass('SCRIPT-sceneInUp')
+
+                $extraButtons.css({ 'display': 'flex', 'opacity': '1' })
             }, 1000);
             break;
 
@@ -153,24 +168,10 @@ function sceneHandler(sceneTarget) {
 
 //SCENE 0
 //skip for returning users, if for some godadmn reason they wanted to return to this fucking shite hole.
-if (window.innerWidth >= 890) {
-    if (isTitleSkipped()) {
-        toastPush({
-            text: "Welcome back"
-        }, {
-            tone: 'bounce',
-            position: 'bottom',
-            delay: 1000,
-            skippable: true,
-        })
-        sceneHandler(2)
-    } else {
-        sceneHandler(0)
-    }
-} else {
+if (window.innerWidth <= 960) {
     toastPush({
-        title: "Uh oh",
-        text: "This webapp does not support mobile viewports yet... Sorry!<br><span style='font-family: var(--fontSecondary)'>(Minimal: 890px wide)</span>",
+        title: "Ah- wait.",
+        text: "This webapp does not support mobile viewports yet... Sorry!<br><span style='font-family: var(--fontSecondary)'>(Minimal: 960 wide)</span>",
         button: [
             {
                 label: "Too bad.",
@@ -199,16 +200,73 @@ if (window.innerWidth >= 890) {
     }, {
         tone: 'bounce'
     })
+
+} else if (window.innerWidth <= 1280) {
+    toastPush({
+        title: "Uh oh",
+        text: "The intro sequence won't work properly with your current screen size, we'll skip that.<br><span style='font-family: var(--fontSecondary)'>(Minimal: 1280 wide)</span>",
+        button: [
+            {
+                label: "Ok",
+                onClick: () => {
+                    sceneHandler(2)
+                },
+                highlight: true,
+            },
+        ],
+        icon: "warn"
+    }, {
+        tone: 'bounce',
+        forceVerticalButtons: true,
+    })
+} else {    
+    if (isTitleSkipped()) {
+        toastPush({
+            text: "Welcome back"
+        }, {
+            tone: 'bounce',
+            position: 'bottom',
+            delay: 1000,
+            skippable: true,
+        })
+        sceneHandler(2)
+    } else {
+        sceneHandler(0)
+    }
 }
-
-
-
-//sceneHandler(0)
-
-
 const $startButton = $('#startEvent')
 $startButton.on('click', function () {
-    sceneHandler(1)
+    $sceneTitle.addClass('SCRIPT-sceneOutScaleUp')
+    $sceneCameraPriming.addClass('SCRIPT-sceneInScaleUp')
+    toastPush({
+        title: "Before we delve in...",
+        text: "Do you want to go through an introduction?",
+        button: [
+            {
+                label: "Sure",
+                onClick: () => { sceneHandler(1) },
+                highlight: true,
+            },
+            {
+                label: "Let me explore on my own!",
+                onClick: () => {
+                    //toastDismiss()
+                    toastPush(
+                        {
+                            text: `You can always go back and have a look at the intro by pressing <span style="font-family: var(--fontSecondary); color:var(--textaccentD);">Replay Intro</span> in the bottom left of the screen`
+                        }, {
+                        tone: 'fade',
+                        interactive: true,
+                        onInteract: () => sceneHandler(2),
+                    }
+                    )
+                },
+            },
+        ],
+    }, {
+        tone: 'bounce',
+        forceVerticalButtons: true,
+    })
 })
 
 
@@ -226,9 +284,19 @@ const $toolThing = $('.ink')
 const $sequenceColorInput = $('#colInputSequence')
 
 const cameraDoorOpened = () => {
+    $sequenceColorInput.on('click', theyFoundTheColorPickerWow);
+    $submitButton.on('click', submitTrigg)
+
     $cameraDoor.off('click', cameraDoorOpened)
-    toastClear()
+
     $cameraDoorLatch.addClass('cameraDoorLatchPoked')
+    $cameraDoor.removeClass('cameradoorClosed')
+
+    $submitButton.removeClass('submit colorPicked submitPulse')
+    $toolThing.removeClass('submit')
+    $sequenceColorInput.removeClass('pulseColInput')
+
+    toastClear()
     setTimeout(() => {
         $cameraDoor.addClass('cameraDoorOpened')
         setTimeout(() => {
@@ -276,14 +344,6 @@ const submitTrigg = () => {
                 delay: 500,
                 tone: 'bounce'
             })
-            toastPush({
-                text: "Click on these little color cells to copy them!"
-            }, {
-                duration: 3000,
-                delay: 500,
-                tone: 'fade',
-                position: 'top_left'
-            })
             sceneHandler(2)
         }, 500);
     }
@@ -294,15 +354,15 @@ const submitTrigg = () => {
         $cameraDoorLatch.removeClass('cameraDoorLatchPoked')
         setTimeout(() => {
             toastPush({
-                title: "Choose!",
-                text: "Pick one, the tool will extrapolate your submitted color within these color harmonics",
+                title: "Choose",
+                text: "Don't worry about what it is, just pick one!",
                 button: [{
                     label: "Analogous",
                     onClick: () => {
                         paletteAppend('analogous', regenColor)
                         toastDismiss()
                         moveOnToPlayground()
-                        //titleEntered();
+                        titleEntered();
                     },
                 }, {
                     label: "Triadic",
@@ -310,7 +370,7 @@ const submitTrigg = () => {
                         paletteAppend('triadic', regenColor)
                         toastDismiss()
                         moveOnToPlayground()
-                        //titleEntered();
+                        titleEntered();
                     },
                 }, {
                     label: "Complementary",
@@ -318,10 +378,10 @@ const submitTrigg = () => {
                         paletteAppend('complementary', regenColor)
                         toastDismiss()
                         moveOnToPlayground()
-                        //titleEntered();
+                        titleEntered();
                     },
                 }, {
-                    label: "I don't know ...",
+                    label: "Pick for me? ...",
                     onClick: () => {
                         toastDismiss()
                         const randomizeCH = [
@@ -333,7 +393,7 @@ const submitTrigg = () => {
                         const randomIndex = Math.floor(Math.random() * randomizeCH.length);
                         randomizeCH[randomIndex]();
                         moveOnToPlayground()
-                        //titleEntered();
+                        titleEntered();
                     },
                 }],
                 icon: 'choices',
@@ -341,8 +401,6 @@ const submitTrigg = () => {
         }, 300);
     }, 500);
 }
-
-$cameraDoor.on("click", cameraDoorOpened)
 
 const theyFoundTheColorPickerWow = () => {
     toastClear();
@@ -353,8 +411,6 @@ const theyFoundTheColorPickerWow = () => {
         $submitButton.removeClass('submitPulse')
     }, 300);
 }
-$sequenceColorInput.on('click', theyFoundTheColorPickerWow);
-$submitButton.on('click', submitTrigg)
 
 //SCENE 2
 const wheel = document.getElementById('wheel');
@@ -367,6 +423,12 @@ const angLights = Number(mLights.dataset.rotate);
 const angTrue = Number(mTrue.dataset.rotate);
 const angDay = Number(mDay.dataset.rotate);
 const angNight = Number(mNight.dataset.rotate);
+const paletteCells = document.querySelectorAll('.paletteCells');
+const replayIntro = document.querySelector('.replayIntro');
+
+replayIntro.addEventListener('click', function () {
+    sceneHandler(1);
+})
 
 // MAP MODES
 const modeElements = {
@@ -376,10 +438,13 @@ const modeElements = {
     night: wheel.querySelector('.modeNight')
 };
 
-const wheelOffset = 50;
+const wheelOffset = 70;
+const wheelSize = 950;
+wheel.style.setProperty('--wheelSize', wheelSize + 'px');
 
 function modeWheel(mode) {
-    // OBJECT (const) AS ANGLE MAP
+
+    //map
     const rotationAngles = {
         lights: wheelOffset - angLights,
         true: wheelOffset - angTrue,
@@ -387,34 +452,53 @@ function modeWheel(mode) {
         night: wheelOffset - angNight
     };
 
-    // IF MODE IS NOT MAPPED, WARN
+    //invalid mode warn
     if (!rotationAngles.hasOwnProperty(mode)) {
         console.warn('Invalid mode:', mode);
         return;
     }
 
-    // RESET CLASS ON CALL
+    //cleanup on call
     Object.values(modeElements).forEach(elem => elem.classList.remove('MODEACTIVE'));
 
-    // IMMEDIATELY ADD CLASS TO NEW ACTIVE MODE
+    //reapply to new mode
     modeElements[mode].classList.add('MODEACTIVE');
 
-    // Get the current rotation angle
+    //get the current rotation angle
     const currentRotation = rotationAngles[mode];
 
-    // Rotate the wheel
+    //el rotat
     wheel.style.transform = `rotate(${currentRotation}deg)`;
 
-    // Rotate menu items to keep them horizontal
+    //menu rotate sync
     modes.forEach(mode => {
         const baseRotate = parseInt(mode.dataset.rotate);
         mode.style.transform = `
             rotate(${baseRotate}deg) 
-            translateY(-570px) 
+            translateY(-600px)
             rotate(${-(baseRotate + currentRotation)}deg)
         `;
+        //translateY offsets the button relative to the wheel.
+        //can't figure out how to automate it lol
     });
 }
+
+//// rotation test lmao
+//let testAngle = 0;
+//const testInterval = setInterval(() => {
+//    testAngle += 1;
+//    wheel.style.transform = `rotate(${testAngle}deg)`;
+//    modes.forEach(mode => {
+//        const baseRotate = parseInt(mode.dataset.rotate);
+//        mode.style.transform = `
+//            rotate(${baseRotate}deg)
+//            translateY(-600px)
+//            rotate(${-(baseRotate + testAngle)}deg)
+//        `;
+//    });
+//}, 1);
+//setTimeout(() => clearInterval(testInterval), 999999);
+
 //modeWheel('true')
 
 const fxElem1 = document.querySelector('.cf1')
@@ -542,36 +626,36 @@ const theWheelContainer = document.querySelector('.wheelContainer');
 const filmWrapper = document.querySelector('.filmWrap');
 let enterTimeout, leaveTimeout;
 
-$('.modes').on('mouseenter', function () {
-    clearTimeout(leaveTimeout);
-
-    let delay
-    if (currentMode == 'modeNight') {
-        delay = 100
-    } else {
-        delay = 800
-    }
-    //console.log('delay', delay, 'currentMode', currentMode)
-    enterTimeout = setTimeout(() => {
-        theWheelContainer.style.zIndex = "5"
-        filmWrapper.style.opacity = ".1"
-        filmWrapper.style.transform = "scale(.9)"
-    }, delay); // 100ms delay, adjust as needed
-})
-
-$('.modes').on('mouseleave', function () {
-    // Clear any existing enter timeout to prevent conflicts
-    clearTimeout(enterTimeout);
-
-    leaveTimeout = setTimeout(() => {
-        theWheelContainer.style.zIndex = "0"
-        filmWrapper.style.opacity = "1"
-        filmWrapper.style.transform = "scale(1)"
-    }, 500); // 100ms delay, adjust as needed
-})
+//$('.modes').on('mouseenter', function () {
+//    clearTimeout(leaveTimeout);
+//
+//    let delay
+//    if (currentMode == 'modeNight') {
+//        delay = 100
+//    } else {
+//        delay = 800
+//    }
+//    //console.log('delay', delay, 'currentMode', currentMode)
+//    enterTimeout = setTimeout(() => {
+//        theWheelContainer.style.zIndex = "5"
+//        filmWrapper.style.opacity = ".1"
+//        filmWrapper.style.transform = "scale(.9)"
+//    }, delay); // 100ms delay, adjust as needed
+//})
+//
+//$('.modes').on('mouseleave', function () {
+//    // Clear any existing enter timeout to prevent conflicts
+//    clearTimeout(enterTimeout);
+//
+//    leaveTimeout = setTimeout(() => {
+//        theWheelContainer.style.zIndex = "0"
+//        filmWrapper.style.opacity = "1"
+//        filmWrapper.style.transform = "scale(1)"
+//    }, 500); // 100ms delay, adjust as needed
+//})
 
 const injectRegenColorDataTarget = document.querySelector('#playgroundSc')
-const injectSequenceSubmit = document.querySelector('#camModSc')
+const injectSequenceSubmit = document.querySelector('.ink')
 
 let regenColor
 let regenMode
@@ -644,12 +728,12 @@ $genDropdown.on('click', function () {
 
 $genDropdown.on('mouseleave', function () {
     updateDropdown(true)
-    paletteAppend(selectedRegenMode, regenColor)
 })
 
 //kept empty cus colorEngine already knows how to handle it
 let selectedRegenMode
 let randomMode = true
+let colorBlankWarned;
 
 const CHGModeText = document.querySelector('.CHGModeText');
 
@@ -727,6 +811,18 @@ document.querySelector('.CHGOptions').addEventListener('click', event => {
 
             default:
                 break;
+        }
+        paletteAppend(selectedRegenMode, regenColor)
+
+        if (!colorBlankWarned && !regenColor) {
+            colorBlankWarned = true;
+            toastPush({
+                title: 'Color is blank',
+                text: 'When the input color is untouched, it will generate completely random colors regardless of color haromnic modes.',
+                icon: 'warn'
+            }, {
+                interactive: true,
+            })
         }
     }
 });

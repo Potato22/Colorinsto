@@ -1,5 +1,7 @@
 // colorRandH.js
 
+import { toastPush } from "../../toaster/toast";
+
 class ColorRandH {
     static jitterRange = 5;
 
@@ -116,6 +118,12 @@ class ColorRandH {
         };
     }
 
+    static randomGen() {
+        let hsl = this.getRandomBaseHsl();
+        return this.generateColorFromHue(hsl.h, hsl.s, hsl.l);
+    }
+    
+    //color input blank = random
     static analogous(baseColor = null, colorSpan = 80) {
         let hsl;
         if (baseColor) {
@@ -128,7 +136,7 @@ class ColorRandH {
         return this.generateColorFromHue((hsl.h + shift + 360) % 360, hsl.s, hsl.l);
     }
 
-    static complementary(baseColor = null, colorSpan = 20) {
+    static complementary(baseColor = null, colorSpan = 60) {
         let hsl;
         if (baseColor) {
             hsl = this.getHslFromHex(baseColor);
@@ -144,7 +152,7 @@ class ColorRandH {
         return this.random(0, 1) === 0 ? baseColor || this.rgbToHex(this.hslToRgb(hsl.h, hsl.s, hsl.l).r, this.hslToRgb(hsl.h, hsl.s, hsl.l).g, this.hslToRgb(hsl.h, hsl.s, hsl.l).b) : complementaryColor;
     }
 
-    static triadic(baseColor = null, colorSpan = 10) {
+    static triadic(baseColor = null, colorSpan = 40) {
         let hsl;
         if (baseColor) {
             hsl = this.getHslFromHex(baseColor);
@@ -166,7 +174,7 @@ class ColorRandH {
             triadicColor;
     }
     
-    static tetradic(baseColor = null, colorSpan = 24) {
+    static tetradic(baseColor = null, colorSpan = 30) {
         let hsl;
         if (baseColor) {
             hsl = this.getHslFromHex(baseColor);

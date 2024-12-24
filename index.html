@@ -37,6 +37,9 @@
 </head>
 
 <body>
+    <div id="extraButtons">
+        <div class="floatwindows replayIntro">Replay Intro</div>
+    </div>
     <div class="toastAlign">
         <div class="toastTransformWrap">
             <!-- positioning -->
@@ -226,16 +229,16 @@
                 <div class="rightSection">
                     <div class="filmWrap">
                         <div class="palette">
-                            <div class="paletteCells"></div>
-                            <div class="paletteCells"></div>
-                            <div class="paletteCells"></div>
-                            <div class="paletteCells"></div>
-                            <div class="paletteCells"></div>
-                            <div class="paletteCells"></div>
-                            <div class="paletteCells"></div>
-                            <div class="paletteCells"></div>
-                            <div class="paletteCells"></div>
-                            <div class="paletteCells"></div>
+                            <div class="paletteCells material-symbols-rounded"></div>
+                            <div class="paletteCells material-symbols-rounded"></div>
+                            <div class="paletteCells material-symbols-rounded"></div>
+                            <div class="paletteCells material-symbols-rounded"></div>
+                            <div class="paletteCells material-symbols-rounded"></div>
+                            <div class="paletteCells material-symbols-rounded"></div>
+                            <div class="paletteCells material-symbols-rounded"></div>
+                            <div class="paletteCells material-symbols-rounded"></div>
+                            <div class="paletteCells material-symbols-rounded"></div>
+                            <div class="paletteCells material-symbols-rounded"></div>
                         </div>
                         <div class="film">
                             <div class="filmColor">
@@ -250,25 +253,25 @@
                 </div>
                 <div class="wheelContainer">
                     <div id="wheel" class="wheel">
-                        <div class="modes modeLights" data-rotate="35">
+                        <div class="modes modeLights" data-rotate="00">
                             <div class="material-symbols-rounded modeIcons iconLights">
                                 lightbulb
                             </div>
                             Lights
                         </div>
-                        <div class="modes modeTrue" data-rotate="50">
+                        <div class="modes modeTrue" data-rotate="15">
                             <div class="material-symbols-rounded modeIcons iconTrue">
                                 Palette
                             </div>
                             True
                         </div>
-                        <div class="modes modeDay" data-rotate="65">
+                        <div class="modes modeDay" data-rotate="30">
                             <div class="material-symbols-rounded modeIcons iconDay">
                                 sunny
                             </div>
                             Day
                         </div>
-                        <div class="modes modeNight" data-rotate="80">
+                        <div class="modes modeNight" data-rotate="45">
                             <div class="material-symbols-rounded modeIcons iconNight">
                                 nightlight
                             </div>
@@ -287,7 +290,8 @@
                         <circle id="LED" class="cls-1" cx="27" cy="185" r="5" />
                     </svg>
                     <div class="regenButton">
-                        <input type="text" class="regenColInput singleColCompute" data-coloris>
+                        <div class="regenColInputDeco"></div>
+                        <input type="text" style="background: var(--regen-color)" class="regenColInput singleColCompute" data-coloris>
                         <div class="genDropdown">
 
                             <div class="CHGModeText">
@@ -322,6 +326,7 @@
                             </div>
                         </div>
                         <div id="regen" class="material-symbols-rounded">replay</div>
+                        <div class="arrowFX material-symbols-rounded">Start</div>
                     </div>
                 </div>
             </div>

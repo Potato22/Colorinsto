@@ -138,7 +138,6 @@
   position: absolute;
   height: 110px;
   width: 320px;
-  transition: 0.5s transform var(--anchorhead);
   transform: translateY(100px);
   font-family: var(--fontSecondary);
   display: -ms-flexbox;
@@ -151,6 +150,7 @@
   border-radius: 20px 20px 0 0;
   border: 2px solid var(--regen-color);
   border-bottom: 20px solid var(--regen-color);
+  transition: 0.5s transform var(--anchorhead), border-color 0.3s var(--anchorhead);
 }
 
 .submitModeOverride {

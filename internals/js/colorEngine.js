@@ -53,7 +53,7 @@ function generateColorGlob(genMode, colorInput) {
         let colorGenTarget
         switch (genMode) {
             case 'random':
-                colorGenTarget = ColorRandH.analogous();
+                colorGenTarget = ColorRandH.randomGen();
                 break;
             case 'analogous':
                 colorGenTarget = ColorRandH.analogous(colorInput);
@@ -117,6 +117,7 @@ function generateColorGlob(genMode, colorInput) {
 }
 
 function paletteAppend(genMode, colorInput) {
+    
     if (!genMode || genMode === '') {
         console.log('[generateColorGlob] Empty or invalid mode of operation! Falling back to random')
         genMode = 'random'

@@ -44,13 +44,16 @@
     }
 
     @media screen and (max-width: 1120px) {
-        transform: scale(0.58);
+        transform: scale(0.5);
+    }
+
+    @media screen and (max-width: 960px) {
+        transform: scale(0.4);
     }
 }
 
 .rightSection {
     position: relative;
-    width: 430px;
     z-index: 2;
     transform: translateX(-30px);
 }
@@ -68,26 +71,26 @@
 .film {
     position: relative;
     background: var(--baseD);
-    width: 350px;
-    height: 400px;
+    width: 450px;
+    height: 520px;
     outline: 3px solid white;
-    margin-bottom: 500px;
+    margin-bottom: 460px;
     display: flex;
     justify-content: center;
-    padding-top: 1.5em;
+    padding-top: 2em;
     border-radius: 3px;
 
     .gradientContainer {
-        width: 300px;
-        height: 300px;
+        width: 390px;
+        height: 390px;
         outline: 3px solid white;
         overflow: hidden;
         border-radius: 2px;
 
         .colFX {
             position: absolute;
-            width: 300px;
-            height: 300px;
+            width: 390px;
+            height: 390px;
             z-index: 11;
 
             /*
@@ -129,7 +132,7 @@
 .palette {
     position: relative;
     width: 40px;
-    height: 410px;
+    height: 470px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -139,7 +142,7 @@
 
     &:hover .paletteCells:not(:hover) {
         border: 5px solid var(--cellColor);
-        background: rgba(0,0,0,0);
+        background: rgba(0, 0, 0, 0);
     }
 }
 
@@ -152,22 +155,87 @@
     border-radius: 5px;
     background: var(--cellColor);
     cursor: pointer;
-    transition: all .1s var(--sleek);
+    transition: all .1s var(--sleek), font-variation-settings .5s var(--sleek), transform .3s var(--sleek);
     box-sizing: border-box;
-    //border: 17.5px solid var(--cellColor);
+    border: 10px solid var(--cellColor);
+    animation-fill-mode: both;
+
+    &.pulseCells {
+        animation: cellPulseAlternate .5s infinite;
+
+        @for $i from 1 through 10 {
+            &:nth-child(#{$i}) {
+                animation-delay: #{if($i % 2 == 0, 0.25s, 0s)};
+            }
+        }
+
+        @keyframes cellPulseAlternate {
+
+            0%,
+            100% {
+                background: var(--cellColor);
+                border: 10px solid var(--cellColor);
+            }
+
+            50% {
+                border: 5px solid var(--cellColor);
+                background: rgba(0, 0, 0, 0);
+            }
+        }
+
+        @keyframes cellPulse {
+
+            0%,
+            100% {
+                border: 5px solid var(--cellColor);
+                background: rgba(0, 0, 0, 0);
+            }
+
+            20% {
+                background: var(--cellColor);
+                border: 5px solid var(--cellColor);
+                transform: scale(.8);
+            }
+        }
+    }
+
+    &::after {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        font-size: 1em;
+        color: white;
+        font-variation-settings:
+            'FILL' 0,
+            'wght' 600,
+            'GRAD' 0,
+            'opsz' 20, ;
+    }
 
     &:hover {
-        border: none;
+        border: 5px solid var(--cellColor);
         transform: scale(1.5);
         background: var(--cellColor);
         width: 60px;
+        transition: transform .3s var(--quickBounce);
+
+        &::after {
+            transform: translateX(-50px);
+            opacity: 1;
+            content: 'content_copy';
+        }
+    }
+
+    &:active {
+        transform: scale(1.3);
+        transition: transform .2s var(--quickBounce);
     }
 }
 
 .pgCamSprite {
     position: absolute;
-    max-height: 500px;
-    min-width: 600px;
+    width: 600px;
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
@@ -225,7 +293,7 @@
 
 
 .wheel {
-    --wheelSize: 950px;
+    //--wheelSize: 950px;
     min-width: var(--wheelSize);
     min-height: var(--wheelSize);
     border-radius: 50%;
@@ -330,7 +398,7 @@
         cursor: pointer;
         box-shadow: var(--regen-color) 0 10px 0;
         border: 3px solid var(--regen-color);
-        color: var(--regen-color);
+        //color: var(--regen-color);
         transform: translateY(-10px);
         pointer-events: auto;
         opacity: 1;
@@ -346,7 +414,7 @@
 
 .regenColInput {
     //position: absolute;
-    width: 60px;
+    width: 63px;
     height: 60px;
     color: transparent;
     text-shadow: none;
@@ -355,6 +423,15 @@
     border-radius: 10px 0 0 10px;
     border: none;
     cursor: pointer;
+    transition: transform .2s var(--bounce);
+
+    &:hover {
+        transform: translateY(-10px);
+    }
+
+    &:active {
+        transform: translateY(0px);
+    }
 
     &.sequencePageOverride {
         width: 150px;
@@ -366,6 +443,14 @@
 
         &.pulseColInput {
             animation: pulseColInput 1s infinite;
+        }
+
+        &:hover {
+            transform: translateY(0px);
+        }
+
+        &:active {
+            transform: translateY(0px);
         }
 
         @keyframes pulseColInput {
@@ -396,13 +481,25 @@
     }
 }
 
+.regenColInputDeco {
+    position: absolute;
+    width: 63px;
+    height: 60px;
+    border-radius: 10px 0 0 10px;
+    border: solid var(--regen-color);
+    border-width: 0px 0px 3px 1px;
+    background: var(--baseD);
+    z-index: -1;
+}
+
 .genDropdown {
     width: 300px;
     height: 60px;
     font-size: 1.5em;
     font-family: var(--fontSecondary);
-    border-block: 3px solid var(--regen-color);
-    color: var(--regen-color);
+    border: solid var(--regen-color);
+    border-width: 3px 3px 3px 1px;
+    color: white;
     padding: .2rem;
     box-sizing: border-box;
     background: var(--alphabaseD);
@@ -415,16 +512,17 @@
 
     &:hover {
         cursor: pointer;
-        //box-shadow: var(--regen-color) 0 10px 0;
-
-        //transform: translateY(-10px);
+        border: solid var(--regen-color);
+        border-width: 3px 3px 3px 1px;
+        box-shadow: var(--regen-color) 0 10px 0;
+        transform: translateY(-10px);
         pointer-events: auto;
         opacity: 1;
-
+        z-index: 2;
     }
 
     &:active {
-        //transform: translateY(0px);
+        transform: translateY(0px);
         box-shadow: var(--regen-color) 0 0 0;
         transition: all 0.1s var(--sleek);
     }
@@ -529,6 +627,14 @@
     stroke-width: 10px;
 }
 
+.arrowFX {
+    position: absolute;
+    font-size: 5em;
+    right: 0;
+    transform: translateX(90px);
+    color: var(--global-theme);
+}
+
 .leftSection {
     position: absolute;
     width: 25%;
@@ -555,6 +661,52 @@
     line-height: 2em;
 }
 
+
+
+#extraButtons {
+    --barHeight: 32px;
+    top: calc(100vh - var(--barHeight));
+    height: var(--barHeight);
+    width: 100%;
+    position: fixed;
+    user-select: none;
+    opacity: 0;
+    transition: all 0.2s var(--sleek);
+    z-index: 1;
+    pointer-events: none;
+    display: none;
+    align-items: flex-end;
+    transition: opacity 0.2s var(--sleek);
+}
+.floatwindows {
+    text-align: center;
+    display: flex;
+    margin-left: 1em;
+    padding: .1em .8em;
+    font-family: var(--fontSecondary);
+    font-size: 1em;
+    pointer-events: auto;
+
+    --borderwidth: 2.6px;
+    border-top: solid var(--borderwidth) var(--textD);
+    border-left: solid var(--borderwidth) var(--textD);
+    border-right: solid var(--borderwidth) var(--textD);
+    border-radius: 10px 10px 0 0;
+
+    color: var(--textD);
+    transition: all 0.2s cubic-bezier(0.57, 0.07, 0.41, 1.95);
+    backdrop-filter: blur(10px) var(--brightnessD);
+    cursor: pointer;
+
+    &:hover {
+        padding: .8em;
+    }
+
+    &:active {
+        padding: 0em .8em;
+    }
+}
+
 @media screen and (max-width: 1400px) {
     .textInteract {
         font-size: 1.2em;
@@ -570,4 +722,26 @@
         padding-left: 2em;
     }
 
+}
+
+@media screen and (max-width: 1280px) {
+    #extraButtons {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .textInteract {
+        font-size: 1em;
+        line-height: 1em;
+    }
+
+    .textExplain {
+        font-size: .8em;
+        line-height: 1.2em;
+    }
+
+    .leftSection {
+        padding-left: 1em;
+    }
 }
