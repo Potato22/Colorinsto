@@ -19,6 +19,24 @@
     &.toasted {
         opacity: 0 !important;
     }
+    &.next {
+        cursor: url(./icons/next.png), auto;
+        //transition: all .2s;
+        //animation: poke 1s infinite;
+
+        //@keyframes poke {
+        //    0% {
+        //        cursor: url(./icons/next.png) 3 0, auto;
+        //    }
+        //    10% {
+        //        cursor: url(./icons/next.png) 0 0, auto;
+        //    }
+        //    30%,
+        //    100% {
+        //        cursor: url(./icons/next.png) 3 0, auto;
+        //    }
+        //}
+    }
 
     .toastTransformWrap {
         //are you fucking serious
@@ -163,6 +181,7 @@
             padding: .3rem;
             min-width: 130px;
             max-width: 130px;
+            height: 100%;
             border-radius: calc(var(--toastBorderRadius) / 2);
             background: var(--basesecondaryD);
             display: grid;

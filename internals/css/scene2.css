@@ -133,7 +133,7 @@
 .palette {
   position: relative;
   width: 40px;
-  height: 400px;
+  height: 410px;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
@@ -147,19 +147,20 @@
 }
 .palette:hover .paletteCells:not(:hover) {
   border: 5px solid var(--cellColor);
+  background: rgba(0, 0, 0, 0);
 }
 
 .paletteCells {
   --cellColor: white;
-  --paletteCellSize: 30px;
+  --paletteCellSize: 50px;
   width: var(--paletteCellSize);
   height: var(--paletteCellSize);
   margin: 0.2em 0 0.2em 0;
   border-radius: 5px;
+  background: var(--cellColor);
   cursor: pointer;
   transition: all 0.1s var(--sleek);
   box-sizing: border-box;
-  border: 15.62px solid var(--cellColor);
 }
 .paletteCells:hover {
   border: none;
@@ -347,6 +348,25 @@
   height: 30px;
   border-radius: 10px;
   margin-bottom: 1em;
+  box-sizing: border-box;
+  transition: all 0.5s;
+}
+.regenColInput.sequencePageOverride.pulseColInput {
+  animation: pulseColInput 1s infinite;
+}
+@keyframes pulseColInput {
+  0%, 20% {
+    border: 2px solid var(--white);
+    color: white;
+  }
+  10%, 30% {
+    background: white;
+    border: 10px solid var(--red1);
+  }
+  40%, 50%, 60%, 70%, 80%, 90%, 100% {
+    border: 2px solid var(--white);
+    color: white;
+  }
 }
 
 .genDropdown {

@@ -45,14 +45,14 @@ function setPosition(position) {
     }
 }
 
-function configureButtons(buttons) {
+function configureButtons(buttons, forceVerticalButtons) {
     toastButtons.innerHTML = '';
     if (!Array.isArray(buttons) || buttons.length === 0) return;
 
     const isVertical = buttons.length > 2 || buttons.length === 1;
     applyStyles(toastButtons, {
-        flexDirection: isVertical ? 'column' : 'row',
-        alignItems: isVertical ? 'center' : buttons.length === 1 ? 'space-between' : 'center',
+        flexDirection: isVertical || forceVerticalButtons ? 'column' : 'row',
+        alignItems: isVertical || forceVerticalButtons ? 'center' : buttons.length === 1 ? 'space-between' : 'center',
         display: 'flex',
     });
 
@@ -60,14 +60,30 @@ function configureButtons(buttons) {
         const btnElement = document.createElement('div');
         btnElement.textContent = btn.label || btn;
         btnElement.id = (btn.label || btn.id || '').replace(/\s+/g, '_').toLowerCase();
-        btnElement.className = `tbButton${isVertical ? ' vertical' : ''}`;
+        //regex is a mistake
+        btnElement.className = `tbButton${isVertical || forceVerticalButtons ? ' vertical' : ''}`;
         if (btn.highlight) btnElement.classList.add('highlight');
-        if (typeof btn.onClick === 'function') btnElement.addEventListener('click', btn.onClick);
+
+        // I aint gonna lie for the love of me I'm not too familiar with async shite so I needed an ai for this shit lmao
+        const handleClick = async (event) => {
+            try {
+                // default behavior
+                if (typeof btn.onClick === 'function') {
+                    await btn.onClick(event);
+                }
+            } finally {
+                // adding toastDismiss() or toastClear() to EACH button event is forgetful
+                // so, a fallback if one forgets.
+                toastDismiss();
+            }
+        };
+
+        btnElement.addEventListener('click', handleClick);
         toastButtons.appendChild(btnElement);
     });
 }
 
-// Helper function to resolve asset URLs
+//side effect of using bundlers I guess
 function resolveIconUrl(iconFileName) {
     return new URL(`./icons/${iconFileName}`, import.meta.url).href;
 }
@@ -111,7 +127,15 @@ function nextQueue() {
         hold = false,
         interactive = false,
         skippable = false,
+        forceVerticalButtons = false,
+        onSkip = () => { },
+        onQueue = () => { },
+        onInteract = () => { },
     } = settings;
+
+    if (typeof onQueue === 'function') {
+        onQueue();
+    }
 
     resetTimers();
 
@@ -119,7 +143,6 @@ function nextQueue() {
         toastTitle.innerHTML = title;
         toastContent.innerHTML = text;
 
-        // Resolve iconUrl dynamically if not provided
         const resolvedIconUrl = iconUrl || (icon && resolveIconUrl(`${icon}.png`)) || '';
         toastIcon.style.setProperty('--toastIconUrl', `url(${resolvedIconUrl})`);
 
@@ -138,6 +161,9 @@ function nextQueue() {
             display: 'grid',
             pointerEvents: interactive || skippable || button.length > 0 ? 'auto' : 'none',
         });
+        if (interactive || skippable) {
+            toastAligner.classList.add('next');
+        }
 
         toastAligner.classList.remove('toasted');
 
@@ -157,7 +183,7 @@ function nextQueue() {
         }
 
         setPosition(position);
-        configureButtons(button);
+        configureButtons(button, forceVerticalButtons);
 
         applyStyles(toastTitle, { display: title ? 'block' : 'none' });
         applyStyles(toastIcon, { display: resolvedIconUrl || icon ? 'block' : 'none' });
@@ -170,7 +196,15 @@ function nextQueue() {
         }
 
         if ((interactive || skippable) && button.length === 0) {
-            toastAligner.addEventListener('click', toastDismiss);
+            toastAligner.addEventListener('click', () => {
+                toastDismiss();
+                if (interactive && typeof onInteract === 'function') {
+                    onInteract();
+                }
+                if (skippable && typeof onSkip === 'function') {
+                    onSkip();
+                }
+            });
         } else {
             toastAligner.removeEventListener('click', toastDismiss);
         }

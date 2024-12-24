@@ -70,10 +70,6 @@
   width: var(--size);
 }
 
-.clr-field > button {
-  display: none;
-}
-
 .colInputs {
   width: 60px;
   height: 60px;

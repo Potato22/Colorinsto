@@ -61,10 +61,10 @@ body {
 .material-symbols-rounded {
   vertical-align: middle;
   font-variation-settings:
-    'FILL'0,
-    'wght'400,
-    'GRAD'0,
-    'opsz'60
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 60
 }
 
 :root {
@@ -226,6 +226,7 @@ a {
     }
   }
 }
+
 .SCRIPT-sceneOutDown {
   animation: sceneOutDown .5s forwards var(--accel);
 
@@ -321,8 +322,48 @@ a {
     transform: translateX(0em);
   }
 }
+@keyframes elemEnter-slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(1em);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0em);
+  }
+}
 
 .ghostLoader {
   z-index: -99;
   opacity: 0;
+}
+
+
+.clr-picker {
+  border-radius: 20px !important;
+  animation: elemEnter-scale .2s forwards var(--quickBounce);
+}
+.clr-field>button {
+  display: none;
+}
+
+.clr-close {
+  transition: all .1s;
+  font-family: var(--fontSecondary) !important;
+  width: 80%;
+  height: 50px !important;
+  border-radius: 10px !important;
+  background: rgba(0, 0, 0, 0) !important;
+  border: 1px solid white !important;
+  font-size: 1.5em !important;
+  background-clip: text;
+
+  &:hover {
+    @supports (color: color-contrast()) {
+      color: color-contrast(var(--regen-color) vs white, black);
+    }
+    background: var(--regen-color) !important;
+    border: 1px solid var(--regen-color) !important;
+  }
 }

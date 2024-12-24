@@ -149,8 +149,8 @@
       align-items: center;
   padding: 1em;
   border-radius: 20px 20px 0 0;
-  border: 2px solid white;
-  border-bottom: 20px solid white;
+  border: 2px solid var(--regen-color);
+  border-bottom: 20px solid var(--regen-color);
 }
 
 .submitModeOverride {
@@ -201,7 +201,21 @@
   opacity: 1;
   transform: translateY(0px);
   z-index: 1;
-  animation: pulse 1s both infinite;
+  animation: pulseSubmit 1s both infinite;
+}
+@keyframes pulseSubmit {
+  0%, 20% {
+    background: var(--baseD);
+    color: white;
+  }
+  10%, 30% {
+    background: white;
+    color: var(--baseD);
+  }
+  40%, 50%, 60%, 70%, 80%, 90%, 100% {
+    background: var(--baseD);
+    color: white;
+  }
 }
 .modding .submitModeOverride.colorPicked:hover {
   transform: translateY(-10px);
@@ -215,19 +229,4 @@
   background: white;
   color: var(--baseD);
   opacity: 0;
-}
-
-@keyframes pulse {
-  0%, 20% {
-    background: var(--baseD);
-    color: white;
-  }
-  10%, 30% {
-    background: white;
-    color: var(--baseD);
-  }
-  40%, 50%, 60%, 70%, 80%, 90%, 100% {
-    background: var(--baseD);
-    color: white;
-  }
 }/*# sourceMappingURL=scene1.css.map */

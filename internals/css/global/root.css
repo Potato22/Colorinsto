@@ -286,7 +286,48 @@ a:link, a:visited {
     transform: translateX(0em);
   }
 }
+@keyframes elemEnter-slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(1em);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0em);
+  }
+}
 .ghostLoader {
   z-index: -99;
   opacity: 0;
+}
+
+.clr-picker {
+  border-radius: 20px !important;
+  animation: elemEnter-scale 0.2s forwards var(--quickBounce);
+}
+
+.clr-field > button {
+  display: none;
+}
+
+.clr-close {
+  transition: all 0.1s;
+  font-family: var(--fontSecondary) !important;
+  width: 80%;
+  height: 50px !important;
+  border-radius: 10px !important;
+  background: rgba(0, 0, 0, 0) !important;
+  border: 1px solid white !important;
+  font-size: 1.5em !important;
+  -webkit-background-clip: text;
+          background-clip: text;
+}
+.clr-close:hover {
+  background: var(--regen-color) !important;
+  border: 1px solid var(--regen-color) !important;
+}
+@supports (color: color-contrast()) {
+  .clr-close:hover {
+    color: color-contrast(var(--regen-color) vs white, black);
+  }
 }/*# sourceMappingURL=root.css.map */

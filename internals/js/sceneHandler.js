@@ -53,47 +53,80 @@ function sceneHandler(sceneTarget) {
 
         case 1:
             currentScene = 1
-
             sceneTitle.addClass('SCRIPT-sceneOutScaleUp')
-            sceneCameraPriming.addClass('SCRIPT-sceneInScaleUp')
-            setTimeout(() => {
-                sceneTitle.hide()
-                sceneTitle.removeClass('SCRIPT-sceneOutScaleUp')
-                scenePlayground.hide()
-                sceneCameraPriming.show()
-
-            }, 500);
 
             toastPush({
-                text: "Hello! Welcome to Colorinsto"
+                title: "Before we delve in...",
+                text: "Do you want to go through an introduction?",
+                button: [
+                    {
+                        label: "Sure",
+                        onClick: () => {
+                            sceneCameraPriming.addClass('SCRIPT-sceneInScaleUp')
+                            setTimeout(() => {
+                                sceneTitle.hide()
+                                sceneTitle.removeClass('SCRIPT-sceneOutScaleUp')
+                                scenePlayground.hide()
+                                sceneCameraPriming.show()
+
+                            }, 500);
+                            toastPush({
+                                title: "Hello! Welcome to Colorinsto",
+                                text: "Click on screen to progress"
+                            }, {
+                                tone: 'bounce',
+                                interactive: true,
+                            })
+                            toastPush({
+                                text: "This camera uses.. 'enchanted' films"
+                            }, {
+                                tone: 'fade',
+                                duration: 2000,
+                                interactive: true,
+                            })
+                            toastPush({
+                                text: "Before we start, let's open it up"
+                            }, {
+                                position: 'bottom',
+                                hold: true,
+                            })
+                        },
+                        highlight: true,
+                    },
+                    {
+                        label: "Let me explore on my own!",
+                        onClick: () => {
+                            toastPush(
+                                {
+                                    text: `You can always go back and have a look at the intro by pressing <span style="font-family: var(--fontSecondary); color:var(--textaccentD);">introductory</span> in the bottom left of the screen`
+                                }, {
+                                    tone: 'fade',
+                                    interactive: true,
+                                    onInteract: () => { 
+                                        //titleEntered();
+                                        sceneHandler(2);
+                                    }
+                                }
+                            )
+                        },
+                    },
+                ],
             }, {
                 tone: 'bounce',
-                delay: 1000,
-            })
-            toastPush({
-                text: "This camera uses.. 'enchanted' films"
-            }, {
-                tone: 'fade',
-                duration: 2000,
-            })
-            toastPush({
-                text: "Before we start, let's open it up"
-            }, {
-                position: 'bottom',
-                hold: true,
+                forceVerticalButtons: true,
             })
             break;
         case 2:
             currentScene = 2
-
+            alert('hi')
             toastPush({
                 title: "Generate more in the playground",
                 text: "Change your color, select your color harmony, and press regenerate (<span class='material-symbols-rounded'>replay</span>)"
             }, {
                 tone: 'fade',
-                duration: 7000,
                 position: "bottom",
-                //skippable: true,
+                interactive: true,
+                //delay: 1000,
             })
 
             sceneTitle.addClass('SCRIPT-sceneOutScaleDown')
@@ -206,7 +239,7 @@ const cameraDoorOpened = () => {
             }, {
                 tone: 'bounce',
                 duration: 3000,
-                skippable: true,
+                interactive: true,
                 position: 'bottom_right',
             })
             toastPush({
@@ -214,7 +247,7 @@ const cameraDoorOpened = () => {
             }, {
                 duration: 4500,
                 position: 'bottom_right',
-                skippable: true,
+                interactive: true,
             })
             toastPush({
                 title: "Pick a color",
@@ -223,6 +256,9 @@ const cameraDoorOpened = () => {
                 tone: "bounce",
                 position: 'bottom_right',
                 hold: true,
+                onQueue: () => {
+                    $sequenceColorInput.addClass('pulseColInput')
+                }
             });
         }, 500);
     }, 300);
@@ -267,7 +303,7 @@ const submitTrigg = () => {
                         paletteAppend('analogous', regenColor)
                         toastDismiss()
                         moveOnToPlayground()
-                        titleEntered()
+                        //titleEntered();
                     },
                 }, {
                     label: "Triadic",
@@ -275,7 +311,7 @@ const submitTrigg = () => {
                         paletteAppend('triadic', regenColor)
                         toastDismiss()
                         moveOnToPlayground()
-                        titleEntered()
+                        //titleEntered();
                     },
                 }, {
                     label: "Complementary",
@@ -283,7 +319,7 @@ const submitTrigg = () => {
                         paletteAppend('complementary', regenColor)
                         toastDismiss()
                         moveOnToPlayground()
-                        titleEntered()
+                        //titleEntered();
                     },
                 }, {
                     label: "I don't know ...",
@@ -298,7 +334,7 @@ const submitTrigg = () => {
                         const randomIndex = Math.floor(Math.random() * randomizeCH.length);
                         randomizeCH[randomIndex]();
                         moveOnToPlayground()
-                        titleEntered()
+                        //titleEntered();
                     },
                 }],
                 icon: 'choices',
@@ -313,6 +349,7 @@ const theyFoundTheColorPickerWow = () => {
     toastClear();
     $sequenceColorInput.off('click', theyFoundTheColorPickerWow)
     $submitButton.addClass('colorPicked submitPulse')
+    $sequenceColorInput.removeClass('pulseColInput')
     setTimeout(() => {
         $submitButton.removeClass('submitPulse')
     }, 300);
@@ -536,6 +573,7 @@ $('.modes').on('mouseleave', function () {
 
 const injectRegenColorDataTarget = document.querySelector('#playgroundSc')
 const injectSequenceSubmit = document.querySelector('#camModSc')
+
 let regenColor
 let regenMode
 
@@ -546,17 +584,20 @@ Coloris({
     themeMode: 'dark',
     alpha: false,
     formatToggle: false,
-    clearButton: false,
-    clearLabel: 'Clear',
+    closeButton: true,
+    closeLabel: '✅',
 })
 Coloris({
     el: ".regenColInput",
     onChange: (color, input) => {
+        const colorisCloseButton = document.querySelector('#clr-close')
+
         regenColor = color
         input.style.backgroundColor = color
+        injectSequenceSubmit.style.setProperty('--regen-color', color);
+        colorisCloseButton.style.setProperty('--regen-color', color);
         if (randomMode == false) {
             injectRegenColorDataTarget.style.setProperty('--regen-color', color);
-            injectSequenceSubmit.style.setProperty('--regen-color', color);
         }
     },
     wrap: false,
@@ -604,6 +645,7 @@ $genDropdown.on('click', function () {
 
 $genDropdown.on('mouseleave', function () {
     updateDropdown(true)
+    paletteAppend(selectedRegenMode, regenColor)
 })
 
 //kept empty cus colorEngine already knows how to handle it
