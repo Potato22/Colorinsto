@@ -8,7 +8,7 @@ import {
     toastPush,
     toastDismiss,
     toastClear
-} from "../../toaster/toast"
+} from "../../toaster/toaster"
 
 //vite fucks up images names on build, this have to do.
 //function getIconUrl(fileName) {
@@ -34,6 +34,21 @@ function titleEntered() {
     localStorage.setItem("titleEntered", (new Date()).toISOString());
 }
 
+function changelogRead() {
+    const readState = localStorage.getItem("read")
+
+    if (!readState) {
+        return false;
+    } 
+
+    const timeElapsed = Date.now() - new Date(readState).getTime();
+    return timeElapsed <= ONE_DAY;
+}
+
+function changelogWasRead() {
+    localStorage.setItem("read", (new Date()).toISOString());
+}
+
 
 let currentScene = 0
 console.log('currentScene', currentScene)
@@ -42,27 +57,6 @@ const $sceneTitle = $("#titleSc") //0
 const $sceneCameraPriming = $("#camModSc") //1
 const $scenePlayground = $("#playgroundSc") //2
 const $extraButtons = $("#extraButtons")
-
-toastPush({
-    title: 'Changelog',
-    text: `
-    <ul style="text-align: left;">
-        <li>Improved UI comprehensiveness</li>
-        <li>Intro sequence is now skippable entirely</li>
-        <li>The toasts no longer disappear too quick</li>
-        <li>Made it clearer you can copy the palette cells hex code</li>
-        <li>Improved intro sequence to be more comprehensive</li>
-        <li>The film regenerates immediate after selecting a color harmony</li>
-        <li>Film size increased</li>
-        <li>Added several visual cues to improve user experience</li>
-        <li>Generated palette will now be more diverse</li>
-    </ul><br>
-    Thank you for everyone's feedback!
-    `
-}, {
-    interactive: true,
-    noWidthLimit: true,
-})
 
 function sceneHandler(sceneTarget) {
     switch (sceneTarget) {
@@ -219,7 +213,30 @@ if (window.innerWidth <= 960) {
         tone: 'bounce',
         forceVerticalButtons: true,
     })
-} else {    
+} else {
+    if (changelogRead() === false) {
+        toastPush({
+            title: 'Changelog',
+            text: `
+                <ul style="text-align: left;">
+                    <li>Improved UI comprehensiveness</li>
+                    <li>Intro sequence is now skippable entirely</li>
+                    <li>The toasts no longer disappear too quick</li>
+                    <li>Made it clearer you can copy the palette cells hex code</li>
+                    <li>Improved intro sequence to be more comprehensive</li>
+                    <li>The film regenerates immediate after selecting a color harmony</li>
+                    <li>Film size increased</li>
+                    <li>Added several visual cues to improve user experience</li>
+                    <li>Generated palette will now be more diverse</li>
+                </ul><br>
+                Thank you for everyone's feedback!
+            `
+        }, {
+            interactive: true,
+            noWidthLimit: true,
+            onInteract: () => changelogWasRead(),
+        })
+    }
     if (isTitleSkipped()) {
         toastPush({
             text: "Welcome back"

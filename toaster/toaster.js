@@ -1,3 +1,4 @@
+import './toaster.css';
 const toastAligner = document.querySelector('.toastAlign');
 const toastWrapper = document.querySelector('.toastWrap');
 const toastIcon = document.querySelector('.toastIcon');

@@ -1,6 +1,3 @@
-// colorRandH.js
-
-import { toastPush } from "../../toaster/toast";
 
 class ColorRandH {
     static jitterRange = 5;

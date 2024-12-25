@@ -5,7 +5,7 @@ import {
     toastPush,
     toastDismiss,
     toastClear
-} from "../../toaster/toast.js"
+} from "../../toaster/toaster"
 
 // RAND UTIL
 function random(min, max) {
