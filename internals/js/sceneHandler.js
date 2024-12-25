@@ -39,7 +39,7 @@ function changelogRead() {
 
     if (!readState) {
         return false;
-    } 
+    }
 
     const timeElapsed = Date.now() - new Date(readState).getTime();
     return timeElapsed <= ONE_DAY;
@@ -64,6 +64,15 @@ function sceneHandler(sceneTarget) {
             currentScene = 0
 
             $sceneTitle.fadeIn();
+
+            let reset
+            $("#startEvent").on('mouseenter', function () {
+                clearTimeout(reset);
+                $("#startEvent").addClass('startButtonAnim');
+                reset = setTimeout(() => {
+                    $("#startEvent").removeClass('startButtonAnim');
+                }, 1000);
+            });
             break;
 
         case 1:
@@ -275,7 +284,7 @@ $startButton.on('click', function () {
                         }, {
                         tone: 'fade',
                         interactive: true,
-                        onInteract: () => sceneHandler(2),
+                        onInteract: () => {sceneHandler(2); titleEntered()},
                     }
                     )
                 },
@@ -300,6 +309,7 @@ const $cartridgeWrap = $('.cartridgeWrap')
 const $submitButton = $('.submitModeOverride')
 const $toolThing = $('.ink')
 const $sequenceColorInput = $('#colInputSequence')
+
 
 const cameraDoorOpened = () => {
     $sequenceColorInput.on('click', theyFoundTheColorPickerWow);
