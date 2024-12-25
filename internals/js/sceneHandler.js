@@ -227,6 +227,7 @@ if (window.innerWidth <= 960) {
                     <li>The film regenerates immediate after selecting a color harmony</li>
                     <li>Film size increased</li>
                     <li>Added several visual cues to improve user experience</li>
+                    <li>Improved UI feedback consistencies</li>
                     <li>Generated palette will now be more diverse</li>
                 </ul><br>
                 Thank you for everyone's feedback!
