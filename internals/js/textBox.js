@@ -134,6 +134,6 @@ primaryInteractive.forEach(({
                     $(this).html('').fadeIn(fadeDuration);
                 });
             }
-        }, 5000);
+        }, 2000);
     });
 });
