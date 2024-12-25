@@ -97,7 +97,7 @@ primaryInteractive.forEach(({
     explain
 }) => {
 
-    $(element).on('mouseenter', function (event) {
+    $(element).on('mouseenter click', function (event) {
         clearTimeout(idle)
         debounce = setTimeout(() => {
             //console.log(event.currentTarget)
