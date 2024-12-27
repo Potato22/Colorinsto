@@ -200,11 +200,11 @@ function paletteAppend(genMode, colorInput) {
 
             } catch (err) {
                 console.error('Failed to copy:', err);
-                toastPush({
-                    text: `Something went wrong while copying. (<span style="color: var(--red1); font-family: var(--fontSecondary)">${err}</span>)`,
-                }, {
-                    tone: 'shake'
-                })
+                //toastPush({
+                //    text: `Something went wrong while copying. (<span style="color: var(--red1); font-family: var(--fontSecondary)">${err}</span>)`,
+                //}, {
+                //    tone: 'shake'
+                //})
             }
         });
     });
