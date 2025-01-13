@@ -132,11 +132,11 @@ function sceneHandler(sceneTarget) {
                 onInteract: () => {
                     paletteCells.forEach(cell => cell.classList.remove('pulseCells'));
                 },
-                delay: 1000,
+                delay: 500,
             })
             toastPush({
                 title: "Generate more in the playground",
-                text: "Change your color, select your color harmony, and press regenerate (<span class='material-symbols-rounded'>replay</span>)"
+                text: `Change your color, select your color harmony, and press <span class="inTextIcon material-symbols-rounded">replay</span>`
             }, {
                 tone: 'fade',
                 position: "bottom",
@@ -233,7 +233,7 @@ if (window.innerWidth <= 960) {
                     <li>The toasts no longer disappear too quick</li>
                     <li>Made it clearer you can copy the palette cells hex code</li>
                     <li>Improved intro sequence to be more comprehensive</li>
-                    <li>The film regenerates immediate after selecting a color harmony</li>
+                    <li>The film regenerates immediately after selecting a color harmony</li>
                     <li>Film size increased</li>
                     <li>Added several visual cues to improve user experience</li>
                     <li>Improved UI feedback consistencies</li>
