@@ -188,7 +188,7 @@ function paletteAppend(genMode, colorInput) {
         // Add click handler to copy color
         cell.addEventListener('click', async () => {
             try {
-                await navigator.clipboard.writeText(hexColor);
+                await navigator.clipboard.writeText(hexColor.substring(1));
 
                 toastClear()
                 toastPush({
